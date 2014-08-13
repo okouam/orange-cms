@@ -1,0 +1,22 @@
+﻿#cms-toolbar {
+    background-color: #efefef;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 2px;
+    display: block;
+    min-height: 38px;
+}
+
+#cms-wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#cms-map .angular-google-map-container {
+    height: 600px;
+    flex: 1;
+    width: 100%
+}
+
+#cms-categories, #cms-boundaries {
+    width: 180px;
+}

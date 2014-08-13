@@ -1,0 +1,77 @@
+﻿html, body { width: 100%; font-family: Arial; font-size: 12px;height: 100%}
+
+body { 
+    display: flex; 
+    flex-direction: column
+}
+
+#main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column
+}
+
+a.button {font-size: 11px}
+
+.column {
+    background-color: #F1F1F1; 
+    border-right: 1px solid #ccc;
+    overflow-x: hidden
+}
+
+.column header {
+    margin: 0; 
+    background-color: #eee; 
+    padding: 5px;
+    padding-left: 10px; 
+    border-bottom: 1px solid #ccc; 
+    font-weight: bold;  color: #444; font-size: 11px
+}
+
+.column header span {
+    width: 20px; 
+    display: inline-block
+}
+
+li.row {
+    border-bottom: 1px solid #ccc; 
+    padding: 10px; 
+    list-style-type: none
+}
+
+.marker-title {
+    background-color: #333;
+    border-radius: 3px;
+    padding: 5px;
+    color: white
+}
+
+.tab-content > .tab-pane {
+  display: none;
+}
+
+.tab-content > .active {
+  display: block;
+}
+
+/* Scrollbars - ugly otherwise */
+
+::-webkit-scrollbar {
+    width: 5px;
+    background-color: #f9f9f9;
+    -webkit-border-radius: 100px;
+}
+::-webkit-scrollbar:hover {
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #aaa;
+    -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active  {
+    background: #999;
+}

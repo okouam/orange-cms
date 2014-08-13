@@ -1,0 +1,18 @@
+﻿<div id="left-window" data-ng-controller="boundariesController as vm" class="column">
+    <div class="buttons" style="margin-left: 7px">
+        <div class="dropdown">
+            <a href="#" class="button" style="width: 138px">
+                <span class="icon icon61">&nbsp;</span>
+                <span class="label">Boundaries</span>
+            </a>
+        </div>
+    </div>
+    <div style="padding: 5px 10px; padding-top: 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc">
+        <input data-ng-model="vm.query" data-ng-change="vm.search(vm.query)" type="text" />
+    </div>
+    <ul>
+        <li class="row" data-ng-repeat="boundary in vm.boundaries">
+            <label><input type="checkbox" ng-change="vm.display(boundary)" ng-model="boundary.selected" /> {{boundary.name}}</label>
+        </li>
+    </ul>
+</div>

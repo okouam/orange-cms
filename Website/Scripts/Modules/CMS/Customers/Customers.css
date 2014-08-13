@@ -1,0 +1,50 @@
+﻿#cms-customers {
+    width: 435px;
+}
+
+    #cms-customers .buttons {
+        margin-left: 7px;
+    }
+
+    #cms-customers .query {
+        padding: 5px 10px;
+        padding-top: 5px;
+        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+    }
+
+    #cms-customers .customer-summary {
+        cursor: pointer;
+        margin-left: 7px;
+    }
+
+        #cms-customers .customer-summary .customer-phone {
+            margin-top: 5px;
+            display: inline-block;
+            font-style: italic;
+        }
+
+    #cms-customers li.customer-row {
+        display: flex;
+    }
+
+    #cms-customers li input[type='checkbox'] {
+        margin-top: 0;
+    }
+
+    #cms-customers .tabbable .nav li {
+        display: inline-block;
+        background-color: #ccc;
+        padding: 5px;
+        border-radius: 3px;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+        #cms-customers .tabbable .nav li.active {
+            background-color: #fff;
+        }
+
+           #cms-customers .tab-pane input {
+            width: 245px
+        }
