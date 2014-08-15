@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using OrangeCMS.Application.Models;
@@ -25,7 +24,7 @@ namespace OrangeCMS.Application
         [HttpPost, Route("users/{id}")]
         public IHttpActionResult Get(long id)
         {
-            return Ok(appContext.Users.Find(id));
+            return Ok(this.appContext.Users.Find(id));
         }
 
         [HttpPatch, Route("users/{id}")]

@@ -25,7 +25,7 @@ namespace OrangeCMS.Application.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
 #pragma warning restore 1998
         {
-            var user = appContext.Users.FirstOrDefault(x => x.UserName == context.UserName && x.Password == context.Password);
+            var user = this.appContext.Users.FirstOrDefault(x => x.UserName == context.UserName && x.Password == context.Password);
             if (user != null)
             {
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
