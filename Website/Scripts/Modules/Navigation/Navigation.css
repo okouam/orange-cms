@@ -1,7 +1,7 @@
 ﻿#main-menu {
     width: 100%;
     background-color: #f5f5f5;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid #ccc;
     display: flex;
     justify-content: space-between;
     padding: 4px 0

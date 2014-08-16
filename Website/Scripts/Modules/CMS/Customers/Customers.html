@@ -1,26 +1,17 @@
-﻿<div data-ng-controller="customersController as vm" class="column listing">
-    <div class="buttons">
-        <div class="dropdown">
-            <a href="#" class="button" data-ng-click="vm.showDropdown($event)">
-                <span class="icon icon127">&nbsp;</span>
-                <span class="label">Customers</span>
-                <span class="toggle">&nbsp;</span>
-            </a>
-            <div class="dropdown-slider">
-                <a href="#" class="ddm" data-ng-click="vm.createCustomer()"><span class="label">New Customer</span></a>
-                <a href="#" class="ddm" data-ng-click="vm.deleteCustomers()"><span class="label">Delete Customers</span></a>
-            </div>
-        </div>
+﻿<div data-ng-controller="customersController as vm" class="column-contents listing">
+    <div class="image-label header">
+        <span class="icon icon127">&nbsp;</span>
+        <span class="label">Customers</span>
+        <a href="#" style="flex: 1; text-align: right; font-size: 10px; position: relative; top: 1px; color: #3b73af; padding-right: 5px; text-decoration: none">New Customer</a>
     </div>
     <div class="query">
-        <input data-ng-model="vm.query.strMatch" data-ng-change="vm.search()" type="text" />
+        <input data-ng-model="vm.query.strMatch" style="width: 411px" data-ng-change="vm.search()" type="text" />
     </div>
     <ul>
-        <li style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers" data-ng-class="customer.selected ? 'active' : 'inactive'">
+        <li class="clickable row" style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers" data-ng-class="customer.selected ? 'active' : 'inactive'">
             <div style="display: flex">
-                <input type="checkbox" ng-model="customer.selected" />
                 <div class="customer-summary" data-ng-click="vm.toggleEditing(customer)">
-                    <span>{{customer.name}}</span><br />
+                    <span style="margin-right: 5px">{{customer.name}}</span>
                     <span class="customer-phone">{{customer.phone}}</span>
                 </div>
             </div>

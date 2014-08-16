@@ -1,18 +1,12 @@
-﻿<div id="left-window" class="column" data-ng-controller="categoriesController as vm">
-    <div class="buttons" style="margin-left: 7px">
-        <div class="dropdown">
-            <a href="#" style="width: 138px" class="button">
-                <span class="icon icon45">&nbsp;</span>
-                <span class="label">Categories</span>
-            </a>
-        </div>
-    </div>
-    <div style="padding: 5px 10px; padding-top: 5px; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc">
-        <input data-ng-model="vm.query" data-ng-change="vm.search(vm.query)" type="text" />
+﻿<div id="left-window" class="column-contents" data-ng-controller="categoriesController as vm">
+    <div class="image-label header">
+        <span class="icon icon45">&nbsp;</span>
+        <span class="label">Categories</span>
+        <a href="#" class="x">x</a>
     </div>
     <ul>
-        <li class="row" data-ng-repeat="tag in vm.categories">
-            <label><input type="checkbox" ng-change="vm.filter()" ng-model="tag.selected" /> {{tag.name}}</label>
+        <li class="row clickable" data-ng-repeat="tag in vm.categories">
+            <label> {{tag.name}}</label>
         </li>
     </ul>
 </div>
