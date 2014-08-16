@@ -195,7 +195,6 @@
     <Content Include="Scripts\Modules\CMS\Customers\Customers.js" />
     <Content Include="Scripts\Modules\CMS\Boundaries\Boundaries.html" />
     <Content Include="Scripts\Modules\CMS\Customers\CustomerService.js" />
-    <Content Include="Scripts\Modules\CMS\ActionsController.js" />
     <Content Include="Scripts\Modules\CMS\Map\Map.js" />
     <Content Include="Scripts\Modules\CMS\CollectionUtils.js" />
     <Content Include="Scripts\Modules\Common\Application.css" />
