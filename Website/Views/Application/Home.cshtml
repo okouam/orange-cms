@@ -5,31 +5,31 @@
     <head>
         <meta name="viewport" content="width=device-width" />
         <title>GeoCMS</title>
-        <link type="text/css" rel="stylesheet" href="/Scripts/Libraries/bootstrap.css" />
-        <link type="text/css" rel="stylesheet" href="/Scripts/Libraries/bootstrap-theme.css" />
-        <link type="text/css" rel="stylesheet" href="/Scripts/Modules/Common/Reset.css" />
-        <link type="text/css" rel="stylesheet" href="/Scripts/Modules/CMS/CMS.css" />
-        <link type="text/css" rel="stylesheet" href="/Scripts/Modules/CMS/Customers/Customers.css" />
-        <link type="text/css" rel="stylesheet" href="/Scripts/Modules/CMS/Boundaries/Boundaries.css" />
-        <link type="text/css" rel="stylesheet" href="/Scripts/Modules/CMS/Categories/Categories.css" />
-        <link type="text/css" rel="stylesheet" href="/Scripts/Modules/Navigation/Navigation.css" />
-        <link type="text/css" rel="stylesheet" href="/Content/Themes/google-plus-ui-buttons/css/css3-buttons.css" media="screen">
-        <link type="text/css" rel="stylesheet" href="/Scripts/Modules/Common/Application.css" />
-        <link type="text/css" rel="stylesheet" href="/Scripts/Libraries/ui-bootstrap-custom.css" />
+        <link type="text/css" rel="stylesheet" href="/Libraries/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="/Libraries/bootstrap-theme.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/Common/Reset.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/CMS/CMS.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/CMS/Customers/Customers.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/CMS/Boundaries/Boundaries.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/CMS/Categories/Categories.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/Navigation/Navigation.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/Common/google-plus-ui-buttons/css/css3-buttons.css" media="screen">
+        <link type="text/css" rel="stylesheet" href="/Modules/Common/Application.css" />
+        <link type="text/css" rel="stylesheet" href="/Libraries/ui-bootstrap-custom.css" />
         <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
-        <script src="~/Scripts/Libraries/faker.js"></script>
+        <script src="~/Libraries/faker.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
-        <script src="~/Scripts/Libraries/lodash.js"></script>
-        <script src="~/Scripts/Libraries/angular-google-maps.js"></script>
+        <script src="~/Libraries/lodash.js"></script>
+        <script src="~/Libraries/angular-google-maps.js"></script>
         <script type="text/javascript">
         </script>
     </head>
 
     <body data-ng-controller="pageController">
         
-        <div data-ng-include="'/Scripts/Modules/Navigation/MainMenu.html'" id="main-menu"></div>
+        <div data-ng-include="'/Modules/Navigation/MainMenu.html'" id="main-menu"></div>
         
         <div ui-view id="main-container"></div>
 
@@ -44,16 +44,11 @@
                 $stateProvider
                     .state('login', {
                         url: "/login",
-
-                        templateUrl: "Scripts/Modules/Security/Login.html"
+                        templateUrl: "Modules/Security/Login.html"
                     })
                     .state('cms', {
                         url: "/",
-                        templateUrl: "Scripts/Modules/CMS/CMS.html"
-                    })
-                    .state('cms.edit-customer', {
-                        url: "/customers/{id}",
-                        templateUrl: "Scripts/Templates/Dashboard.tpl.html"
+                        templateUrl: "Modules/CMS/CMS.html"
                     });
             }
             
@@ -68,26 +63,27 @@
             });
         </script>
         
-        <script src="/Scripts/Modules/CMS/Map/MapsController.js"></script>
-        <script src="/Scripts/Modules/CMS/Map/Map.js"></script>
-        <script src="/Scripts/Modules/Navigation/PageController.js"></script>
-        <script src="/Scripts/Modules/CMS/Editor/Editor.js"></script>
-        <script src="/Scripts/Modules/CMS/CMS.js"></script>
-        <script src="/Scripts/Modules/CMS/Boundaries/BoundariesController.js"></script>
-        <script src="/Scripts/Modules/CMS/Boundaries/BoundaryService.js"></script>
-        <script src="/Scripts/Modules/CMS/Boundaries/Boundaries.js"></script>
-        <script src="/Scripts/Modules/CMS/Boundaries/Boundary.js"></script>
-        <script src="/Scripts/Modules/CMS/Categories/CategoriesController.js"></script>
-        <script src="/Scripts/Modules/CMS/Categories/CategoryService.js"></script>
-        <script src="/Scripts/Modules/CMS/Categories/Categories.js"></script>
-        <script src="/Scripts/Modules/CMS/Categories/Category.js"></script>
-        <script src="/Scripts/Modules/CMS/Customers/CustomersController.js"></script>
-        <script src="/Scripts/Modules/CMS/Customers/CustomerService.js"></script>
-        <script src="/Scripts/Modules/CMS/Customers/Customers.js"></script>
-        <script src="/Scripts/Modules/CMS/Customers/Customer.js"></script>
-        <script src="/Scripts/Modules/Security/LoginController.js"></script>
-        <script src="/Scripts/Modules/CMS/CollectionUtils.js"></script>
-        <script src="/Scripts/Libraries/ui-bootstrap-custom-0.10.0.min.js"></script>
-        <script src="/Scripts/Libraries/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
+        <script src="/Modules/CMS/Map/MapsController.js"></script>
+        <script src="/Modules/CMS/Map/Map.js"></script>
+        <script src="/Modules/Navigation/PageController.js"></script>
+        <script src="/Modules/Navigation/MainMenuController.js"></script>
+        <script src="/Modules/CMS/Editor/Editor.js"></script>
+        <script src="/Modules/CMS/CMS.js"></script>
+        <script src="/Modules/CMS/Boundaries/BoundariesController.js"></script>
+        <script src="/Modules/CMS/Boundaries/BoundaryService.js"></script>
+        <script src="/Modules/CMS/Boundaries/Boundaries.js"></script>
+        <script src="/Modules/CMS/Boundaries/Boundary.js"></script>
+        <script src="/Modules/CMS/Categories/CategoriesController.js"></script>
+        <script src="/Modules/CMS/Categories/CategoryService.js"></script>
+        <script src="/Modules/CMS/Categories/Categories.js"></script>
+        <script src="/Modules/CMS/Categories/Category.js"></script>
+        <script src="/Modules/CMS/Customers/CustomersController.js"></script>
+        <script src="/Modules/CMS/Customers/CustomerService.js"></script>
+        <script src="/Modules/CMS/Customers/Customers.js"></script>
+        <script src="/Modules/CMS/Customers/Customer.js"></script>
+        <script src="/Modules/Security/LoginController.js"></script>
+        <script src="/Modules/CMS/CollectionUtils.js"></script>
+        <script src="/Libraries/ui-bootstrap-custom-0.10.0.min.js"></script>
+        <script src="/Libraries/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
     </body>
 </html>

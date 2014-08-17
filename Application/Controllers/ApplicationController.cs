@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace OrangeCMS.Application
+namespace OrangeCMS.Application.Controllers
 {
     public class ApplicationController : Controller
     {

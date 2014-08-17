@@ -159,65 +159,64 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Themes\google-plus-ui-buttons\css\css3-buttons.css" />
-    <Content Include="Content\Themes\google-plus-ui-buttons\demo.html" />
-    <Content Include="Content\Themes\google-plus-ui-buttons\images\google-ui-sprite-colour.png" />
-    <Content Include="Content\Themes\google-plus-ui-buttons\images\google-ui-sprite-gray.png" />
-    <Content Include="Content\Themes\google-plus-ui-buttons\images\toggle.png" />
-    <Content Include="Content\Themes\google-plus-ui-buttons\jquery.tiptip.js" />
-    <Content Include="Content\Themes\google-plus-ui-buttons\tile.jpg" />
-    <Content Include="Content\Themes\google-plus-ui-buttons\tiptip.css" />
+    <Content Include="Modules\CMS\Editor\Editor.js" />
+    <Content Include="Modules\Common\google-plus-ui-buttons\css\css3-buttons.css" />
+    <Content Include="Modules\Common\google-plus-ui-buttons\demo.html" />
+    <Content Include="Modules\Common\google-plus-ui-buttons\images\google-ui-sprite-colour.png" />
+    <Content Include="Modules\Common\google-plus-ui-buttons\images\google-ui-sprite-gray.png" />
+    <Content Include="Modules\Common\google-plus-ui-buttons\images\toggle.png" />
+    <Content Include="Modules\Common\google-plus-ui-buttons\jquery.tiptip.js" />
+    <Content Include="Modules\Common\google-plus-ui-buttons\tile.jpg" />
+    <Content Include="Modules\Common\google-plus-ui-buttons\tiptip.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\Libraries\angular-google-maps.js" />
-    <Content Include="Scripts\Libraries\bootstrap-theme.css" />
-    <Content Include="Scripts\Libraries\bootstrap.css" />
-    <Content Include="Scripts\Libraries\faker.js" />
-    <Content Include="Scripts\Libraries\lodash.js" />
-    <Content Include="Scripts\Libraries\ui-bootstrap-custom-0.10.0.js" />
-    <Content Include="Scripts\Libraries\ui-bootstrap-custom-0.10.0.min.js" />
-    <Content Include="Scripts\Libraries\ui-bootstrap-custom-tpls-0.10.0.js" />
-    <Content Include="Scripts\Libraries\ui-bootstrap-custom-tpls-0.10.0.min.js" />
-    <Content Include="Scripts\Libraries\ui-bootstrap-custom.css" />
-    <Content Include="Scripts\Modules\CMS\Boundaries\BoundaryService.js" />
-    <Content Include="Scripts\Modules\CMS\Boundaries\Boundaries.css" />
-    <Content Include="Scripts\Modules\CMS\Categories\Categories.css" />
-    <Content Include="Scripts\Modules\CMS\Categories\CategoryService.js" />
-    <Content Include="Scripts\Modules\CMS\CMS.css" />
-    <Content Include="Scripts\Modules\CMS\Boundaries\Boundary.js" />
-    <Content Include="Scripts\Modules\CMS\CMS.html" />
-    <Content Include="Scripts\Modules\CMS\CMS.js" />
-    <Content Include="Scripts\Modules\CMS\Categories\Categories.js" />
-    <Content Include="Scripts\Modules\CMS\Boundaries\Boundaries.js" />
-    <Content Include="Scripts\Modules\CMS\Customers\Customers.css" />
-    <Content Include="Scripts\Modules\CMS\Customers\Customers.js" />
-    <Content Include="Scripts\Modules\CMS\Boundaries\Boundaries.html" />
-    <Content Include="Scripts\Modules\CMS\Customers\CustomerService.js" />
-    <Content Include="Scripts\Modules\CMS\Map\Map.js" />
-    <Content Include="Scripts\Modules\CMS\CollectionUtils.js" />
-    <Content Include="Scripts\Modules\Common\Application.css" />
-    <Content Include="Scripts\Modules\CMS\Editor\Editor.js" />
-    <Content Include="Scripts\Modules\CMS\Customers\Customers.html" />
-    <Content Include="Scripts\Modules\CMS\Boundaries\BoundariesController.js" />
-    <Content Include="Scripts\Modules\CMS\Customers\CustomersController.js" />
-    <Content Include="Scripts\Modules\CMS\Categories\CategoriesController.js" />
-    <Content Include="Scripts\Modules\Common\Reset.css" />
-    <Content Include="Scripts\Modules\Navigation\Navigation.css" />
-    <Content Include="Scripts\Modules\Security\LoginController.js" />
-    <Content Include="Scripts\Modules\CMS\Map\MapsController.js" />
-    <Content Include="Scripts\Modules\Navigation\PageController.js" />
-    <Content Include="Scripts\Modules\CMS\Categories\Category.js" />
-    <Content Include="Scripts\Modules\CMS\Customers\Customer.js" />
-    <Content Include="Scripts\Modules\System\User.js" />
-    <Content Include="Scripts\Modules\System\User.Resource.js" />
-    <Content Include="Scripts\Modules\CMS\Editor\Editor.html" />
-    <Content Include="Scripts\Modules\System\ManageUsers.tpl.html" />
-    <Content Include="Scripts\Modules\CMS\Map\Map.html" />
-    <Content Include="Scripts\Modules\CMS\Categories\Categories.html" />
-    <Content Include="Scripts\Modules\Navigation\MainMenu.html" />
-    <Content Include="Scripts\Modules\Security\Login.html" />
+    <Content Include="Libraries\angular-google-maps.js" />
+    <Content Include="Libraries\bootstrap-theme.css" />
+    <Content Include="Libraries\bootstrap.css" />
+    <Content Include="Libraries\faker.js" />
+    <Content Include="Libraries\lodash.js" />
+    <Content Include="Libraries\ui-bootstrap-custom-0.10.0.js" />
+    <Content Include="Libraries\ui-bootstrap-custom-0.10.0.min.js" />
+    <Content Include="Libraries\ui-bootstrap-custom-tpls-0.10.0.js" />
+    <Content Include="Libraries\ui-bootstrap-custom-tpls-0.10.0.min.js" />
+    <Content Include="Libraries\ui-bootstrap-custom.css" />
+    <Content Include="Modules\CMS\Boundaries\BoundaryService.js" />
+    <Content Include="Modules\CMS\Boundaries\Boundaries.css" />
+    <Content Include="Modules\CMS\Categories\Categories.css" />
+    <Content Include="Modules\CMS\Categories\CategoryService.js" />
+    <Content Include="Modules\CMS\CMS.css" />
+    <Content Include="Modules\CMS\Boundaries\Boundary.js" />
+    <Content Include="Modules\CMS\CMS.html" />
+    <Content Include="Modules\CMS\CMS.js" />
+    <Content Include="Modules\CMS\Categories\Categories.js" />
+    <Content Include="Modules\CMS\Boundaries\Boundaries.js" />
+    <Content Include="Modules\CMS\Customers\Customers.css" />
+    <Content Include="Modules\CMS\Customers\Customers.js" />
+    <Content Include="Modules\CMS\Boundaries\Boundaries.html" />
+    <Content Include="Modules\CMS\Customers\CustomerService.js" />
+    <Content Include="Modules\CMS\Map\Map.js" />
+    <Content Include="Modules\CMS\CollectionUtils.js" />
+    <Content Include="Modules\Common\Application.css" />
+    <Content Include="Modules\CMS\Customers\Customers.html" />
+    <Content Include="Modules\CMS\Boundaries\BoundariesController.js" />
+    <Content Include="Modules\CMS\Customers\CustomersController.js" />
+    <Content Include="Modules\CMS\Categories\CategoriesController.js" />
+    <Content Include="Modules\Common\Reset.css" />
+    <Content Include="Modules\Navigation\MainMenuController.js" />
+    <Content Include="Modules\Navigation\Navigation.css" />
+    <Content Include="Modules\Security\LoginController.js" />
+    <Content Include="Modules\CMS\Map\MapsController.js" />
+    <Content Include="Modules\Navigation\PageController.js" />
+    <Content Include="Modules\CMS\Categories\Category.js" />
+    <Content Include="Modules\CMS\Customers\Customer.js" />
+    <Content Include="Modules\System\User.js" />
+    <Content Include="Modules\System\User.Resource.js" />
+    <Content Include="Modules\System\ManageUsers.tpl.html" />
+    <Content Include="Modules\CMS\Map\Map.html" />
+    <Content Include="Modules\CMS\Categories\Categories.html" />
+    <Content Include="Modules\Navigation\MainMenu.html" />
+    <Content Include="Modules\Security\Login.html" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -230,9 +229,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

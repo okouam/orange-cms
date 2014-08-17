@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Tests", "Applic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C2CD2ABB-14FB-41D1-B729-36402BFAAFA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tooling", "Tooling\Tooling.csproj", "{44BEDFFD-EF14-4548-92EA-F0448C3CEB06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{7308BC3F-B2AF-4D65-8FEA-448865FCDE81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{C2CD2ABB-14FB-41D1-B729-36402BFAAFA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2CD2ABB-14FB-41D1-B729-36402BFAAFA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2CD2ABB-14FB-41D1-B729-36402BFAAFA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44BEDFFD-EF14-4548-92EA-F0448C3CEB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44BEDFFD-EF14-4548-92EA-F0448C3CEB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44BEDFFD-EF14-4548-92EA-F0448C3CEB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44BEDFFD-EF14-4548-92EA-F0448C3CEB06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7308BC3F-B2AF-4D65-8FEA-448865FCDE81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7308BC3F-B2AF-4D65-8FEA-448865FCDE81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7308BC3F-B2AF-4D65-8FEA-448865FCDE81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7308BC3F-B2AF-4D65-8FEA-448865FCDE81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

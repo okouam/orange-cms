@@ -1,42 +1,48 @@
-﻿using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Infrastructure;
 using Microsoft.Owin.Security.OAuth;
+using OrangeCMS.Application.Services;
 
 namespace OrangeCMS.Application.Providers
 {
     public class TokenProvider : OAuthAuthorizationServerProvider
     {
-        private readonly AppContext appContext;
+        private readonly ISecurityService securityService;
 
-        public TokenProvider(AppContext appContext)
+        public TokenProvider(ISecurityService securityService)
         {
-            this.appContext = appContext;
+            this.securityService = securityService;
         }
 
 #pragma warning disable 1998
-        public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
 #pragma warning restore 1998
         {
             context.Validated();
+            return base.ValidateClientAuthentication(context);
         }
 
 #pragma warning disable 1998
-        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+        public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
 #pragma warning restore 1998
         {
-            var user = this.appContext.Users.FirstOrDefault(x => x.UserName == context.UserName && x.Password == context.Password);
+            var user = securityService.Authenticate(context.UserName, context.Password);
+            
             if (user != null)
             {
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-                identity.AddClaim(new Claim("sub", context.UserName));
-                identity.AddClaim(new Claim("role", user.Role));
-                context.Validated(identity);
+                identity.AddClaim(new Claim("id", user.Id.ToString()));
+                var ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
+                context.Validated(ticket);
             }
             else
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
             }
+            
+            return base.GrantResourceOwnerCredentials(context);
         }
     }
 }

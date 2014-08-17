@@ -1,23 +1,29 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using OrangeCMS.Application.Controllers;
+using AutoMapper;
+using OrangeCMS.Application.Services;
+using OrangeCMS.Application.ViewModels;
 
-namespace OrangeCMS.Application
+namespace OrangeCMS.Application.Controllers
 {
-    [Authorize]
-    public class CategoriesController : ApiController
+    //[Authorize]
+    public class CategoriesController : BaseApiController
     {
-        [HttpPost, Route("categories/{id}")]
-        public HttpResponseMessage Get(long id)
+        private readonly IMappingEngine mapper;
+        private readonly ICategoryService categoryService;
+
+        public CategoriesController(ISecurityService securityService, IMappingEngine mapper, ICategoryService categoryService) : base(securityService)
         {
-            throw new NotImplementedException();
+            this.mapper = mapper;
+            this.categoryService = categoryService;
         }
 
         [HttpGet, Route("categories")]
-        public HttpResponseMessage Search(SearchCategoriesModel model)
+        public IList<CategoryModel> GetAll()
         {
-            throw new NotImplementedException();
+            var categories = categoryService.FindByClient(CurrentClient.Id);
+            var models = mapper.Map<IList<CategoryModel>>(categories);
+            return models;
         }
     }
 }

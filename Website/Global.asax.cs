@@ -1,11 +1,6 @@
 ﻿using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Application.DependencyResolution;
 using GeoCMS.Application;
-using OrangeCMS.Application;
-using StructureMap;
+using OrangeCMS.Infrastructure;
 
 namespace Application
 {
@@ -13,17 +8,17 @@ namespace Application
     {
         protected void Application_BeginRequest()
         {
-            Bootstrapper.BeginRequest(Startup.StructureMapDependencyScope);
+            ApplicationEvents.BeginRequest(Startup.StructureMapDependencyScope);
         } 
 
         protected void Application_EndRequest()
         {
-            Bootstrapper.EndRequest(Startup.StructureMapDependencyScope);
+            ApplicationEvents.EndRequest(Startup.StructureMapDependencyScope);
         }
 
         protected void Application_End()
         {
-            Bootstrapper.End(Startup.StructureMapDependencyScope);
+            ApplicationEvents.End(Startup.StructureMapDependencyScope);
         }
     }
 }

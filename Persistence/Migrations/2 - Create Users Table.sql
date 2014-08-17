@@ -1,0 +1,12 @@
+﻿CREATE TABLE Users (
+	[Id] BIGINT IDENTITY(1,1), 
+	[Email] VARCHAR(MAX) NOT NULL,
+	[Password] VARCHAR(MAX) NOT NULL,
+	[Role] VARCHAR(MAX) NOT NULL,
+	[UserName] VARCHAR(MAX) NOT NULL,
+	[ClientId] BIGINT NOT NULL,
+	CONSTRAINT PK_Users PRIMARY KEY ([Id]),
+	CONSTRAINT FK_Users_Clients FOREIGN KEY([ClientId]) REFERENCES Clients([Id])
+)
+
+CREATE INDEX IDX_Users_ClientId ON [Users] (ClientId)

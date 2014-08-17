@@ -1,22 +1,23 @@
 ﻿using System;
-using System.Net.Http;
 using System.Web.Http;
-using OrangeCMS.Application.Models;
+using AutoMapper;
+using OrangeCMS.Application.Services;
+using OrangeCMS.Application.ViewModels;
 
-namespace OrangeCMS.Application
+namespace OrangeCMS.Application.Controllers
 {
     [Authorize]
-    public class UsersController : ApiController
+    public class UsersController : BaseApiController
     {
-        private readonly AppContext appContext;
+        private readonly IMappingEngine mappingEngine;
 
-        public UsersController(AppContext appContext)
+        public UsersController(IMappingEngine mappingEngine, ISecurityService securityService) : base(securityService)
         {
-            this.appContext = appContext;
+            this.mappingEngine = mappingEngine;
         }
 
         [HttpPost, Route("users")]
-        public HttpResponseMessage Create(CreateUserModel model)
+        public IHttpActionResult Create(CreateUserModel model)
         {
             throw new NotImplementedException();
         }
@@ -24,11 +25,13 @@ namespace OrangeCMS.Application
         [HttpPost, Route("users/{id}")]
         public IHttpActionResult Get(long id)
         {
-            return Ok(this.appContext.Users.Find(id));
+            var user = securityService.FindById(id);
+            var userModel = mappingEngine.Map<UserModel>(user);
+            return Ok(userModel);
         }
 
         [HttpPatch, Route("users/{id}")]
-        public HttpResponseMessage Update(long id, UpdateUserModel model)
+        public IHttpActionResult Update(long id, UpdateUserModel model)
         {
             throw new NotImplementedException();
         }
@@ -36,16 +39,8 @@ namespace OrangeCMS.Application
         [HttpDelete, Route("users/{id}")]
         public IHttpActionResult Delete(long id)
         {
-            var user = appContext.Users.Find(id);
-            appContext.Users.Remove(user);
-            appContext.SaveChanges();
+            securityService.Delete(id);
             return Ok();
-        }
-
-        [HttpGet, Route("users")]
-        public HttpResponseMessage Search(SearchUsersModel model)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,41 +1,62 @@
-﻿
-using System;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
+using OrangeCMS.Application.Services;
+using OrangeCMS.Application.ViewModels;
+using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Controllers
 {
-    [Authorize]
-    public class CustomersController : ApiController
+    //[Authorize]
+    public class CustomersController : BaseApiController
     {
-        [HttpPost, Route("customers")]
-        public HttpResponseMessage Create(CreateCustomerModel model)
+        private readonly ICustomerService customerService;
+        private readonly IMappingEngine mapper;
+
+        public CustomersController(ISecurityService securityService, ICustomerService customerService, IMappingEngine mapper) : base(securityService)
         {
-            throw new NotImplementedException();
+            this.customerService = customerService;
+            this.mapper = mapper;
+        }
+
+        [HttpPost, Route("customers")]
+        public CustomerModel Create(CreateCustomerModel model)
+        {
+            var customer = mapper.Map<Customer>(model);
+            customerService.Save(CurrentUser, customer);
+            return mapper.Map<CustomerModel>(customer);
         }
 
         [HttpPost, Route("customers/{id}")]
-        public HttpResponseMessage Get(long id)
+        public CustomerModel Get(long id)
         {
-            throw new NotImplementedException();
+            var customer = customerService.FindById(id);
+            return mapper.Map<CustomerModel>(customer);
         }
 
         [HttpPatch, Route("customers/{id}")]
-        public HttpResponseMessage Update(long id, UpdateCustomerModel model)
+        public CustomerModel Update(long id, UpdateCustomerModel model)
         {
-            throw new NotImplementedException();
+            var newValues = mapper.Map<Customer>(model);
+            newValues.Id = id;
+            var customer = customerService.Update(newValues);
+            return mapper.Map<CustomerModel>(customer);
         }
 
         [HttpDelete, Route("customers/{id}")]
-        public HttpResponseMessage Delete(long id)
+        public void Delete(long id)
         {
-            throw new NotImplementedException();
+            customerService.Delete(id);
         }
 
         [HttpGet, Route("customers")]
-        public HttpResponseMessage Search(SearchCustomersModel model)
+        public IList<CustomerModel> Search(string strMatch = null, long? category = null)
         {
-            throw new NotImplementedException();
+            var customers = customerService.Search(CurrentClient.Id, strMatch, category);
+            return mapper.Map<IList<CustomerModel>>(customers);
         }
     }
 }
