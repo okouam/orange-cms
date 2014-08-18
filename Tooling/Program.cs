@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Data.SqlClient;
 using DbUp;
 using DbUp.Engine;
@@ -8,9 +7,8 @@ using Microsoft.SqlServer.Management.Smo;
 using NLog;
 using OrangeCMS.Application;
 using OrangeCMS.Application.Tests;
-using OrangeCMS.Tooling;
 
-namespace Tooling
+namespace OrangeCMS.Tooling
 {
     class Program
     {
@@ -25,16 +23,18 @@ namespace Tooling
             
             var option = Console.ReadKey();
             Console.WriteLine("\n");
-            
+
+            var config = new Config();
             bool isSuccess;
             
             switch (option.Key.ToString())
             {
                 case "D1":
-                    isSuccess = CopyDataToDevelopmentDatabase();
+                    DatabaseCleaner.Restore(config.SqlConnectionString, config.Seed.Name, config.Development);
+                    isSuccess = true;
                     break;
                 case "D2":
-                    isSuccess = CreateBackupForTests().Successful;
+                    isSuccess = CreateBackupForTests(config).Successful;
                     break;
                 default:
                     throw new Exception("Unknown option requested.");
@@ -47,53 +47,29 @@ namespace Tooling
             return isSuccess ? 0 : -1;
         }
 
-        static bool CopyDataToDevelopmentDatabase()
+        private static DatabaseUpgradeResult CreateBackupForTests(Config cfg)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
-            var appSettings = ConfigurationManager.AppSettings;
-            DatabaseCleaner.Restore(connectionString, appSettings["Seed"], appSettings["Development"]);
-            return true;
-        }
-
-        static DatabaseUpgradeResult CreateBackupForTests()
-        {
-            var connectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
-            var databaseName = ConfigurationManager.AppSettings["Seed"];
-
-            RecreateDatabase(connectionString, databaseName);
-
-            var result = RunDatabaseMigrations(connectionString, databaseName);
-
-            GenerateData(connectionString, databaseName);
-
-            DatabaseCleaner.Backup(connectionString, databaseName);
+            RecreateDatabase(cfg);
+            var result = RunDatabaseMigrations(cfg);
+            GenerateData(cfg);
+            DatabaseCleaner.Backup(cfg.SqlConnectionString, cfg.Seed.Name);
             return result;
         }
 
-        private static void GenerateData(string connectionString, string databaseName)
+        private static void GenerateData(Config cfg)
         {
-            var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString)
-            {
-                InitialCatalog = databaseName
-            };
-
            new TestDataGenerator()
               .WithUsers(50)
               .WithCustomers(5000)
               .WithCategories(50)
               .WithBoundaries(30)
-              .SetupDatabase(new TestDataContext(connectionStringBuilder.ToString()));
+              .SetupDatabase(new TestDataContext(cfg.Seed.ConnectionString));
         }
 
-        private static DatabaseUpgradeResult RunDatabaseMigrations(string connectionString, string databaseName)
+        private static DatabaseUpgradeResult RunDatabaseMigrations(Config cfg)
         {
-            var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString)
-            {
-                InitialCatalog = databaseName
-            };
-
             var upgrader = DeployChanges.To
-                .SqlDatabase(connectionStringBuilder.ToString())
+                .SqlDatabase(cfg.Seed.ConnectionString)
                 .LogScriptOutput()
                 .WithScriptsEmbeddedInAssembly(typeof(DatabaseContext).Assembly)
                 .Build();
@@ -101,34 +77,30 @@ namespace Tooling
             return upgrader.PerformUpgrade();
         }
 
-        private static void RecreateDatabase(string connectionString, string databaseName)
+        private static void RecreateDatabase(Config cfg)
         {
-            var connection = ConnectToServer(connectionString);
+            var connection = new ServerConnection(new SqlConnection(cfg.SqlConnectionString));
+
             var server = new Server(connection);
-            if (server.Databases.Contains(databaseName))
+
+            if (server.Databases.Contains(cfg.Seed.Name))
             {
                 try
                 {
-                    log.Info("Dropping the database {0}.", databaseName);
-                    server.KillDatabase(databaseName);
-                    server.Databases[databaseName].Drop();
+                    log.Info("Dropping the database {0}.", cfg.Seed.Name);
+                    server.KillDatabase(cfg.Seed.Name);
+                    server.Databases[cfg.Seed.Name].Drop();
                 }
                 catch
                 {
-                    log.Error("An error occured when attempting to drop the database {0}.", databaseName);
+                    log.Error("An error occured when attempting to drop the database {0}.", cfg.Seed.Name);
                 }
 
             }
 
-            log.Info("Creating the database {0}.", databaseName);
-            var database = new Database(server, databaseName);
+            log.Info("Creating the database {0}.", cfg.Seed.Name);
+            var database = new Database(server, cfg.Seed.Name);
             database.Create();
-        }
-
-        private static ServerConnection ConnectToServer(string connectionString)
-        {
-            var sqlConnection = new SqlConnection(connectionString);
-            return new ServerConnection(sqlConnection);
         }
     }
 }

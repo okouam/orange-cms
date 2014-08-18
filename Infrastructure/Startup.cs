@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Application.DependencyResolution;
@@ -27,9 +28,6 @@ namespace GeoCMS.Application
 
             var config = new HttpConfiguration();
 
-            app.UseWebApi(config);
-            app.UseCors(CorsOptions.AllowAll);
-            
             var OAuthServerOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
@@ -38,15 +36,15 @@ namespace GeoCMS.Application
                 Provider = StructureMapDependencyScope.GetInstance<TokenProvider>()
             };
 
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions
-            {
-                AuthenticationType = "Bearer",
-                Provider = new BearerAuthorizationProvider()
-            });
-
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
-     
+
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            
             RegisterApiRoutes(config);
+
+            app.UseWebApi(config);
+            app.UseCors(CorsOptions.AllowAll);
+
             SetupDependencyResolution(config, container, StructureMapDependencyScope);
             RegisterRoutes(RouteTable.Routes);
 

@@ -1,11 +1,13 @@
 ﻿<div id="left-window" data-ng-controller="boundariesController as vm" class="column-contents">
-    <div class="image-label header">
-        <span class="icon icon61">&nbsp;</span>
+    <a class="minimized" href="javascript:void(0)" data-ng-click="vm.open()">Boundaries</a>
+    <div class="image-label header" style="cursor: pointer" data-ng-click="vm.minimize()" >
+        <span class=" icon icon61">
+        &nbsp;</span>
         <span class="label">Boundaries</span>
         <a href="#" class="x">x</a>
     </div>
     <ul>
-        <li class="row clickable" data-ng-repeat="boundary in vm.boundaries">
+        <li class="row clickable" data-ng-click="vm.select(boundary)" data-ng-class="{selected: boundary.selected} " data-ng-repeat="boundary in vm.boundaries">
             <label>{{boundary.name}}</label>
         </li>
     </ul>

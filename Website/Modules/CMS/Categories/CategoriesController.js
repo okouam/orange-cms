@@ -17,6 +17,18 @@
 
         vm.categories = CMS.categories;
 
+        vm.minimize = function () {
+            $("#cms-categories").addClass("minimized");
+        };
+
+        vm.open = function () {
+            $("#cms-categories").removeClass("minimized");
+        };
+
+        vm.select = function (item) {
+            item.selected = !item.selected;
+        };
+
         vm.search = function (query) {
             Utils.replaceContents(Categories.search(query), CMS.categories);
         };

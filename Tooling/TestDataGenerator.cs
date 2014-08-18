@@ -7,7 +7,7 @@ using OrangeCMS.Domain;
 
 namespace OrangeCMS.Tooling
 {
-    public class TestDataGenerator
+    class TestDataGenerator
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -15,16 +15,12 @@ namespace OrangeCMS.Tooling
         private int numCustomers;
         private int numBoundaries;
         private int numCategories;
+        private IList<Customer> customers;
+        private IList<Boundary> boundaries;
+        private IList<Category> categories;
+        private IList<User> users;
 
-        public IList<Customer> Customers { get; private set; }
-
-        public IList<Boundary> Boundaries { get; private set; }
-
-        public IList<Category> Categories { get; private set; }
-
-        public IList<User> Users { get; private set; }
-
-        public TestDataGenerator SetupDatabase(DatabaseContext dbContext)
+        internal TestDataGenerator SetupDatabase(DatabaseContext dbContext)
         {
             log.Info("Generating test data.");
 
@@ -35,38 +31,38 @@ namespace OrangeCMS.Tooling
 
             GenerateUsers(client);
 
-            log.Info("{0} users generated.", Users.Count);
+            log.Info("{0} users generated.", users.Count);
 
             GenerateCategories(client);
 
-            log.Info("{0} categories generated.", Categories.Count);
+            log.Info("{0} categories generated.", categories.Count);
 
             GenerateCustomers(client);
 
-            log.Info("{0} customers generated.", Customers.Count());
+            log.Info("{0} customers generated.", customers.Count());
 
             GenerateBoundaries(client);
 
-            log.Info("{0} boundaries generated.", Boundaries.Count());
+            log.Info("{0} boundaries generated.", boundaries.Count());
 
             dbContext.Clients.Add(client);
 
-            foreach (var user in Users)
+            foreach (var user in users)
             {
                 dbContext.Users.Add(user);
             }
 
-            foreach (var category in Categories)
+            foreach (var category in categories)
             {
                 dbContext.Categories.Add(category);
             }
 
-            foreach (var boundary in Boundaries)
+            foreach (var boundary in boundaries)
             {
                 dbContext.Boundaries.Add(boundary);
             }
 
-            foreach (var customer in Customers)
+            foreach (var customer in customers)
             {
                 dbContext.Customers.Add(customer);
             }
@@ -78,38 +74,38 @@ namespace OrangeCMS.Tooling
             return this;
         }
 
-        public TestDataGenerator WithUsers(int numUsers)
+        internal TestDataGenerator WithUsers(int numUsers)
         {
             this.numUsers = numUsers;
             return this;
         }
 
-        public TestDataGenerator WithCustomers(int numCustomers)
+        internal TestDataGenerator WithCustomers(int numCustomers)
         {
             this.numCustomers = numCustomers;
             return this;
         }
 
-        public TestDataGenerator WithBoundaries(int numBoundaries)
+        internal TestDataGenerator WithBoundaries(int numBoundaries)
         {
             this.numBoundaries = numBoundaries;
             return this;
         }
 
-        public TestDataGenerator WithCategories(int numCategories)
+        internal TestDataGenerator WithCategories(int numCategories)
         {
             this.numCategories = numCategories;
             return this;
         }
 
-        public User GetSpecificUser(string role)
+        internal User GetSpecificUser(string role)
         {
-            return Users.First(x => x.Role == role);
+            return users.First(x => x.Role == role);
         }
 
         private void GenerateBoundaries(Client client)
         {
-            Boundaries = new List<Boundary>();
+            boundaries = new List<Boundary>();
 
             numBoundaries.Times(() =>
             {
@@ -119,13 +115,13 @@ namespace OrangeCMS.Tooling
                     Name = Faker.LocationFaker.City()
                 };
 
-                Boundaries.Add(boundary);
+                boundaries.Add(boundary);
             });
         }
 
         private void GenerateCustomers(Client client)
         {
-            Customers = new List<Customer>();
+            customers = new List<Customer>();
 
             numCustomers.Times(() =>
             {
@@ -136,17 +132,17 @@ namespace OrangeCMS.Tooling
                     Longitude = Faker.NumberFaker.Number(20, 120),
                     Latitude = Faker.NumberFaker.Number(20, 120),
                     Client = client,
-                    CreatedBy = Users[Faker.NumberFaker.Number(0, Users.Count)],
-                    Categories = Categories.Sample(0, 3).ToList()
+                    CreatedBy = users[Faker.NumberFaker.Number(0, users.Count)],
+                    Categories = categories.Sample(0, 3).ToList()
                 };
 
-                Customers.Add(customer);
+                customers.Add(customer);
             });
         }
 
         private void GenerateCategories(Client client)
         {
-            Categories = new List<Category>();
+            categories = new List<Category>();
 
             numCategories.Times(() =>
             {
@@ -156,15 +152,15 @@ namespace OrangeCMS.Tooling
                     Client = client
                 };
 
-                Categories.Add(category);
+                categories.Add(category);
             });
 
-            Categories = Categories.DistinctBy(x => x.Name).ToList();
+            categories = categories.DistinctBy(x => x.Name).ToList();
         }
 
         private void GenerateUsers(Client client)
         {
-            Users = new List<User>();
+            users = new List<User>();
 
             var random = new Random();
 
@@ -179,7 +175,7 @@ namespace OrangeCMS.Tooling
                     Client = client
                 };
 
-                Users.Add(user);
+                users.Add(user);
             });
         }
     }

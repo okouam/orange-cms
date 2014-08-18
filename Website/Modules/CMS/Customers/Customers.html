@@ -7,7 +7,7 @@
     <div class="query">
         <input data-ng-model="vm.query.strMatch" style="width: 411px" data-ng-change="vm.search()" type="text" />
     </div>
-    <ul>
+    <ul context-menu data-target="customer-context-menu">
         <li class="clickable row" style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers" data-ng-class="customer.selected ? 'active' : 'inactive'">
             <div style="display: flex">
                 <div class="customer-summary" data-ng-click="vm.toggleEditing(customer)">
@@ -21,7 +21,7 @@
                         <tab>
                             <tab-heading>Client</tab-heading>
                             <h2>Infos Générales</h2>
-                            <label><span>Telephone</span><input type="text"/></label>
+                            <label><span>Telephone</span><input type="text" /></label>
                             <label><span>Nom Abonné</span><input type="text" /></label>
                             <label><span>Rue, numéro</span><input type="text" /></label>
                             <label><span>Repère 1</span><input type="text" /></label>

@@ -15,6 +15,18 @@
 
         var vm = this;
 
+        vm.minimize = function() {
+            $("#cms-boundaries").addClass("minimized");
+        };
+
+        vm.open = function() {
+            $("#cms-boundaries").removeClass("minimized");
+        };
+
+        vm.select = function (item) {
+            item.selected = !item.selected;
+        };
+
         vm.boundaries = CMS.boundaries;
         
         vm.search = function (query) {

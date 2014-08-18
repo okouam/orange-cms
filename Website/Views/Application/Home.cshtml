@@ -23,6 +23,8 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
         <script src="~/Libraries/lodash.js"></script>
         <script src="~/Libraries/angular-google-maps.js"></script>
+        <script src="~/Libraries/ng-context-menu.js"></script>
+        <script src="~/Libraries/angular-local-storage.js"></script>
         <script type="text/javascript">
         </script>
     </head>
@@ -36,19 +38,45 @@
         <script type="text/javascript">
 
             var app = angular
-                .module("geocms", ['ui.router', 'google-maps', 'ui.bootstrap'])
-                .config(configureRouting);
+                .module("geocms", ['ui.router', 'google-maps', 'ui.bootstrap', 'ng-context-menu', 'LocalStorageModule'])
+                .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+                    configureTokenAuthentication($httpProvider);
+                    configureRouting($stateProvider, $urlRouterProvider);
+            });
+
+            function configureTokenAuthentication($httpProvider)
+            {
+                $httpProvider.interceptors.push('OAuthInterceptor');
+            }
 
             function configureRouting($stateProvider, $urlRouterProvider) {
-                $urlRouterProvider.otherwise("/");
+                $urlRouterProvider.otherwise("/cms");
                 $stateProvider
                     .state('login', {
                         url: "/login",
                         templateUrl: "Modules/Security/Login.html"
                     })
+                    .state('users', {
+                        url: "/users",
+                        templateUrl: "Modules/Security/Users.html"
+                    })
+                    .state('import', {
+                        url: "/import",
+                        templateUrl: "Modules/Import/Import.html"
+                    })
+                    .state('export', {
+                        url: "/export",
+                        templateUrl: "Modules/Export/Export.html"
+                    })
                     .state('cms', {
-                        url: "/",
-                        templateUrl: "Modules/CMS/CMS.html"
+                        url: "/cms",
+                        templateUrl: "Modules/CMS/CMS.html",
+                        onEnter: function (IdentityService, $state) {
+                            if (!IdentityService.token) {
+                                console.log(IdentityService.token);
+                                $state.go("login");
+                            }
+                        }
                     });
             }
             
@@ -62,6 +90,23 @@
     
             });
         </script>
+        
+        <div class="context-menu position-fixed" id="customer-context-menu">
+            <ul>
+                <li>Edit Customer</li>
+                <li style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc">Delete Customer</li>
+                <li>Center Map</li>
+            </ul>
+        </div>
+        
+        <style type="text/css">
+            .context-menu {background-color: white; border: 1px solid #ccc; display: none}
+            .context-menu.open {display: block}
+            .context-menu.open li {
+                padding: 5px 10px;list-style-type: none; font-size: 11px
+            }
+            .context-menu.open li:hover {cursor: pointer; background-color: #efefef}
+        </style>
         
         <script src="/Modules/CMS/Map/MapsController.js"></script>
         <script src="/Modules/CMS/Map/Map.js"></script>
@@ -82,6 +127,10 @@
         <script src="/Modules/CMS/Customers/Customers.js"></script>
         <script src="/Modules/CMS/Customers/Customer.js"></script>
         <script src="/Modules/Security/LoginController.js"></script>
+        <script src="/Modules/Security/AuthenticationService.js"></script>
+        <script src="/Modules/Security/OAuthInterceptor.js"></script>
+        <script src="/Modules/Security/LoginController.js"></script>
+        <script src="/Modules/Security/IdentityService.js"></script>
         <script src="/Modules/CMS/CollectionUtils.js"></script>
         <script src="/Libraries/ui-bootstrap-custom-0.10.0.min.js"></script>
         <script src="/Libraries/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>

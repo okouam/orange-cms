@@ -48,7 +48,8 @@
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin">
+    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Cors">
@@ -161,6 +162,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libraries\ng-context-menu.js" />
     <Content Include="Modules\CMS\Editor\Editor.js" />
     <Content Include="Modules\Common\google-plus-ui-buttons\css\css3-buttons.css" />
     <Content Include="Modules\Common\google-plus-ui-buttons\demo.html" />
@@ -203,6 +205,8 @@
     <Content Include="Modules\CMS\Customers\CustomersController.js" />
     <Content Include="Modules\CMS\Categories\CategoriesController.js" />
     <Content Include="Modules\Common\Reset.css" />
+    <Content Include="Modules\Export\Export.html" />
+    <Content Include="Modules\Import\Import.html" />
     <Content Include="Modules\Navigation\MainMenuController.js" />
     <Content Include="Modules\Navigation\Navigation.css" />
     <Content Include="Modules\Security\LoginController.js" />
@@ -210,6 +214,7 @@
     <Content Include="Modules\Navigation\PageController.js" />
     <Content Include="Modules\CMS\Categories\Category.js" />
     <Content Include="Modules\CMS\Customers\Customer.js" />
+    <Content Include="Modules\Security\Users.html" />
     <Content Include="Modules\System\User.js" />
     <Content Include="Modules\System\User.Resource.js" />
     <Content Include="Modules\System\ManageUsers.tpl.html" />

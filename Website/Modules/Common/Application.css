@@ -16,6 +16,10 @@ a.button {
     font-size: 11px;
 }
 
+.position-fixed {
+    position: fixed
+}
+
 .column {
     background-color: #F1F1F1;
     border-right: 1px solid #ccc;

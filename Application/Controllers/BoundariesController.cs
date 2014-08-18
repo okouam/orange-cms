@@ -6,7 +6,7 @@ using OrangeCMS.Application.ViewModels;
 
 namespace OrangeCMS.Application.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class BoundariesController : BaseApiController
     {
         private readonly IMappingEngine mapper;

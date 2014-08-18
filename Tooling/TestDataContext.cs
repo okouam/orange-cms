@@ -1,8 +1,10 @@
-﻿namespace OrangeCMS.Application.Tests
+﻿using OrangeCMS.Application;
+
+namespace OrangeCMS.Tooling
 {
-    public class TestDataContext : DatabaseContext
+    class TestDataContext : DatabaseContext
     {
-        public TestDataContext(string connectionString) : base(connectionString)
+        internal TestDataContext(string connectionString) : base(connectionString)
         {}
     }
 }

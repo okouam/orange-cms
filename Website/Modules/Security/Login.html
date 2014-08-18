@@ -1,2 +1,8 @@
-﻿<label>Username: </label>
-<label>Password: </label>
+﻿<div data-ng-controller="LoginController as vm">
+    <label>Username: <input type="text" data-ng-model="vm.username"/> </label>
+    <label>Password: <input type="text" data-ng-model="vm.password" /></label>
+    <button data-ng-click="vm.login()">Submit</button>
+    
+    {{vm.error}}
+
+</div>

@@ -10,7 +10,7 @@ using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CustomersController : BaseApiController
     {
         private readonly ICustomerService customerService;
