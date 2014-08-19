@@ -162,8 +162,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libraries\angular-local-storage.js" />
     <Content Include="Libraries\ng-context-menu.js" />
-    <Content Include="Modules\CMS\Editor\Editor.js" />
+    <Content Include="Modules\CMS\Customers\CustomerActionsController.js" />
+    <Content Include="Modules\CMS\Editor\EditorController.js" />
+    <Content Include="Modules\CMS\Editor\EditorService.js" />
+    <Content Include="Modules\Common\ContextMenu.css" />
+    <Content Include="Modules\Common\Scrollbars.css" />
+    <Content Include="Modules\Common\Startup.js" />
+    <Content Include="Modules\Common\WideTables.css" />
+    <Content Include="Modules\Export\ExportController.js" />
+    <Content Include="Modules\Export\ExportService.js" />
+    <Content Include="Modules\Import\ImportController.js" />
+    <Content Include="Modules\Import\ImportService.js" />
+    <Content Include="Modules\Security\AuthenticationService.js" />
     <Content Include="Modules\Common\google-plus-ui-buttons\css\css3-buttons.css" />
     <Content Include="Modules\Common\google-plus-ui-buttons\demo.html" />
     <Content Include="Modules\Common\google-plus-ui-buttons\images\google-ui-sprite-colour.png" />
@@ -204,6 +216,8 @@
     <Content Include="Modules\CMS\Boundaries\BoundariesController.js" />
     <Content Include="Modules\CMS\Customers\CustomersController.js" />
     <Content Include="Modules\CMS\Categories\CategoriesController.js" />
+    <Content Include="Modules\Security\IdentityService.js" />
+    <Content Include="Modules\Security\OAuthInterceptor.js" />
     <Content Include="Modules\Common\Reset.css" />
     <Content Include="Modules\Export\Export.html" />
     <Content Include="Modules\Import\Import.html" />
@@ -213,11 +227,10 @@
     <Content Include="Modules\CMS\Map\MapsController.js" />
     <Content Include="Modules\Navigation\PageController.js" />
     <Content Include="Modules\CMS\Categories\Category.js" />
-    <Content Include="Modules\CMS\Customers\Customer.js" />
+    <Content Include="Modules\Security\UserEditor.html" />
+    <Content Include="Modules\Security\Users.js" />
     <Content Include="Modules\Security\Users.html" />
-    <Content Include="Modules\System\User.js" />
-    <Content Include="Modules\System\User.Resource.js" />
-    <Content Include="Modules\System\ManageUsers.tpl.html" />
+    <Content Include="Modules\Security\UsersController.js" />
     <Content Include="Modules\CMS\Map\Map.html" />
     <Content Include="Modules\CMS\Categories\Categories.html" />
     <Content Include="Modules\Navigation\MainMenu.html" />

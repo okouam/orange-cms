@@ -121,7 +121,7 @@
     <Compile Include="Controllers\CategoriesController.Tests.cs" />
     <Compile Include="Controllers\CustomersController.Tests.cs" />
     <Compile Include="Controllers\UsersController.Tests.cs" />
-    <Compile Include="FakeSecurityService.cs" />
+    <Compile Include="FakeIdentityProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

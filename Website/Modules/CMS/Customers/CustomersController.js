@@ -6,10 +6,11 @@
         .module("geocms")
         .controller("customersController", [
             "GeoCMS.CMS",
+            "EditorService",
             CustomersController
         ]);
 
-    function CustomersController(CMS) {
+    function CustomersController(CMS, EditorService) {
 
         var vm = this;
         vm.data = {};
@@ -21,17 +22,13 @@
         vm.query = CMS.query;
 
         vm.createCustomer = function() {
-            Editor.createCustomer(CMS.customers);
+            EditorService.current = {};
         };
 
-        vm.deleteCustomers = function() {
-            CMS.customers.deleteWhere({selected: true});
+        vm.highlight = function(customer) {
+            EditorService.highlighted = customer;
         };
 
-        vm.toggleEditing = function(customer) {
-            customer.isEditing = customer.isEditing ? false : true;
-        };
-        
         vm.search = function () {
             CMS.refresh();
         };

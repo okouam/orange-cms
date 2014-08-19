@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
+using OrangeCMS.Application.Providers;
 using OrangeCMS.Application.Services;
 using OrangeCMS.Application.ViewModels;
 
@@ -12,7 +13,8 @@ namespace OrangeCMS.Application.Controllers
         private readonly IMappingEngine mapper;
         private readonly ICategoryService categoryService;
 
-        public CategoriesController(ISecurityService securityService, IMappingEngine mapper, ICategoryService categoryService) : base(securityService)
+        public CategoriesController(IIdentityProvider identityProvider, IMappingEngine mapper, ICategoryService categoryService)
+            : base(identityProvider)
         {
             this.mapper = mapper;
             this.categoryService = categoryService;

@@ -1,0 +1,19 @@
+﻿.wide-table {
+    width: 100%
+}
+
+.wide-table td, .wide-table th {
+    padding: 5px
+}
+
+.wide-table thead {
+    font-weight: bold;
+    background-color: #efefef;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.wide-table tbody tr {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc
+}

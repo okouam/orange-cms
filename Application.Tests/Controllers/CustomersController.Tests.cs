@@ -16,7 +16,7 @@ namespace OrangeCMS.Application.Tests.CategoriesControllerTests
         public override void SetUp()
         {
             base.SetUp();
-            fakeSecurityService.AssignCurrentUser(GetSpecificUser(Roles.Standard));
+            FakeIdentityProvider.AssignCurrentUser(GetSpecificUser(Roles.Standard));
             controller = container.GetInstance<CustomersController>();
         }
 

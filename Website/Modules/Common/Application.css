@@ -83,28 +83,6 @@ li.clickable.row:hover * {
   display: block;
 }
 
-/* Scrollbars - ugly otherwise */
-
-::-webkit-scrollbar {
-    width: 5px;
-    background-color: #f5f5f5;
-    -webkit-border-radius: 100px;
-}
-::-webkit-scrollbar:hover {
-    width: 7px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #ccc;
-    -webkit-border-radius: 100px;
-}
-
-::-webkit-scrollbar-thumb:hover,
-::-webkit-scrollbar-thumb:active  {
-    background: #999;
-}
-
-
      .image-label {
          display: flex;
          padding: 5px;
@@ -143,3 +121,4 @@ li.clickable.row:hover * {
         height: 18px;
         padding: 0 1px;
     }
+

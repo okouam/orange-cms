@@ -8,6 +8,9 @@
         <link type="text/css" rel="stylesheet" href="/Libraries/bootstrap.css" />
         <link type="text/css" rel="stylesheet" href="/Libraries/bootstrap-theme.css" />
         <link type="text/css" rel="stylesheet" href="/Modules/Common/Reset.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/Common/ContextMenu.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/Common/Scrollbars.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/Common/WideTables.css" />
         <link type="text/css" rel="stylesheet" href="/Modules/CMS/CMS.css" />
         <link type="text/css" rel="stylesheet" href="/Modules/CMS/Customers/Customers.css" />
         <link type="text/css" rel="stylesheet" href="/Modules/CMS/Boundaries/Boundaries.css" />
@@ -39,47 +42,11 @@
 
             var app = angular
                 .module("geocms", ['ui.router', 'google-maps', 'ui.bootstrap', 'ng-context-menu', 'LocalStorageModule'])
-                .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
-                    configureTokenAuthentication($httpProvider);
-                    configureRouting($stateProvider, $urlRouterProvider);
+                .config(function ($stateProvider, $urlRouterProvider, $httpProvider, Startup) {
+                    Startup.configureTokenAuthentication($httpProvider);
+                    Startup.configureRouting($stateProvider, $urlRouterProvider);
             });
-
-            function configureTokenAuthentication($httpProvider)
-            {
-                $httpProvider.interceptors.push('OAuthInterceptor');
-            }
-
-            function configureRouting($stateProvider, $urlRouterProvider) {
-                $urlRouterProvider.otherwise("/cms");
-                $stateProvider
-                    .state('login', {
-                        url: "/login",
-                        templateUrl: "Modules/Security/Login.html"
-                    })
-                    .state('users', {
-                        url: "/users",
-                        templateUrl: "Modules/Security/Users.html"
-                    })
-                    .state('import', {
-                        url: "/import",
-                        templateUrl: "Modules/Import/Import.html"
-                    })
-                    .state('export', {
-                        url: "/export",
-                        templateUrl: "Modules/Export/Export.html"
-                    })
-                    .state('cms', {
-                        url: "/cms",
-                        templateUrl: "Modules/CMS/CMS.html",
-                        onEnter: function (IdentityService, $state) {
-                            if (!IdentityService.token) {
-                                console.log(IdentityService.token);
-                                $state.go("login");
-                            }
-                        }
-                    });
-            }
-            
+          
             $(document).ready(function () {
                 $(document).click(function(e) {
                     if ($(e.target).parents(".button").parents(".dropdown").length < 1) {
@@ -91,29 +58,26 @@
             });
         </script>
         
-        <div class="context-menu position-fixed" id="customer-context-menu">
+        <div class="context-menu position-fixed" id="customer-context-menu" data-ng-controller="CustomerActionsController as vm">
             <ul>
-                <li>Edit Customer</li>
-                <li style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc">Delete Customer</li>
+                <li data-ng-click="vm.editCustomer()">Edit Customer</li>
+                <li style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc" data-ng-click="vm.deleteCustomer()">Delete Customer</li>
                 <li>Center Map</li>
             </ul>
         </div>
         
-        <style type="text/css">
-            .context-menu {background-color: white; border: 1px solid #ccc; display: none}
-            .context-menu.open {display: block}
-            .context-menu.open li {
-                padding: 5px 10px;list-style-type: none; font-size: 11px
-            }
-            .context-menu.open li:hover {cursor: pointer; background-color: #efefef}
-        </style>
-        
-        <script src="/Modules/CMS/Map/MapsController.js"></script>
-        <script src="/Modules/CMS/Map/Map.js"></script>
         <script src="/Modules/Navigation/PageController.js"></script>
         <script src="/Modules/Navigation/MainMenuController.js"></script>
-        <script src="/Modules/CMS/Editor/Editor.js"></script>
+        <script src="/Modules/Import/ImportController.js"></script>
+        <script src="/Modules/Import/ImportService.js"></script>
+        <script src="/Modules/Export/ExportController.js"></script>
+        <script src="/Modules/Export/ExportService.js"></script>
         <script src="/Modules/CMS/CMS.js"></script>
+        <script src="/Modules/CMS/CollectionUtils.js"></script>
+        <script src="/Modules/CMS/Map/MapsController.js"></script>
+        <script src="/Modules/CMS/Map/Map.js"></script>
+        <script src="/Modules/CMS/Editor/EditorService.js"></script>
+        <script src="/Modules/CMS/Editor/EditorController.js"></script>
         <script src="/Modules/CMS/Boundaries/BoundariesController.js"></script>
         <script src="/Modules/CMS/Boundaries/BoundaryService.js"></script>
         <script src="/Modules/CMS/Boundaries/Boundaries.js"></script>
@@ -122,16 +86,18 @@
         <script src="/Modules/CMS/Categories/CategoryService.js"></script>
         <script src="/Modules/CMS/Categories/Categories.js"></script>
         <script src="/Modules/CMS/Categories/Category.js"></script>
+        <script src="/Modules/CMS/Customers/CustomerActionsController.js"></script>
         <script src="/Modules/CMS/Customers/CustomersController.js"></script>
         <script src="/Modules/CMS/Customers/CustomerService.js"></script>
         <script src="/Modules/CMS/Customers/Customers.js"></script>
-        <script src="/Modules/CMS/Customers/Customer.js"></script>
         <script src="/Modules/Security/LoginController.js"></script>
         <script src="/Modules/Security/AuthenticationService.js"></script>
         <script src="/Modules/Security/OAuthInterceptor.js"></script>
         <script src="/Modules/Security/LoginController.js"></script>
         <script src="/Modules/Security/IdentityService.js"></script>
-        <script src="/Modules/CMS/CollectionUtils.js"></script>
+        <script src="/Modules/Security/UsersController.js"></script>
+        <script src="/Modules/Security/Users.js"></script>
+        <script src="/Modules/Common/Startup.js"></script>
         <script src="/Libraries/ui-bootstrap-custom-0.10.0.min.js"></script>
         <script src="/Libraries/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
     </body>

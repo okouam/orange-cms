@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using OrangeCMS.Application.Providers;
 using OrangeCMS.Application.Services;
 using OrangeCMS.Application.ViewModels;
 using OrangeCMS.Domain;
@@ -16,7 +14,8 @@ namespace OrangeCMS.Application.Controllers
         private readonly ICustomerService customerService;
         private readonly IMappingEngine mapper;
 
-        public CustomersController(ISecurityService securityService, ICustomerService customerService, IMappingEngine mapper) : base(securityService)
+        public CustomersController(IIdentityProvider identityProvider, ICustomerService customerService, IMappingEngine mapper)
+            : base(identityProvider)
         {
             this.customerService = customerService;
             this.mapper = mapper;

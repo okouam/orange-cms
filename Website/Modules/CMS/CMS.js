@@ -5,7 +5,6 @@
     angular
         .module("geocms")
         .service("GeoCMS.CMS", [
-            "GeoCMS.CMS.Editor",
             "GeoCMS.CMS.Customers.Customers",
             "GeoCMS.CMS.Boundaries.Boundaries",
             "GeoCMS.CMS.Categories.Categories",
@@ -17,7 +16,7 @@
             CMS
         ]);
 
-    function CMS(Editor, Customers, Boundaries, Categories, Map, CustomerService, BoundaryService, CategoryService, Utils) {
+    function CMS(Customers, Boundaries, Categories, Map, CustomerService, BoundaryService, CategoryService, Utils) {
 
         var self = this;
 
@@ -37,21 +36,10 @@
             Utils.replaceContents(results, self.categories);
         });
 
-        Editor.onSubmitChanges = function (customer) {
-            Customers.saveOrUpdate(customer, function() {
-                self.mode = 'map';
-            });
-        };
-
         this.mode = 'map';
 
         this.query = {
             strMatch: null
-        };
-
-        this.edit = function(customer) {
-            self.mode = 'editor';
-            Editor.current = customer;
         };
 
         this.highlight = function(id) {

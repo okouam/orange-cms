@@ -8,53 +8,11 @@
         <input data-ng-model="vm.query.strMatch" style="width: 411px" data-ng-change="vm.search()" type="text" />
     </div>
     <ul context-menu data-target="customer-context-menu">
-        <li class="clickable row" style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers" data-ng-class="customer.selected ? 'active' : 'inactive'">
+        <li class="clickable row" style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers" data-ng-mouseover="vm.highlight(customer)">
             <div style="display: flex">
-                <div class="customer-summary" data-ng-click="vm.toggleEditing(customer)">
+                <div class="customer-summary">
                     <span style="margin-right: 5px">{{customer.name}}</span>
                     <span class="customer-phone">{{customer.telephone}}</span>
-                </div>
-            </div>
-            <div data-ng-if="customer.isEditing">
-                <div style="background-color: #eaeaea; border-radius: 5px; padding:5px; margin-top: 10px; border: 1px solid #ccc">
-                    <tabset type="pills" vertical="false" class="customer-details" style="margin-top: 2px; margin-left: 10px">
-                        <tab>
-                            <tab-heading>Client</tab-heading>
-                            <h2>Infos Générales</h2>
-                            <label><span>Telephone</span><input type="text" /></label>
-                            <label><span>Nom Abonné</span><input type="text" /></label>
-                            <label><span>Rue, numéro</span><input type="text" /></label>
-                            <label><span>Repère 1</span><input type="text" /></label>
-                            <label><span>Repère 2</span><input type="text" /></label>
-                            <label><span>Quartier</span><input type="text" /></label>
-                            <label><span>Village</span><input type="text" /></label>
-                            <label><span>Région</span><input type="text" /></label>
-                            <h2>Démographique</h2>
-                            <label><span>Sexe </span><select></select> </label>
-                            <label><span>Age</span><select></select></label>
-                            <label><span>Status</span><select></select></label>
-                            <label><span>Taille du foyer</span><select></select></label>
-                        </tab>
-                        <tab>
-                            <tab-heading>Social</tab-heading>
-                            <label>Emploi</label>
-                            <label>Fonction</label>
-                            <label>Revenus</label>
-                        </tab>
-                        <tab>
-                            <tab-heading>Abonnement</tab-heading>
-                            <h2>Abonnement Mobile</h2>
-                            <h2>Abonnement ADSL</h2>
-                            <h2>Equipement</h2>
-                        </tab>
-                        <tab><tab-heading>Commentaires</tab-heading></tab>
-                        <tab><tab-heading>Administration</tab-heading></tab>
-                    </tabset>
-                    <div class="actions">
-                        <button style="float: right" class="action green" data-ng-click="customer.isEditing = false"><span class="label">Save</span></button>
-                        <button style="float: right" class="action red" data-ng-click="customer.isEditing = false"><span class="label">Cancel</span></button>
-                    </div>
-                    <div style="clear: both"></div>
                 </div>
             </div>
         </li>

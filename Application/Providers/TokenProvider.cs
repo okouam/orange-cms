@@ -9,11 +9,11 @@ namespace OrangeCMS.Application.Providers
 {
     public class TokenProvider : OAuthAuthorizationServerProvider
     {
-        private readonly ISecurityService securityService;
+        private readonly IIdentityProvider identityProvider;
 
-        public TokenProvider(ISecurityService securityService)
+        public TokenProvider(IIdentityProvider identityProvider)
         {
-            this.securityService = securityService;
+            this.identityProvider = identityProvider;
         }
 
 #pragma warning disable 1998
@@ -28,7 +28,7 @@ namespace OrangeCMS.Application.Providers
         public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
 #pragma warning restore 1998
         {
-            var user = securityService.Authenticate(context.UserName, context.Password);
+            var user = identityProvider.Authenticate(context.UserName, context.Password);
             
             if (user != null)
             {

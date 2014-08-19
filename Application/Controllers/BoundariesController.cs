@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
+using OrangeCMS.Application.Providers;
 using OrangeCMS.Application.Services;
 using OrangeCMS.Application.ViewModels;
 
@@ -12,7 +13,7 @@ namespace OrangeCMS.Application.Controllers
         private readonly IMappingEngine mapper;
         private readonly IBoundaryService boundaryService;
 
-        public BoundariesController(IMappingEngine mapper, IBoundaryService boundaryService, ISecurityService securityService) : base(securityService)
+        public BoundariesController(IMappingEngine mapper, IBoundaryService boundaryService, IIdentityProvider identityProvider) : base(identityProvider)
         {
             this.mapper = mapper;
             this.boundaryService = boundaryService;

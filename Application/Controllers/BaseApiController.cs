@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using OrangeCMS.Application.Services;
+using OrangeCMS.Application.Providers;
 using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Controllers
@@ -8,19 +8,19 @@ namespace OrangeCMS.Application.Controllers
     {
         protected Client CurrentClient 
         {
-            get { return securityService.CurrentUser.Client; }
+            get { return identityProvider.User.Client; }
         }
 
         protected User CurrentUser
         {
-            get { return securityService.CurrentUser; }
+            get { return identityProvider.User; }
         }
         
-        protected readonly ISecurityService securityService;
+        protected readonly IIdentityProvider identityProvider;
 
-        protected BaseApiController(ISecurityService securityService)
+        protected BaseApiController(IIdentityProvider identityProvider)
         {
-            this.securityService = securityService;
+            this.identityProvider = identityProvider;
         }
     }
 }
