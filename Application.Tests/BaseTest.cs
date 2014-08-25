@@ -40,7 +40,7 @@ namespace OrangeCMS.Application.Tests
         {
             var connectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
             var sourceDatabaseName = ConfigurationManager.AppSettings["DatabaseName"];
-            DatabaseCleaner.Restore(connectionString, sourceDatabaseName, new SqlConnectionStringBuilder(connectionString).InitialCatalog);
+            //DatabaseCleaner.Restore(connectionString, sourceDatabaseName, new SqlConnectionStringBuilder(connectionString).InitialCatalog);
             container = Startup.CreateContainer(x => x.For<IIdentityProvider>().Use<FakeIdentityProvider>().Singleton());
             FakeIdentityProvider = (FakeIdentityProvider)container.GetInstance<IIdentityProvider>();
         }

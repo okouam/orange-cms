@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using DotSpatial.Topology;
 using OrangeCMS.Domain;
 using System.Data.Entity;
 
@@ -8,15 +10,15 @@ namespace OrangeCMS.Application.Services
 {
     public class CustomerService : ICustomerService
     {
-        public IEnumerable<Customer> FindByClient(long id)
+        public async Task<IEnumerable<Customer>> FindByClient(long id)
         {
             using (var dbContext = new DatabaseContext())
             {
-                return dbContext.Customers.Where(x => x.Client.Id == id);
+                return await dbContext.Customers.Where(x => x.Client.Id == id).ToListAsync();
             }
         }
 
-        public Customer Save(User user, Customer customer)
+        public async Task<Customer> Save(User user, Customer customer)
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -24,36 +26,36 @@ namespace OrangeCMS.Application.Services
                 customer.CreatedBy = user;
                 customer.Client = user.Client;
                 dbContext.Customers.Add(customer);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
                 return customer;
             }
         }
 
-        public Customer FindById(long id)
+        public async Task<Customer> FindById(long id)
         {
             using (var dbContext = new DatabaseContext())
             {
-                return dbContext
+                return await dbContext
                     .Customers
                     .Include(x => x.CreatedBy)
                     .Include(x => x.Categories)
-                    .SingleOrDefault(x => x.Id == id);
+                    .SingleOrDefaultAsync(x => x.Id == id);
             }
         }
 
-        public Customer Update(Customer newValues)
+        public async Task<Customer> Update(Customer newValues)
         {
             using (var dbContext = new DatabaseContext())
             {
                 var customer = dbContext.Customers.Find(newValues.Id);
                 var entry = dbContext.Entry(customer);
                 entry.CurrentValues.SetValues(newValues);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
                 return customer;
             }
         }
 
-        public IEnumerable<Customer> Search(long client, string strMatch, long? category)
+        public async Task<IEnumerable<Customer>> Search(long client, string strMatch, long? category)
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -69,18 +71,32 @@ namespace OrangeCMS.Application.Services
                     query = query.Where(x => x.Categories.Any(y => y.Id == category));
                 }
 
-                return query.OrderBy(x => x.Name).Take(100).ToList(); // to review!
+                return await query.OrderBy(x => x.Name).Take(100).ToListAsync();
             }
         }
 
-        public void Delete(long id)
+        public async void Delete(long id)
         {
             using (var dbContext = new DatabaseContext())
             {
                 var customer = dbContext.Customers.Find(id);
                 dbContext.Customers.Remove(customer);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
+        }
+
+        public Customer CreateFakeCustomer(Client client, IList<Category> categories, IList<User> users, Coordinate coordinates)
+        {
+            return new Customer
+            {
+                Name = Faker.NameFaker.Name(),
+                Telephone = Faker.PhoneFaker.InternationalPhone(),
+                Longitude = (decimal) coordinates.X,
+                Latitude = (decimal) coordinates.Y,
+                Client = client,
+                CreatedBy = users[Faker.NumberFaker.Number(0, users.Count)],
+                Categories = categories.Sample(0, 3).ToList()
+            };
         }
     }
 }

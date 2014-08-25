@@ -8,10 +8,11 @@
             "GeoCMS.CMS",
             "GeoCMS.CMS.Boundaries.Boundaries",
             "GeoCMS.CMS.CollectionUtils",
+            "GeoCMS.CMS.Map",
             BoundariesController
         ]);
 
-    function BoundariesController(CMS, Boundaries, Utils) {
+    function BoundariesController(CMS, Boundaries, Utils, Map) {
 
         var vm = this;
 
@@ -25,6 +26,13 @@
 
         vm.select = function (item) {
             item.selected = !item.selected;
+            if (item.selected) {
+                Map.hideBoundary(item);
+            } else {
+                Boundaries.get(item.id, function (result) {
+                    Map.showBoundary(result);
+                });
+            }
         };
 
         vm.boundaries = CMS.boundaries;

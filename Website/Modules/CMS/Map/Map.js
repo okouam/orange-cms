@@ -24,6 +24,8 @@
             self.resizeMapContainer();
         };
 
+        this.polygons = [];
+
         /** Resize the Google Maps container every time the window dimensions change. **/
         $(window).resize(Map.resizeMapContainer);
         
@@ -31,6 +33,20 @@
         this.resizeMapContainer = function() {
             var containerHeight = $("#cms-map").height();
             $("#cms-map .angular-google-map-container").height(containerHeight);
+        };
+        
+        this.showBoundary = function(boundary) {
+            console.log("Showing boundary:", boundary);
+            var polygon = {
+                path: "",
+                stroke: "",
+                fill: ""
+            };
+            self.polygons.push(polygon);
+        };
+
+        this.hideBoundary = function(boundary) {
+            console.log("Hiding boundary:", boundary);
         };
 
         this.centerOnMarkers = function () {

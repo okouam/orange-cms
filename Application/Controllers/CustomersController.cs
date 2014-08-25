@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using OrangeCMS.Application.Providers;
@@ -22,26 +23,26 @@ namespace OrangeCMS.Application.Controllers
         }
 
         [HttpPost, Route("customers")]
-        public CustomerModel Create(CreateCustomerModel model)
+        public async Task<CustomerModel> Create(CreateCustomerModel model)
         {
             var customer = mapper.Map<Customer>(model);
-            customerService.Save(CurrentUser, customer);
+            await customerService.Save(CurrentUser, customer);
             return mapper.Map<CustomerModel>(customer);
         }
 
         [HttpPost, Route("customers/{id}")]
-        public CustomerModel Get(long id)
+        public async Task<CustomerModel> Get(long id)
         {
-            var customer = customerService.FindById(id);
+            var customer = await customerService.FindById(id);
             return mapper.Map<CustomerModel>(customer);
         }
 
         [HttpPatch, Route("customers/{id}")]
-        public CustomerModel Update(long id, UpdateCustomerModel model)
+        public async Task<CustomerModel> Update(long id, UpdateCustomerModel model)
         {
             var newValues = mapper.Map<Customer>(model);
             newValues.Id = id;
-            var customer = customerService.Update(newValues);
+            var customer = await customerService.Update(newValues);
             return mapper.Map<CustomerModel>(customer);
         }
 
@@ -52,9 +53,9 @@ namespace OrangeCMS.Application.Controllers
         }
 
         [HttpGet, Route("customers")]
-        public IList<CustomerModel> Search(string strMatch = null, long? category = null)
+        public async Task<IList<CustomerModel>> Search(string strMatch = null, long? category = null)
         {
-            var customers = customerService.Search(CurrentClient.Id, strMatch, category);
+            var customers = await customerService.Search(CurrentClient.Id, strMatch, category);
             return mapper.Map<IList<CustomerModel>>(customers);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using OrangeCMS.Application.Providers;
@@ -21,9 +22,9 @@ namespace OrangeCMS.Application.Controllers
         }
 
         [HttpGet, Route("categories")]
-        public IList<CategoryModel> GetAll()
+        public async Task<IList<CategoryModel>> GetAll()
         {
-            var categories = categoryService.FindByClient(CurrentClient.Id);
+            var categories = await categoryService.FindByClient(CurrentClient.Id);
             var models = mapper.Map<IList<CategoryModel>>(categories);
             return models;
         }

@@ -18,6 +18,8 @@
 
         vm.customers = CMS.customers;
 
+        vm.polygons = Map.polygons;
+
         vm.highlight = function (id) {
             $(".marker-" + id).css({
                 backgroundColor: "white", color: "black"

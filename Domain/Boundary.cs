@@ -4,6 +4,8 @@
     {
         public Client Client { get; set; }
 
+        public string WKT { get; set; }
+
         public string Name { get; set; }
 
         public long Id { get; set; }

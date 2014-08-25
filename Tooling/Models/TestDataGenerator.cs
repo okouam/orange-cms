@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NLog;
 using OrangeCMS.Application;
+using OrangeCMS.Application.Services;
 using OrangeCMS.Domain;
 
 namespace OrangeCMS.Tooling
@@ -10,10 +11,12 @@ namespace OrangeCMS.Tooling
     class TestDataGenerator
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly IBoundaryService boundaryService = new BoundaryService();
+        private readonly ICustomerService customerService = new CustomerService();
 
         private int numUsers;
         private int numCustomers;
-        private int numBoundaries;
+        private string boundaryShapefile;
         private int numCategories;
         private IList<Customer> customers;
         private IList<Boundary> boundaries;
@@ -86,9 +89,9 @@ namespace OrangeCMS.Tooling
             return this;
         }
 
-        internal TestDataGenerator WithBoundaries(int numBoundaries)
+        internal TestDataGenerator WithBoundaries(string boundaryShapefile)
         {
-            this.numBoundaries = numBoundaries;
+            this.boundaryShapefile = boundaryShapefile;
             return this;
         }
 
@@ -105,41 +108,30 @@ namespace OrangeCMS.Tooling
 
         private void GenerateBoundaries(Client client)
         {
-            boundaries = new List<Boundary>();
+            boundaries = boundaryService.GetBoundariesFromZip(boundaryShapefile, "name").ToList();
 
-            numBoundaries.Times(() =>
+            foreach (var boundary in boundaries)
             {
-                var boundary = new Boundary
-                {
-                    Client = client,
-                    Name = Faker.LocationFaker.City()
-                };
-
-                boundaries.Add(boundary);
-            });
+                boundary.Client = client;
+            }
         }
 
         private void GenerateCustomers(Client client)
         {
             customers = new List<Customer>();
 
-            numCustomers.Times(() =>
+            var filename = boundaryService.ExtractShapefileFromZip(boundaryShapefile);
+
+            var coordinates = boundaryService.GenerateRandomCoordinatesIn(filename, numCustomers);
+
+            for (var i = 0; i < numCustomers; i++)
             {
-                var customer = new Customer
-                {
-                    Name = Faker.NameFaker.Name(),
-                    Telephone = Faker.PhoneFaker.InternationalPhone(),
-                    Longitude = Faker.NumberFaker.Number(20, 120),
-                    Latitude = Faker.NumberFaker.Number(20, 120),
-                    Client = client,
-                    CreatedBy = users[Faker.NumberFaker.Number(0, users.Count)],
-                    Categories = categories.Sample(0, 3).ToList()
-                };
+                customers.Add(customerService.CreateFakeCustomer(client, categories, users, coordinates[i]));
+            }
 
-                customers.Add(customer);
-            });
+            customers = customers.DistinctBy(x => x.Name).DistinctBy(x => x.Telephone).ToList();
         }
-
+        
         private void GenerateCategories(Client client)
         {
             categories = new List<Category>();

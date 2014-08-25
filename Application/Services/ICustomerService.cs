@@ -1,20 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using DotSpatial.Topology;
 using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Services
 {
     public interface ICustomerService
     {
-        IEnumerable<Customer> FindByClient(long id);
+        Task<IEnumerable<Customer>> FindByClient(long id);
 
-        Customer Save(User currentUser, Customer customer);
+        Task<Customer> Save(User currentUser, Customer customer);
 
-        Customer FindById(long id);
+        Task<Customer> FindById(long id);
 
-        Customer Update(Customer newValues);
+        Task<Customer> Update(Customer newValues);
 
-        IEnumerable<Customer> Search(long clientId, string strMatch, long? category);
+        Task<IEnumerable<Customer>> Search(long clientId, string strMatch, long? category);
 
         void Delete(long id);
+
+        Customer CreateFakeCustomer(Client client, IList<Category> categories, IList<User> users, Coordinate coordinate);
     }
 }

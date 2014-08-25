@@ -162,6 +162,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="gruntfile.js" />
     <Content Include="Libraries\angular-local-storage.js" />
     <Content Include="Libraries\ng-context-menu.js" />
     <Content Include="Modules\CMS\Customers\CustomerActionsController.js" />
@@ -263,6 +264,9 @@
       <Project>{C2CD2ABB-14FB-41D1-B729-36402BFAAFA1}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="package.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

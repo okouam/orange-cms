@@ -14,8 +14,8 @@
             search: function (q, onSuccess, onError) {
                 $http.get("/boundaries").success(onSuccess).error(onError);
             },
-            saveOrUpdate: function (boundary, onSuccess) {
-                onSuccess();
+            get: function(id, onSuccess, onError) {
+                $http.get("/boundaries/" + id).success(onSuccess).error(onError);
             }
         };
     }

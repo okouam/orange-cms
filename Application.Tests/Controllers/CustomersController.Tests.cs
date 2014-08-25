@@ -21,11 +21,11 @@ namespace OrangeCMS.Application.Tests.CategoriesControllerTests
         }
 
         [Test]
-        public void When_getting_a_customer_retrieves_all_the_customer_details()
+        public async void When_getting_a_customer_retrieves_all_the_customer_details()
         {
             var customer = GetDatabaseContext().Customers.First();
             
-            var model = controller.Get(customer.Id);
+            var model = await controller.Get(customer.Id);
 
             Assert.That(model.Id, Is.EqualTo(customer.Id));
             Assert.That(model.Name, Is.EqualTo(customer.Name));
@@ -36,33 +36,33 @@ namespace OrangeCMS.Application.Tests.CategoriesControllerTests
         }
 
         [Test]
-        public void When_searching_for_customers_can_search_on_name()
+        public async void When_searching_for_customers_can_search_on_name()
         {
-            var customers = GetDatabaseContext().Customers.Where(x => x.Name.Contains("an"));
+            var customers = GetDatabaseContext().Customers.Where(x => x.Name.Contains("an") && x.Client.Id == CurrentClient.Id);
 
-            var models = controller.Search("an");
+            var models = await controller.Search("an");
 
             Assert.That(models.Count, Is.EqualTo(customers.Count()));
         }
 
         [Test]
-        public void When_searching_for_customers_can_search_on_telephone()
+        public async void When_searching_for_customers_can_search_on_telephone()
         {
-            var customers = GetDatabaseContext().Customers.Where(x => x.Telephone.Contains("12"));
+            var customers = GetDatabaseContext().Customers.Where(x => x.Telephone.Contains("12") && x.Client.Id == CurrentClient.Id);
 
-            var models = controller.Search("12");
+            var models = await controller.Search("12");
 
             Assert.That(models.Count, Is.EqualTo(customers.Count()));
         }
 
         [Test]
-        public void When_searching_for_customers_can_search_by_category()
+        public async void When_searching_for_customers_can_search_by_category()
         {
             var category = GetDatabaseContext().Categories.First();
 
             var customers = GetDatabaseContext().Customers.Where(x => x.Categories.Any(y => y.Id == category.Id));
 
-            var models = controller.Search(null, category.Id);
+            var models = await controller.Search(null, category.Id);
 
             Assert.That(models.Count, Is.EqualTo(customers.Count()));
         }
@@ -101,7 +101,7 @@ namespace OrangeCMS.Application.Tests.CategoriesControllerTests
         }
 
         [Test]
-        public void When_updating_customers_updates_the_database()
+        public async void When_updating_customers_updates_the_database()
         {
             var customer = GetDatabaseContext().Customers.First();
 
@@ -113,10 +113,10 @@ namespace OrangeCMS.Application.Tests.CategoriesControllerTests
                 Telephone = "+66-(0)2055-9386-0352"
             };
 
-            var model = controller.Update(customer.Id, updateCustomerModel);
+            var model = await controller.Update(customer.Id, updateCustomerModel);
             Assert.That(model.Name, Is.EqualTo("Roger Moore"));
 
-            model = controller.Get(customer.Id);
+            model = await controller.Get(customer.Id);
             Assert.That(model.Name, Is.EqualTo("Roger Moore"));
         }
     }

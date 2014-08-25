@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Boundary.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="Config.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

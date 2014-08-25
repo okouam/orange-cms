@@ -5,3 +5,6 @@ packages/
 *.Cache
 *.cache
 *.bak
+node_modules/
+*.user
+Website/node_modules/

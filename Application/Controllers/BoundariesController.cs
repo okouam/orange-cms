@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using OrangeCMS.Application.Providers;
 using OrangeCMS.Application.Services;
 using OrangeCMS.Application.ViewModels;
+using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Controllers
 {
@@ -20,11 +25,40 @@ namespace OrangeCMS.Application.Controllers
         }
 
         [HttpGet, Route("boundaries")]
-        public IList<BoundaryModel> GetAll()
+        public async Task<IList<BoundaryModel>> GetAll()
         {
-            var boundaries = boundaryService.FindByClient(CurrentClient.Id);
+            var boundaries = await boundaryService.FindByClient(CurrentClient.Id);
             var models = mapper.Map<IList<BoundaryModel>>(boundaries);
             return models;
+        }
+
+        [HttpGet, Route("boundaries/{id}")]
+        public async Task<BoundaryModel> Get(long id)
+        {
+            var boundary = await boundaryService.Get(id);
+            return mapper.Map<BoundaryModel>(boundary);
+        }
+
+        [HttpPost, Route("boundaries")]
+        public async Task<IList<BoundaryModel>> Create(string nameColumn)
+        {
+            var result = new List<Boundary>();
+
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                var destination = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+                Directory.CreateDirectory(destination);
+                var streamProvider = new MultipartFormDataStreamProvider(destination);
+                await Request.Content.ReadAsMultipartAsync(streamProvider);
+
+                foreach (var file in streamProvider.FileData)
+                {
+                    var boundaries = await boundaryService.SaveBoundariesInZip(nameColumn, new FileInfo(file.LocalFileName).FullName, CurrentClient.Id);
+                    result.AddRange(boundaries);
+                }   
+            }
+
+            return mapper.Map<IList<BoundaryModel>>(result);
         }
     }
 }

@@ -2,4 +2,12 @@
     <marker data-ng-repeat="customer in vm.customers" control="vm.map" coords="customer" click="vm.highlight(customer.id)" idkey="customer.id">
         <marker-label content="customer.name" anchor="30 -5" class="marker-title marker-{{customer.id}}"></marker-label>
     </marker>
+    <polygon data-ng-repeat="polygon in polygons track by polygon.id" 
+             data-fill="polygon.fill" 
+             data-editable="false" 
+             data-stroke ="polygon.stroke"
+             data-static="true"
+             data-geodesic="true"
+             data-path="polygon.path"
+             data-draggable="false"></polygon>
 </google-map>
