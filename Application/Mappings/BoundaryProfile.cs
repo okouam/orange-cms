@@ -9,7 +9,6 @@ namespace OrangeCMS.Application.Mappings
     {
         protected override void Configure()
         {
-            CreateMap<BoundaryModel, Boundary>();
             CreateMap<Boundary, BoundaryModel>();
 
             CreateMap<Boundary, BoundarySummaryModel>();

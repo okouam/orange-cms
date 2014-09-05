@@ -6,11 +6,6 @@ namespace OrangeCMS.Application.Controllers
 {
     public class BaseApiController : ApiController
     {
-        protected Client CurrentClient 
-        {
-            get { return identityProvider.User.Client; }
-        }
-
         protected User CurrentUser
         {
             get { return identityProvider.User; }

@@ -1,0 +1,10 @@
+﻿CREATE TABLE Customers (
+	[Id] BIGINT IDENTITY(1,1), 
+	[Name] VARCHAR(MAX) NOT NULL,
+	[Longitude] DECIMAL NOT NULL,
+	[ImageUrl] VARCHAR(MAX) NULL,
+	[Latitude] DECIMAL NOT NULL,
+	[Telephone] VARCHAR(MAX) NOT NULL,
+	[DateCreated] DATE NOT NULL,
+	CONSTRAINT PK_Customers PRIMARY KEY ([Id]),
+)

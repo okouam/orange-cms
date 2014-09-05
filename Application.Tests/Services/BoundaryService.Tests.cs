@@ -14,6 +14,7 @@ namespace OrangeCMS.Application.Tests.Services
             var boundaryService = new BoundaryService();
             var shapefile = boundaryService.ExtractShapefileFromZip(Path.Combine(Environment.CurrentDirectory, "TestData", "Countries.zip"));
             var coordinates = boundaryService.GenerateRandomCoordinatesIn(shapefile, 10);
+            Assert.That(coordinates.Count, Is.EqualTo(10));
         }
     }
 }

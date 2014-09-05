@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using NUnit.Framework;
 using OrangeCMS.Application.Controllers;
 using OrangeCMS.Domain;
@@ -18,7 +15,7 @@ namespace OrangeCMS.Application.Tests.Controllers
         public override void SetUp()
         {
             base.SetUp();
-            FakeIdentityProvider.AssignCurrentUser(GetSpecificUser(Roles.Standard));
+            fakeIdentityProvider.AssignCurrentUser(GetSpecificUser(Roles.Standard));
             controller = container.GetInstance<BoundariesController>();
         }
 
@@ -43,29 +40,10 @@ namespace OrangeCMS.Application.Tests.Controllers
         [Test]
         public async void When_creating_a_boundary_stores_it_in_the_database()
         {
-            var content = CreateMultipartFormDataContent("Countries.zip");
+            var content = Helpers.CreateMultipartFormDataContent("Countries.zip");
             controller.Request = new HttpRequestMessage(HttpMethod.Post, "boundaries") { Content = content };
             var boundaries = await controller.Create("name");
             Assert.That(boundaries.Count, Is.EqualTo(177));
-        }
-
-        private MultipartFormDataContent CreateMultipartFormDataContent(string filename)
-        {
-            var content = new MultipartFormDataContent();
-            var fileContent = new ByteArrayContent(GetFileBytes(filename));
-            var contentDisposition = new ContentDispositionHeaderValue("attachment")
-            {
-                FileName = Guid.NewGuid() .ToString()
-            };
-            fileContent.Headers.ContentDisposition = contentDisposition;
-            content.Add(fileContent);
-            return content;
-        }
-
-        private byte[] GetFileBytes(string filename)
-        {
-            var path = Path.Combine(Environment.CurrentDirectory, "TestData", filename);
-            return File.ReadAllBytes(path);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using GeoCMS.Application;
+using Codeifier.OrangeCMS.Application;
 using OrangeCMS.Infrastructure;
 
 namespace Application

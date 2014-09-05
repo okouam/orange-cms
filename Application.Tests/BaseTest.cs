@@ -1,11 +1,10 @@
 ﻿using System.Configuration;
-using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
-using GeoCMS.Application;
+using Codeifier.OrangeCMS.Application;
 using NUnit.Framework;
 using OrangeCMS.Application.Providers;
 using OrangeCMS.Domain;
+using Codeifier.OrangeCMS.Repositories;
 using StructureMap;
 
 namespace OrangeCMS.Application.Tests
@@ -13,16 +12,12 @@ namespace OrangeCMS.Application.Tests
     class BaseTest
     {
         protected IContainer container;
-        protected FakeIdentityProvider FakeIdentityProvider;
+        protected FakeClock fakeClock;
+        protected FakeIdentityProvider fakeIdentityProvider;
 
         protected User CurrentUser
         {
-            get { return FakeIdentityProvider.User; }
-        }
-
-        protected Client CurrentClient
-        {
-            get { return FakeIdentityProvider.CurrentClient; }
+            get { return fakeIdentityProvider.User; }
         }
 
         protected DatabaseContext GetDatabaseContext()
@@ -32,17 +27,19 @@ namespace OrangeCMS.Application.Tests
 
         protected User GetSpecificUser(string role)
         {
-            return GetDatabaseContext().Users.Where(x => x.Role == role).Include(x => x.Client).First();
+            return GetDatabaseContext().Users.First(x => x.Role == role);
         }
 
         [SetUp]
         public virtual void SetUp()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
-            var sourceDatabaseName = ConfigurationManager.AppSettings["DatabaseName"];
-            //DatabaseCleaner.Restore(connectionString, sourceDatabaseName, new SqlConnectionStringBuilder(connectionString).InitialCatalog);
-            container = Startup.CreateContainer(x => x.For<IIdentityProvider>().Use<FakeIdentityProvider>().Singleton());
-            FakeIdentityProvider = (FakeIdentityProvider)container.GetInstance<IIdentityProvider>();
+            container = Startup.CreateContainer(x =>
+            {
+                x.For<IIdentityProvider>().Use<FakeIdentityProvider>().Singleton();
+                x.For<IClock>().Use<FakeClock>().Singleton();
+            });
+            fakeIdentityProvider = (FakeIdentityProvider)container.GetInstance<IIdentityProvider>();
+            fakeClock = (FakeClock)container.GetInstance<IClock>();
         }
 
         [TearDown]

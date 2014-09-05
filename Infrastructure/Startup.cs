@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Application.DependencyResolution;
@@ -14,7 +13,7 @@ using Owin;
 using System.Web.Http;
 using StructureMap;
 
-namespace GeoCMS.Application
+namespace Codeifier.OrangeCMS.Application
 {
     public class Startup
     {

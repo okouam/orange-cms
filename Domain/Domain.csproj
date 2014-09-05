@@ -7,8 +7,8 @@
     <ProjectGuid>{F46272ED-71D9-4C82-8207-2C6F5C8DFBDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OrangeCMS.Domain</RootNamespace>
-    <AssemblyName>OrangeCMS.Domain</AssemblyName>
+    <RootNamespace>Codeifier.OrangeCMS.Domain</RootNamespace>
+    <AssemblyName>Codeifier.OrangeCMS.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,24 +30,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotSpatial.Serialization">
+      <HintPath>..\packages\DotSpatial.Serialization.1.7\lib\net40-Client\DotSpatial.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Topology">
+      <HintPath>..\packages\DotSpatial.Topology.1.7\lib\net40-Client\DotSpatial.Topology.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Boundary.cs" />
-    <Compile Include="Client.cs" />
-    <Compile Include="Contact.cs" />
-    <Compile Include="Customer.cs" />
+    <Compile Include="Models\Boundary.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Category.cs" />
-    <Compile Include="Roles.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Models\Roles.cs" />
+    <Compile Include="Providers\IClock.cs" />
+    <Compile Include="Providers\IIdentityProvider.cs" />
+    <Compile Include="Repositories\IBoundaryRepository.cs" />
+    <Compile Include="Services\IBoundaryService.cs" />
+    <Compile Include="Services\ICustomerService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\Parameters\UpdateCustomerParams.cs" />
+    <Compile Include="Services\Parameters\UpdateUserParams.cs" />
+    <Compile Include="Models\User.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

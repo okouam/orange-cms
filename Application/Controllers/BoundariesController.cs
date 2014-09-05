@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using OrangeCMS.Application.Providers;
-using OrangeCMS.Application.Services;
 using OrangeCMS.Application.ViewModels;
 using OrangeCMS.Domain;
+using OrangeCMS.Domain.Services;
 
 namespace OrangeCMS.Application.Controllers
 {
@@ -27,7 +27,7 @@ namespace OrangeCMS.Application.Controllers
         [HttpGet, Route("boundaries")]
         public async Task<IList<BoundaryModel>> GetAll()
         {
-            var boundaries = await boundaryService.FindByClient(CurrentClient.Id);
+            var boundaries = await boundaryService.GetAll();
             var models = mapper.Map<IList<BoundaryModel>>(boundaries);
             return models;
         }
@@ -53,7 +53,7 @@ namespace OrangeCMS.Application.Controllers
 
                 foreach (var file in streamProvider.FileData)
                 {
-                    var boundaries = await boundaryService.SaveBoundariesInZip(nameColumn, new FileInfo(file.LocalFileName).FullName, CurrentClient.Id);
+                    var boundaries = boundaryService.SaveBoundariesInZip(nameColumn, new FileInfo(file.LocalFileName).FullName);
                     result.AddRange(boundaries);
                 }   
             }

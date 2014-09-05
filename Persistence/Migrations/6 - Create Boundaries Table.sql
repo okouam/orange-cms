@@ -1,8 +1,0 @@
-﻿CREATE TABLE Boundaries (
-	[Id] BIGINT IDENTITY(1,1), 
-	[Name] VARCHAR(MAX) NOT NULL,
-	[ClientId] BIGINT NOT NULL,
-	[WKT] VARCHAR(MAX),
-	CONSTRAINT PK_Boundaries PRIMARY KEY ([Id]),
-	CONSTRAINT FK_Boundaries_Clients FOREIGN KEY([ClientId]) REFERENCES Clients([Id])
-)

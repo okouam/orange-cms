@@ -8,13 +8,11 @@ namespace OrangeCMS.Application.Mappings
     {
         protected override void Configure()
         {
-            CreateMap<UpdateUserModel, User>();
-
-            CreateMap<UserModel, User>();
             CreateMap<User, UserModel>();
 
-            CreateMap<CreateUserModel, User>();
-            
+            CreateMap<CreateUserModel, User>()
+                .ForMember(dest => dest.Id, src => src.Ignore());
+
             CreateMap<User, UserSummaryModel>();
         }
     }

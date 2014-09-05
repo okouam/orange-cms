@@ -7,8 +7,8 @@
     <ProjectGuid>{F48B4BE6-FD7E-477F-B796-864958C377F5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OrangeCMS.Application</RootNamespace>
-    <AssemblyName>OrangeCMS.Application</AssemblyName>
+    <RootNamespace>Codeifier.OrangeCMS.Application</RootNamespace>
+    <AssemblyName>Codeifier.OrangeCMS.Application</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -36,46 +36,11 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Analysis">
-      <HintPath>..\packages\DotSpatial.Analysis.1.7\lib\net40-Client\DotSpatial.Analysis.dll</HintPath>
+    <Reference Include="CsvHelper">
+      <HintPath>..\packages\CsvHelper.2.7.1\lib\net40-client\CsvHelper.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Controls">
-      <HintPath>..\packages\DotSpatial.Controls.1.7\lib\net40-Client\DotSpatial.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Data">
-      <HintPath>..\packages\DotSpatial.Data.1.7\lib\net40-Client\DotSpatial.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Data.Forms">
-      <HintPath>..\packages\DotSpatial.Data.Forms.1.7\lib\net40-Client\DotSpatial.Data.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Extensions">
-      <HintPath>..\packages\DotSpatial.Extensions.1.7\lib\net40-Client\DotSpatial.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Modeling.Forms">
-      <HintPath>..\packages\DotSpatial.Modeling.Forms.1.7\lib\net40-Client\DotSpatial.Modeling.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Mono">
-      <HintPath>..\packages\DotSpatial.Mono.1.7\lib\net40-Client\DotSpatial.Mono.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Projections">
-      <HintPath>..\packages\DotSpatial.Projections.1.7\lib\net40-Client\DotSpatial.Projections.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Projections.Forms">
-      <HintPath>..\packages\DotSpatial.Projections.Forms.1.7\lib\net40-Client\DotSpatial.Projections.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Serialization">
-      <HintPath>..\packages\DotSpatial.Serialization.1.7\lib\net40-Client\DotSpatial.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Symbology">
-      <HintPath>..\packages\DotSpatial.Symbology.1.7\lib\net40-Client\DotSpatial.Symbology.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Symbology.Forms">
-      <HintPath>..\packages\DotSpatial.Symbology.Forms.1.7\lib\net40-Client\DotSpatial.Symbology.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Topology">
-      <HintPath>..\packages\DotSpatial.Topology.1.7\lib\net40-Client\DotSpatial.Topology.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
@@ -83,9 +48,6 @@
     </Reference>
     <Reference Include="Faker">
       <HintPath>..\packages\Faker.1.2\lib\Faker.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -125,7 +87,6 @@
       <HintPath>..\packages\structuremap.web.3.0.0.108\lib\net40\StructureMap.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -133,9 +94,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Cors">
-      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -167,8 +125,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -177,40 +133,19 @@
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BoundariesController.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="Mappings\BoundaryProfile.cs" />
-    <Compile Include="Mappings\CategoryProfile.cs" />
-    <Compile Include="Mappings\ClientProfile.cs" />
     <Compile Include="Mappings\CustomerProfile.cs" />
     <Compile Include="Mappings\UserProfile.cs" />
     <Compile Include="Providers\BearerAuthorizationProvider.cs" />
+    <Compile Include="Providers\Clock.cs" />
     <Compile Include="Providers\IdentityProvider.cs" />
-    <Compile Include="Providers\IIdentityProvider.cs" />
-    <Compile Include="Repositories\CustomerRepository.cs" />
-    <Compile Include="Services\BoundaryService.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\CustomerService.cs" />
-    <Compile Include="Services\IBoundaryService.cs" />
-    <Compile Include="Services\ICategoryService.cs" />
-    <Compile Include="Services\ICustomerService.cs" />
-    <Compile Include="Services\IUserService.cs" />
-    <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\Boundaries\BoundaryModel.cs" />
     <Compile Include="ViewModels\Boundaries\BoundarySummaryModel.cs" />
-    <Compile Include="ViewModels\Categories\CategoryModel.cs" />
-    <Compile Include="ViewModels\Categories\CategorySummaryModel.cs" />
-    <Compile Include="ViewModels\Clients\ClientSummaryModel.cs" />
-    <Compile Include="ViewModels\Customers\CreateCustomerModel.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\SearchCategoriesModel.cs">
-      <DependentUpon>CategoriesController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\Users\CreateUserModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerSummaryModel.cs" />
     <Compile Include="ViewModels\Customers\SearchCustomersModel.cs" />
-    <Compile Include="ViewModels\Customers\UpdateCustomerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Providers\TokenProvider.cs" />
@@ -227,9 +162,9 @@
       <Project>{F46272ED-71D9-4C82-8207-2C6F5C8DFBDD}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Persistence\Persistence.csproj">
-      <Project>{7308bc3f-b2af-4d65-8fea-448865fcde81}</Project>
-      <Name>Persistence</Name>
+    <ProjectReference Include="..\Repositories\Repositories.csproj">
+      <Project>{7308BC3F-B2AF-4D65-8FEA-448865FCDE81}</Project>
+      <Name>Repositories</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

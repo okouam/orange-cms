@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using OrangeCMS.Application.Providers;
-using OrangeCMS.Application.Services;
 using OrangeCMS.Application.ViewModels;
 using OrangeCMS.Domain;
+using OrangeCMS.Domain.Services;
+using Codeifier.OrangeCMS.Domain.Services.Parameters;
 
 namespace OrangeCMS.Application.Controllers
 {
@@ -22,15 +23,17 @@ namespace OrangeCMS.Application.Controllers
         }
 
         [HttpPost, Route("users")]
-        public IHttpActionResult Create(CreateUserModel model)
+        public UserModel Create(CreateUserModel model)
         {
-            throw new NotImplementedException();
+            var user = mappingEngine.Map<User>(model);
+            userService.Save(user);
+            return mappingEngine.Map<UserModel>(user);
         }
 
         [HttpGet, Route("users")]
         public IEnumerable<UserModel> All()
         {
-            return mappingEngine.Map<IEnumerable<UserModel>>(userService.FindByClient(CurrentClient.Id));
+            return mappingEngine.Map<IEnumerable<UserModel>>(userService.GetAll());
         }
 
         [HttpPost, Route("users/{id}")]
@@ -42,9 +45,10 @@ namespace OrangeCMS.Application.Controllers
         }
 
         [HttpPatch, Route("users/{id}")]
-        public IHttpActionResult Update(long id, UpdateUserModel model)
+        public async Task<UserModel> Update(long id, UpdateUserModel model)
         {
-            throw new NotImplementedException();
+            var user = await userService.Update(id, mappingEngine.DynamicMap<UpdateUserParams>(model));
+            return mappingEngine.Map<UserModel>(user);
         }
 
         [HttpDelete, Route("users/{id}")]

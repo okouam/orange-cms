@@ -17,14 +17,9 @@ namespace OrangeCMS.Application.Tests
             get { return user; }
         }
 
-        public Client CurrentClient
+        public void AssignCurrentUser(User current)
         {
-            get { return user.Client; }
-        }
-
-        public void AssignCurrentUser(User user)
-        {
-            this.user = user;
+            this.user = current;
         }
     }
 }

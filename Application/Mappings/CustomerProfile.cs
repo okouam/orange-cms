@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using OrangeCMS.Application.Controllers;
+using Codeifier.OrangeCMS.Domain;
 using OrangeCMS.Application.ViewModels;
-using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Mappings
 {
@@ -9,14 +8,9 @@ namespace OrangeCMS.Application.Mappings
     {
         protected override void Configure()
         {
-            CreateMap<CreateCustomerModel, Customer>();
-
-            CreateMap<CustomerModel, Customer>();
             CreateMap<Customer, CustomerModel>();
 
             CreateMap<Customer, CustomerSummaryModel>();
-
-            CreateMap<UpdateCustomerModel, Customer>();
         }
     }
 }

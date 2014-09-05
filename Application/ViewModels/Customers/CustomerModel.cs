@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using OrangeCMS.Application.Controllers;
-
-namespace OrangeCMS.Application.ViewModels
+﻿namespace OrangeCMS.Application.ViewModels
 {
-    public class CustomerModel : CreateCustomerModel
+    public class CustomerModel 
     {
-        public UserSummaryModel CreatedBy { get; set; }
+        public string Telephone { get; set; }
 
-        public ICollection<CategorySummaryModel> Categories { get; set; }
+        public decimal Longitude { get; set; }
+
+        public decimal Latitude { get; set; }
 
         public long Id { get; set; }
     }

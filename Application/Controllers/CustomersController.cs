@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
+using Codeifier.OrangeCMS.Domain;
 using OrangeCMS.Application.Providers;
-using OrangeCMS.Application.Services;
 using OrangeCMS.Application.ViewModels;
-using OrangeCMS.Domain;
+using OrangeCMS.Domain.Services;
 
 namespace OrangeCMS.Application.Controllers
 {
@@ -13,37 +16,21 @@ namespace OrangeCMS.Application.Controllers
     public class CustomersController : BaseApiController
     {
         private readonly ICustomerService customerService;
-        private readonly IMappingEngine mapper;
+        private readonly IMappingEngine mappingEngine;
 
-        public CustomersController(IIdentityProvider identityProvider, ICustomerService customerService, IMappingEngine mapper)
+        public CustomersController(IIdentityProvider identityProvider, ICustomerService customerService, IMappingEngine mappingEngine)
             : base(identityProvider)
         {
             this.customerService = customerService;
-            this.mapper = mapper;
-        }
-
-        [HttpPost, Route("customers")]
-        public async Task<CustomerModel> Create(CreateCustomerModel model)
-        {
-            var customer = mapper.Map<Customer>(model);
-            await customerService.Save(CurrentUser, customer);
-            return mapper.Map<CustomerModel>(customer);
+            this.mappingEngine = mappingEngine;
         }
 
         [HttpPost, Route("customers/{id}")]
         public async Task<CustomerModel> Get(long id)
         {
             var customer = await customerService.FindById(id);
-            return mapper.Map<CustomerModel>(customer);
-        }
-
-        [HttpPatch, Route("customers/{id}")]
-        public async Task<CustomerModel> Update(long id, UpdateCustomerModel model)
-        {
-            var newValues = mapper.Map<Customer>(model);
-            newValues.Id = id;
-            var customer = await customerService.Update(newValues);
-            return mapper.Map<CustomerModel>(customer);
+            var model = mappingEngine.Map<CustomerModel>(customer);
+            return model;
         }
 
         [HttpDelete, Route("customers/{id}")]
@@ -52,11 +39,33 @@ namespace OrangeCMS.Application.Controllers
             customerService.Delete(id);
         }
 
-        [HttpGet, Route("customers")]
-        public async Task<IList<CustomerModel>> Search(string strMatch = null, long? category = null)
+        [HttpGet, Route("customers/import")]
+        public async Task<IEnumerable<Customer>> Import()
         {
-            var customers = await customerService.Search(CurrentClient.Id, strMatch, category);
-            return mapper.Map<IList<CustomerModel>>(customers);
+            var results = new List<Customer>();
+
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                var destination = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+                Directory.CreateDirectory(destination);
+                var streamProvider = new MultipartFormDataStreamProvider(destination);
+                await Request.Content.ReadAsMultipartAsync(streamProvider);
+
+                foreach (var file in streamProvider.FileData)
+                {
+                    var customers = await customerService.Import(new FileInfo(file.LocalFileName).FullName);
+                    results.AddRange(customers);
+                }   
+            }
+
+            return results;
+        }
+
+        [HttpGet, Route("customers")]
+        public async Task<IList<CustomerModel>> Search(string strMatch = null, int pageSize = 100, int pageNum = 0)
+        {
+            var customers = await customerService.Search(strMatch, pageSize, pageNum);
+            return mappingEngine.Map<IList<CustomerModel>>(customers);
         }
     }
 }

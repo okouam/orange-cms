@@ -1,7 +1,0 @@
-﻿CREATE TABLE Contacts (
-	[Id] BIGINT IDENTITY(1,1), 
-	[Name] VARCHAR(MAX) NOT NULL,
-	[Email] VARCHAR(MAX) NOT NULL,
-	[Telephone] VARCHAR(MAX) NULL,
-	CONSTRAINT PK_Contacts PRIMARY KEY ([Id])
-)
