@@ -26,24 +26,22 @@
 
         vm.select = function (item) {
             item.selected = !item.selected;
+            _.each(vm.boundaries, function(boundary) {
+                if (boundary.id != item.id && boundary.selected) {
+                    boundary.selected = false;
+                }
+            });
+
             if (item.selected) {
-                Map.hideBoundary(item);
+                CMS.query.boundary = item.id;
             } else {
-                Boundaries.get(item.id, function (result) {
-                    Map.showBoundary(result);
-                });
+                CMS.query.boundary = null;
             }
+
+            CMS.refresh();
         };
 
         vm.boundaries = CMS.boundaries;
-        
-        vm.search = function (query) {
-            Utils.replaceContents(Boundaries.search(query), CMS.boundaries);
-        };
-
-        vm.display = function (boundary) {
-            console.log(boundary);
-        };
     }
 
 })();

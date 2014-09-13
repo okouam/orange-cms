@@ -14,7 +14,7 @@
         <link type="text/css" rel="stylesheet" href="/Modules/CMS/CMS.css" />
         <link type="text/css" rel="stylesheet" href="/Modules/CMS/Customers/Customers.css" />
         <link type="text/css" rel="stylesheet" href="/Modules/CMS/Boundaries/Boundaries.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/CMS/Categories/Categories.css" />
+        <link type="text/css" rel="stylesheet" href="/Modules/CMS/Map/Map.css" />
         <link type="text/css" rel="stylesheet" href="/Modules/Navigation/Navigation.css" />
         <link type="text/css" rel="stylesheet" href="/Modules/Common/google-plus-ui-buttons/css/css3-buttons.css" media="screen">
         <link type="text/css" rel="stylesheet" href="/Modules/Common/Application.css" />
@@ -32,9 +32,9 @@
         </script>
     </head>
 
-    <body data-ng-controller="pageController">
+    <body data-ng-controller="pageController as vm">
         
-        <div data-ng-include="'/Modules/Navigation/MainMenu.html'" id="main-menu"></div>
+        <div data-ng-if="vm.identity.isAuthenticated" data-ng-include="'/Modules/Navigation/MainMenu.html'" id="main-menu"></div>
         
         <div ui-view id="main-container"></div>
 
@@ -58,10 +58,8 @@
             });
         </script>
         
-        <div class="context-menu position-fixed" id="customer-context-menu" data-ng-controller="CustomerActionsController as vm">
+        <div class="context-menu position-fixed" id="customer-context-menu">
             <ul>
-                <li data-ng-click="vm.editCustomer()">Edit Customer</li>
-                <li style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc" data-ng-click="vm.deleteCustomer()">Delete Customer</li>
                 <li>Center Map</li>
             </ul>
         </div>
@@ -70,23 +68,13 @@
         <script src="/Modules/Navigation/MainMenuController.js"></script>
         <script src="/Modules/Import/ImportController.js"></script>
         <script src="/Modules/Import/ImportService.js"></script>
-        <script src="/Modules/Export/ExportController.js"></script>
-        <script src="/Modules/Export/ExportService.js"></script>
         <script src="/Modules/CMS/CMS.js"></script>
         <script src="/Modules/CMS/CollectionUtils.js"></script>
         <script src="/Modules/CMS/Map/MapsController.js"></script>
         <script src="/Modules/CMS/Map/Map.js"></script>
-        <script src="/Modules/CMS/Editor/EditorService.js"></script>
-        <script src="/Modules/CMS/Editor/EditorController.js"></script>
         <script src="/Modules/CMS/Boundaries/BoundariesController.js"></script>
         <script src="/Modules/CMS/Boundaries/BoundaryService.js"></script>
         <script src="/Modules/CMS/Boundaries/Boundaries.js"></script>
-        <script src="/Modules/CMS/Boundaries/Boundary.js"></script>
-        <script src="/Modules/CMS/Categories/CategoriesController.js"></script>
-        <script src="/Modules/CMS/Categories/CategoryService.js"></script>
-        <script src="/Modules/CMS/Categories/Categories.js"></script>
-        <script src="/Modules/CMS/Categories/Category.js"></script>
-        <script src="/Modules/CMS/Customers/CustomerActionsController.js"></script>
         <script src="/Modules/CMS/Customers/CustomersController.js"></script>
         <script src="/Modules/CMS/Customers/CustomerService.js"></script>
         <script src="/Modules/CMS/Customers/Customers.js"></script>

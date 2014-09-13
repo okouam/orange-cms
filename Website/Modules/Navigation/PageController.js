@@ -6,11 +6,13 @@
         .module("geocms")
         .controller("pageController", [
             "$scope",
+            "IdentityService",
             PageController
         ]);
 
-    function PageController($scope) {
-
+    function PageController($scope, IdentityService) {
+        var vm = this;
+        vm.identity = IdentityService;
     }
 
 })();

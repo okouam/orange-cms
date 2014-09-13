@@ -6,42 +6,28 @@
         .module("geocms")
         .controller("customersController", [
             "GeoCMS.CMS",
-            "EditorService",
             CustomersController
         ]);
 
-    function CustomersController(CMS, EditorService) {
+    function CustomersController(CMS) {
 
         var vm = this;
-        vm.data = {};
-        
-        CMS.refresh(function (customers) {
-            vm.customers = customers;
-        });
 
+        vm.customers = CMS.customers;
         vm.query = CMS.query;
 
-        vm.createCustomer = function() {
-            EditorService.current = {};
+        CMS.refresh();
+
+        vm.showDetails = function (customer) {
+            customer.selected = !customer.selected;
         };
 
-        vm.highlight = function(customer) {
-            EditorService.highlighted = customer;
+        vm.zoomToCustomer = function(customer) {
+            CMS.centerMap(customer.latitude, customer.longitude);
         };
 
         vm.search = function () {
             CMS.refresh();
-        };
-
-        vm.showDropdown = function (evt) {
-            if (!$(evt.currentTarget).find('span.toggle').hasClass('active')) {
-                $('.dropdown-slider').slideUp();
-                $('span.toggle').removeClass('active');
-            }
-            $(evt.currentTarget).parent().find('.dropdown-slider').slideToggle('fast');
-            $(evt.currentTarget).find('span.toggle').toggleClass('active');
-
-            return false;
         };
     }
 })();

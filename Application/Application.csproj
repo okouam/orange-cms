@@ -140,12 +140,9 @@
     <Compile Include="Providers\Clock.cs" />
     <Compile Include="Providers\IdentityProvider.cs" />
     <Compile Include="ViewModels\Boundaries\BoundaryModel.cs" />
-    <Compile Include="ViewModels\Boundaries\BoundarySummaryModel.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="ViewModels\Users\CreateUserModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerModel.cs" />
-    <Compile Include="ViewModels\Customers\CustomerSummaryModel.cs" />
-    <Compile Include="ViewModels\Customers\SearchCustomersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Providers\TokenProvider.cs" />

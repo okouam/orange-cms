@@ -20,8 +20,6 @@ namespace Codeifier.OrangeCMS.Repositories
                 dbContext.Boundaries.Add(boundary);
             }
 
-            dbContext.SaveChanges();
-
             return boundaries;
         }
     }

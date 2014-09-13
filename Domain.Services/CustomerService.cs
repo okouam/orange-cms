@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Codeifier.OrangeCMS.Domain;
+using Codeifier.OrangeCMS.Domain.Models;
 using CsvHelper;
 using DotSpatial.Topology;
 using OrangeCMS.Domain;
@@ -77,12 +79,11 @@ namespace OrangeCMS.Application.Services
             return new Customer
             {
                 Telephone = Faker.PhoneFaker.InternationalPhone(),
-                Longitude = (decimal) coordinates.X,
-                Latitude = (decimal) coordinates.Y
+                Coordinates = Coordinates.Create(coordinates.Y, coordinates.X)
             };
         }
 
-        public async Task<IEnumerable<Customer>> Search(string strMatch, int pageSize, int pageNum)
+        public IEnumerable<Customer> Search(string strMatch, int? boundary, int pageSize, int pageNum, bool withCoordinatesOnly)
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -90,40 +91,80 @@ namespace OrangeCMS.Application.Services
 
                 if (!String.IsNullOrEmpty(strMatch))
                 {
-                    query = query.Where(x => x.Telephone.Contains(strMatch));
+                    query = query.Where(x => x.Telephone.Contains(strMatch) || x.Name.Contains(strMatch) || x.Formula.Contains(strMatch));
                 }
 
-                return await query.OrderBy(x => x.Telephone).Skip(pageNum).Take(pageSize).ToListAsync();
+                if (withCoordinatesOnly)
+                {
+                    query = query.Where(x => x.Coordinates != null);
+                }
+
+
+                var customers = query.OrderBy(x => x.Name).Skip(pageNum).Take(pageSize).ToList();
+
+                if (boundary.HasValue)
+                {
+                    var sql = String.Format("select telephone from customers where coordinates is not null AND EXISTS(SELECT * FROM Boundaries WHERE Boundaries.Id = {0} AND customers.Coordinates.STIntersects(Boundaries.Shape) = 0)", boundary.Value);
+                    var inBoundary = dbContext.Database.SqlQuery<string>(sql).ToList();
+                    return customers.Where(x => inBoundary.Contains(x.Telephone)).ToList();
+                }
+
+                return customers;
             }
         }
 
-        public async Task<IEnumerable<Customer>> Import(string filename)
+        public IEnumerable<Customer> Import(string filename)
         {
             var csv = new CsvReader(File.OpenText(filename));
-            var customers = new List<Customer>();
+
+            IList<Customer> customers;
 
             using (var dbContext = new DatabaseContext())
             {
-                while (csv.Read())
-                {
-                    throw new Exception(csv.GetField<string>("Date Created"));
+                customers = dbContext.Customers.ToList();
+            }
 
-                    var customer = new Customer
-                    {
-                        Longitude = csv.GetField<decimal>("Coordonées GPS Longitude"),
-                        Latitude = csv.GetField<decimal>("Coordonées GPS Latitude"),
-                        Telephone = csv.GetField<string>("Numéro de Téléphone"),
-                        ImageUrl = csv.GetField<string>("Photo de l'entrée"),
-                        DateCreated = csv.GetField<DateTime>("Date Created")
-                    };
-                    dbContext.Customers.Add(customer);
-                    customers.Add(customer);
+            while (csv.Read())
+            {
+                String key;
+                var headers = csv.FieldHeaders;
+
+                if (headers.Contains("Numéro de Téléphone")) key = csv.GetField<string>("Numéro de Téléphone").Trim();
+                else if (headers.Contains("NUM_ADSL")) key = csv.GetField<string>("NUM_ADSL").Trim();
+                else throw new Exception("A column called [NUM_ADSL] or [\"Numéro de Téléphone\"] must be provided.");
+
+                var customer = customers.FirstOrDefault(x => x.Telephone == key) ?? new Customer {Telephone = key};
+
+                double? longitude = null, latitude = null;
+                if (headers.Contains("Coordonées GPS Longitude")) longitude = csv.GetField<double>("Coordonées GPS Longitude");
+                if (headers.Contains("Coordonées GPS Latitude")) latitude = csv.GetField<double>("Coordonées GPS Latitude");
+                if (longitude.HasValue && latitude.HasValue) customer.Coordinates = Coordinates.Create(longitude.Value, latitude.Value);
+
+                if (headers.Contains("Photo de l'entrée")) customer.ImageUrl = csv.GetField<string>("Photo de l'entrée");
+
+                if (headers.Contains("NOM")) customer.Name = csv.GetField<string>("NOM");
+                if (headers.Contains("LOGIN")) customer.Login = csv.GetField<string>("LOGIN");
+                if (headers.Contains("FORMULE")) customer.Formula = csv.GetField<string>("FORMULE");
+                if (headers.Contains("DEBIT")) customer.Speed = csv.GetField<string>("DEBIT");
+                if (headers.Contains("DATE_EXPIRATION"))
+                {
+                    customer.ExpiryDate = GetDate(csv, "DATE_EXPIRATION");
+                    customer.NeverExpires = csv.GetField<string>("DATE_EXPIRATION") == "Illimite";
                 }
-  
-                await dbContext.SaveChangesAsync();
+
+                if (csv.FieldHeaders.Contains("ETAT")) customer.Status = csv.GetField<string>("ETAT");
+            
+                customers.Add(customer);
             }
 
             return customers;
+        }
+
+        private static DateTime? GetDate(CsvReader csv, string header)
+        {
+            var dateString = csv.GetField<String>(header);
+            DateTime date;
+            return DateTime.TryParse(dateString, out date) ? date : (DateTime?) null;
         }
     }
 }

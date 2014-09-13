@@ -10,13 +10,11 @@
         ]);
 
    function Customers($http) {
-
-       this.search = function (strMatch, categories, onSuccess, onError) {
-           $http.get("/customers").success(onSuccess).error(onError);
-       };
-
-       this.saveOrUpdate = function(customer, onSuccess) {
-           onSuccess();
+       this.search = function (query, onSuccess, onError) {
+           var params = {};
+           if (query.strMatch) params.strMatch = query.strMatch;
+           if (query.boundary) params.boundary = query.boundary;
+           $http.get("/customers", { params: params }).success(onSuccess).error(onError);
        };
     }
 

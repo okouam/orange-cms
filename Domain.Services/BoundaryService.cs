@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Spatial;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DotSpatial.Analysis;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 using DotSpatial.Topology.Utilities;
@@ -75,29 +75,6 @@ namespace OrangeCMS.Application.Services
             }
         }
 
-        public IList<Coordinate> GenerateRandomCoordinatesIn(string shapefile, int numPoints)
-        {
-            using (var featureSet = FeatureSet.Open(shapefile))
-            {
-                var merge = featureSet.GetFeature(0);
-
-                for (var i = 1; i < featureSet.NumRows(); i++)
-                {
-                    try
-                    {              
-                        merge = merge.Union(featureSet.GetFeature(i));
-                    }
-                    catch
-                    {
-                        // TODO: THIS IS WRONG!!! BUT GOOD ENOUGH FOR OUR PURPOSES WHICH IS JUST DEMO DATA AT THIS TIME. 
-                        // IF THIS CODE IS EVER USED IN ANGER, --MUST-- BE FIXED. GETTING DUPLICATE POINTS IN THE GEOMETRIES...
-                    }
-                }
-
-                return RandomGeometry.RandomPoints((Feature) merge, numPoints).Features.Select(x => x.Coordinates.First()).ToList();
-            }
-        }
-
         public IEnumerable<Boundary> GetBoundariesFromZip(string file, string nameColumn, int maxBoundaries = int.MaxValue)
         {
             var shp = ExtractShapefileFromZip(file);
@@ -123,10 +100,12 @@ namespace OrangeCMS.Application.Services
 
                 for (var i = 0; i < max; i++)
                 {
+                    var geometry = (Geometry) featureSet.GetShape(i, true).ToGeometry();
+
                     yield return new Boundary
                     {
                         Name = featureSet.GetFeature(i).DataRow[nameColumn].ToString(),
-                        WKT = writer.Write((Geometry) featureSet.GetShape(i, true).ToGeometry()),
+                        Shape = DbGeography.FromText(writer.Write(geometry), 4326),
                     };
                 }
             }

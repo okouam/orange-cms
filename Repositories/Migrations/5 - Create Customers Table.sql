@@ -1,10 +1,15 @@
 ﻿CREATE TABLE Customers (
 	[Id] BIGINT IDENTITY(1,1), 
-	[Name] VARCHAR(MAX) NOT NULL,
-	[Longitude] DECIMAL NOT NULL,
+	[Coordinates] GEOGRAPHY NULL,
 	[ImageUrl] VARCHAR(MAX) NULL,
-	[Latitude] DECIMAL NOT NULL,
-	[Telephone] VARCHAR(MAX) NOT NULL,
-	[DateCreated] DATE NOT NULL,
+	[Telephone] VARCHAR(200) NOT NULL,
+	[Speed] VARCHAR(MAX) NULL,
+	[ExpiryDate] DATE NULL,
+	[NeverExpires] BIT NULL,
+	[Name] VARCHAR(MAX),
+	[Login] VARCHAR(MAX),
+	[Status] VARCHAR(MAX),
+	[Formula] VARCHAR(MAX) NULL,
 	CONSTRAINT PK_Customers PRIMARY KEY ([Id]),
+    CONSTRAINT UC_Telephone UNIQUE([Telephone]) 
 )

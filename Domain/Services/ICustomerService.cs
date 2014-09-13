@@ -20,8 +20,8 @@ namespace OrangeCMS.Domain.Services
 
         Customer CreateFakeCustomer(IList<User> users, Coordinate coordinate);
 
-        Task<IEnumerable<Customer>> Search(string strMatch, int pageSize, int pageNum);
+        IEnumerable<Customer> Search(string strMatch, int? boundary, int pageSize, int pageNum, bool withCoordinatesOnly);
 
-        Task<IEnumerable<Customer>> Import(string filename);
+        IEnumerable<Customer> Import(string filename);
     }
 }

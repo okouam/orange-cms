@@ -19,6 +19,7 @@
 
         this.logout = function () {
             IdentityService.clear();
+            IdentityService.isAuthenticated = false;
         };
 
         Object.defineProperty(this, "token", {

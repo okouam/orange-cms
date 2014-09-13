@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Bounce.Framework;
+using Codeifier.OrangeCMS.Domain;
 using DbUp;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
+using MoreLinq;
 using NLog;
 using Codeifier.OrangeCMS.Repositories;
+using OrangeCMS.Application.Providers;
 using OrangeCMS.Application.Services;
 using OrangeCMS.Domain;
 
@@ -16,7 +21,7 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
     public class Tasks
     {
         [Task(Command = "db:create:development", Description = "Creates the development database.")]
-        public void CreateDevelopmentDatabase(string userId, string password, string dataSource, string databaseName, string boundaries = "", string customers = "")
+        public void CreateDevelopmentDatabase(string userId, string password, string dataSource, string databaseName, string boundaries = "", string customers = "", string customersOrange = "")
         {
             var sqlConnectionString = CreateOrReplaceDatabase(userId, password, dataSource, databaseName);
             
@@ -32,8 +37,21 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
             }
 
             var customerData = customers == "" ? Environment.CurrentDirectory + @"\Data\Customers.csv" : customers;
-            
-            GenerateData(sqlConnectionString, boundaryData, customerData);
+
+            if (!File.Exists(customerData))
+            {
+                throw new Exception(String.Format("The file '{0}' could not be found.", customerData));
+            }
+
+            var customerOrangeData = customers == "" ? Environment.CurrentDirectory + @"\Data\Customers.FromOrange.csv" : customersOrange;
+
+            if (!File.Exists(customerOrangeData))
+            {
+                throw new Exception(String.Format("The file '{0}' could not be found.", customerOrangeData));
+            }
+
+
+            GenerateData(sqlConnectionString, boundaryData, customerData, customerOrangeData);
         }
 
         [Task(Command = "db:create", Description = "Creates an empty database.")]
@@ -54,16 +72,17 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
             upgrader.PerformUpgrade();
         }
 
-        private async void GenerateData(string connectionString, string boundaryData, string customerData)
+        private void GenerateData(string connectionString, string boundaryData, string customerData, string customerOrangeData)
         {
             var dbContext = new DatabaseContext(connectionString);
+            var identityProvider = new IdentityProvider();
 
             dbContext.Users.Add(new global::OrangeCMS.Domain.User
             {
                 UserName = "test",
                 Email = "tester@nowhere.com",
                 Role = Roles.Administrator,
-                Password = "Password$123"
+                Password = identityProvider.CreateHash("Password$123")
             });
 
             dbContext.SaveChanges();
@@ -74,11 +93,29 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
 
             var boundaryRepository = new BoundaryRepository(dbContext);
             boundaryRepository.Save(boundaries);
+            dbContext.SaveChanges();
             Console.WriteLine("The boundaries have been saved to the database.");
 
-            var customerService = new CustomerService();
-            await customerService.Import(customerData);
+            dbContext.Database.ExecuteSqlCommand("DELETE FROM dbo.Boundaries WHERE Shape.STIsValid() = 0");
+
+            SaveCustomerData(connectionString, customerData);
+            SaveCustomerData(connectionString, customerOrangeData);
             Console.WriteLine("The customers have been saved to the database.");
+        }
+
+        static void SaveCustomerData(string connectionString, string customerData)
+        {
+            var customers = new CustomerService().Import(customerData);
+
+            foreach (var batch in customers.Batch(1000))
+            {
+                using (var batchContext = new DatabaseContext(connectionString))
+                {
+                    var customerRepository = new CustomerRepository(batchContext);
+                    customerRepository.Save(batch);
+                    batchContext.SaveChanges();
+                }
+            }
         }
 
         private string CreateOrReplaceDatabase(string userId, string password, string dataSource, string databaseName)

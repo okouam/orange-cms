@@ -67,6 +67,9 @@ li.clickable.row:hover * {
     cursor: pointer;
 }
 
+li.highlightable.row:hover {
+    background-color: #ddd
+}
 
 .marker-title {
     background-color: #333;
@@ -98,6 +101,14 @@ li.clickable.row:hover * {
         font-weight: bold;
         color: #666;
         text-decoration: none;
+    }
+
+    .image-label.gray .icon {
+        background-image: url(/Modules/Common/google-plus-ui-buttons/images/google-ui-sprite-gray.png) !important;
+    }
+
+    .image-label.gray .icon:hover {
+        background-image: url(/Modules/Common/google-plus-ui-buttons/images/google-ui-sprite-colour.png) !important;
     }
 
     .image-label .icon {

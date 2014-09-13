@@ -2,7 +2,6 @@
 using System.Net.Http;
 using NUnit.Framework;
 using OrangeCMS.Application.Controllers;
-using OrangeCMS.Domain;
 using Codeifier.OrangeCMS.Repositories;
 
 namespace OrangeCMS.Application.Tests.Controllers
@@ -16,7 +15,6 @@ namespace OrangeCMS.Application.Tests.Controllers
         public override void SetUp()
         {
             base.SetUp();
-            fakeIdentityProvider.AssignCurrentUser(GetSpecificUser(Roles.Administrator));
             controller = container.GetInstance<CustomersController>();
         }
 
@@ -28,20 +26,31 @@ namespace OrangeCMS.Application.Tests.Controllers
             var model = await controller.Get(customer.Id);
 
             Assert.That(model.Id, Is.EqualTo(customer.Id));
-            Assert.That(model.Longitude, Is.EqualTo(customer.Longitude));
-            Assert.That(model.Latitude, Is.EqualTo(customer.Latitude));
+            Assert.That(model.Longitude, Is.EqualTo(customer.Coordinates.Longitude));
+            Assert.That(model.Latitude, Is.EqualTo(customer.Coordinates.Latitude));
             Assert.That(model.Telephone, Is.EqualTo(customer.Telephone));
         }
 
         [Test]
-        public async void When_searching_for_customers_can_search_on_telephone()
+        public void When_searching_for_customers_can_search_on_telephone()
         {
-            var customers = GetDatabaseContext().Customers.Where(x => x.Telephone.Contains("12"));
+            var customers = GetDatabaseContext().Customers.Where(x => x.Telephone.Contains("12") && x.Coordinates != null);
 
-            var models = await controller.Search("12", int.MaxValue);
+            var models = controller.Search("12", null, int.MaxValue);
 
             Assert.That(models.Count, Is.EqualTo(customers.Count()));
         }
+
+        [Test]
+        public void When_searching_for_customers_can_search_on_boundary()
+        {
+            var customers = GetDatabaseContext().Customers.Where(x => x.Telephone.Contains("12") && x.Coordinates != null);
+
+            var models = controller.Search("12", 3, int.MaxValue);
+
+            Assert.That(models.Count, Is.EqualTo(customers.Count()));
+        }
+
 
         [Test]
         public void When_deleting_a_customers_removes_it_from_the_database()

@@ -8,9 +8,9 @@ namespace OrangeCMS.Application.Mappings
     {
         protected override void Configure()
         {
-            CreateMap<Customer, CustomerModel>();
-
-            CreateMap<Customer, CustomerSummaryModel>();
+            CreateMap<Customer, CustomerModel>()
+                .ForMember(dest => dest.Longitude, src => src.MapFrom(x => x.Coordinates.Longitude))
+                .ForMember(dest => dest.Latitude, src => src.MapFrom(x => x.Coordinates.Latitude));
         }
     }
 }

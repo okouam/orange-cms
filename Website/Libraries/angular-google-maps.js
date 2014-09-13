@@ -2989,7 +2989,7 @@ MarkerLabel_.prototype.setVisible = function () {
  * @param {MarkerWithLabelOptions} [opt_options] The optional parameters.
  */
 function MarkerWithLabel(opt_options) {
-  opt_options = opt_options || {};
+    opt_options = opt_options || {};
   opt_options.labelContent = opt_options.labelContent || "";
   opt_options.labelAnchor = opt_options.labelAnchor || new google.maps.Point(0, 0);
   opt_options.labelClass = opt_options.labelClass || "markerLabels";
@@ -3655,7 +3655,7 @@ Nicholas McCready - https://twitter.com/nmccready
             return new google.maps.Point(xPos, yPos);
           }
         },
-        createMarkerOptions: function(coords, icon, defaults, map) {
+        createMarkerOptions: function (coords, icon, defaults, map) {
           var opts;
           if (map == null) {
             map = void 0;
@@ -5080,8 +5080,8 @@ Original idea from: http://stackoverflow.com/questions/22758950/google-map-drawi
           return this.gMarker.setVisible(this.validateCoords(scope.coords));
         };
 
-        MarkerChildModel.prototype.setOptions = function(scope) {
-          var ignore, _ref;
+        MarkerChildModel.prototype.setOptions = function (scope) {
+            var ignore, _ref;
           if (scope.$id !== this.scope.$id) {
             return;
           }
@@ -5095,7 +5095,7 @@ Original idea from: http://stackoverflow.com/questions/22758950/google-map-drawi
           this.opts = this.createMarkerOptions(scope.coords, scope.icon, scope.options);
           delete this.gMarker;
           if (scope.isLabel) {
-            this.gMarker = new MarkerWithLabel(this.setLabelOptions(this.opts));
+              this.gMarker = new MarkerWithLabel(this.setLabelOptions(this.opts));
           } else {
             this.gMarker = new google.maps.Marker(this.opts);
           }

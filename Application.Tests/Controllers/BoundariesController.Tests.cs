@@ -2,7 +2,6 @@
 using System.Net.Http;
 using NUnit.Framework;
 using OrangeCMS.Application.Controllers;
-using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Tests.Controllers
 {
@@ -15,7 +14,6 @@ namespace OrangeCMS.Application.Tests.Controllers
         public override void SetUp()
         {
             base.SetUp();
-            fakeIdentityProvider.AssignCurrentUser(GetSpecificUser(Roles.Standard));
             controller = container.GetInstance<BoundariesController>();
         }
 
@@ -32,7 +30,6 @@ namespace OrangeCMS.Application.Tests.Controllers
         {
             var boundary = GetDatabaseContext().Boundaries.First();
             var result = await controller.Get(boundary.Id);
-            Assert.That(boundary.WKT, Is.EqualTo(result.WKT));
             Assert.That(boundary.Id, Is.EqualTo(result.Id));
             Assert.That(boundary.Name, Is.EqualTo(result.Name));
         }
@@ -40,7 +37,7 @@ namespace OrangeCMS.Application.Tests.Controllers
         [Test]
         public async void When_creating_a_boundary_stores_it_in_the_database()
         {
-            var content = Helpers.CreateMultipartFormDataContent("Countries.zip");
+            var content = Helpers.CreateMultipartFormDataContent("Data\\Countries.zip");
             controller.Request = new HttpRequestMessage(HttpMethod.Post, "boundaries") { Content = content };
             var boundaries = await controller.Create("name");
             Assert.That(boundaries.Count, Is.EqualTo(177));

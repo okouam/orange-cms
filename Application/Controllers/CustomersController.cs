@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -53,7 +54,7 @@ namespace OrangeCMS.Application.Controllers
 
                 foreach (var file in streamProvider.FileData)
                 {
-                    var customers = await customerService.Import(new FileInfo(file.LocalFileName).FullName);
+                    var customers = customerService.Import(new FileInfo(file.LocalFileName).FullName);
                     results.AddRange(customers);
                 }   
             }
@@ -62,9 +63,9 @@ namespace OrangeCMS.Application.Controllers
         }
 
         [HttpGet, Route("customers")]
-        public async Task<IList<CustomerModel>> Search(string strMatch = null, int pageSize = 100, int pageNum = 0)
+        public IList<CustomerModel> Search(string strMatch = null, int? boundary = null, int pageSize = 100, int pageNum = 0)
         {
-            var customers = await customerService.Search(strMatch, pageSize, pageNum);
+            var customers = customerService.Search(strMatch, boundary, int.MaxValue, pageNum, true);
             return mappingEngine.Map<IList<CustomerModel>>(customers);
         }
     }

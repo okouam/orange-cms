@@ -2,45 +2,67 @@
     <div class="image-label header">
         <span class="icon icon127">&nbsp;</span>
         <span class="label">Customers</span>
-        <a href="#" style="flex: 1; text-align: right; font-size: 10px; position: relative; top: 1px; color: #3b73af; padding-right: 5px; text-decoration: none">New Customer</a>
     </div>
     <div class="query">
-        <input data-ng-model="vm.query.strMatch" style="width: 411px" data-ng-change="vm.search()" type="text" />
+        <input data-ng-model="vm.query.strMatch" style="width: 338px; margin-top: 5px; padding: 5px" type="text" /><button style="display: inline-block; float: right" data-ng-click="vm.search()">Search</button>
     </div>
-    <ul context-menu data-target="customer-context-menu">
-        <li class="clickable row" style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers" data-ng-mouseover="vm.highlight(customer)">
-            <div style="display: flex">
-                <div class="customer-summary">
-                    <span style="margin-right: 5px">{{customer.name}}</span>
-                    <span class="customer-phone">{{customer.telephone}}</span>
+    <ul>
+        <li class="row" data-ng-if="vm.customers.length < 1">
+            No customers found.
+        </li>
+        <li class="highlightable row" style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers">
+            <div style="display: flex; flex-direction: column">
+                <div class="customer-summary" style="display: flex; width: 100%">
+                    <span class="customer-phone" style="flex: 1">
+                        <p style="font-style: normal">{{customer.name}} </p>
+                        <p style="margin-top: 5px">{{customer.telephone}}</p> 
+                    </span>
+                    <span data-ng-click="vm.zoomToCustomer(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon121">&nbsp;</span></span>
+                    <span data-ng-click="vm.showDetails(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon191">&nbsp;</span></span>
                 </div>
+                <div data-ng-if="customer.selected" class="customer-details">
+                    <div style="width: 282px; display: inline-block; vertical-align: top; margin-left: 4px">
+                        <div>
+                            <label>Login: </label>{{customer.login}}
+                        </div>
+                        <div>
+                            <label>Formule: </label> {{customer.formula}}
+                        </div>
+                        <div>
+                            <label>Debit: </label> {{customer.speed}}
+                        </div>
+                        <div>
+                            <label>Date d'expiration: </label> {{customer.expiryDate}}
+                        </div>
+                        <div>
+                            <label>Etat: </label> {{customer.status}}
+                        </div>
+                    </div>
+                    <div data-ng-if="customer.imageUrl" style="width: 113px; display: inline-block">
+                        <a href="javascript:alert('Show in dialog full screen');"><img style="border: 1px solid #aaa; width: 113px; height: 200px" data-ng-src="{{customer.imageUrl}}" /> </a> 
+                    </div>
+                </div> 
             </div>
         </li>
     </ul>
 </div> 
 
 <style type="text/css">
+    .customer-details  {
+        display: block;margin-top: 10px;font-size: 11px;
+    }
+
     .customer-details label {
-        display: block
+        font-weight: bold;
     }
 
-        .customer-details .tab-pane {
-            margin-top: 10px; margin-left: 5px
+        .customer-details div {
+            margin-top: 5px;
+            margin-left: 6px;
     }
 
-              .customer-details .tab-pane h2 {
-            margin-top: 10px; margin-bottom: 5px
-    }
-
-
-    .customer-details label span {
-        width: 120px;
-        display: inline-block
-    }
-
-        #cms-customers .tabbable .nav {
-            display: flex;
-            align-items: stretch
-    }
+        .customer-summary .image-label {
+            cursor: pointer
+        }
 
 </style>

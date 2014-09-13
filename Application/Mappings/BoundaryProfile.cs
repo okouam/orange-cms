@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using OrangeCMS.Application.ViewModels;
-using OrangeCMS.Application.ViewModels.Boundaries;
 using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Mappings
@@ -10,8 +9,6 @@ namespace OrangeCMS.Application.Mappings
         protected override void Configure()
         {
             CreateMap<Boundary, BoundaryModel>();
-
-            CreateMap<Boundary, BoundarySummaryModel>();
         }
     }
 }

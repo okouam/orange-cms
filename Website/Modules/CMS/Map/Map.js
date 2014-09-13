@@ -10,18 +10,18 @@
 
     function Map() {
 
-        var self = this;
+        var vm = this;
 
         this.center = {
-            latitude: 45,
-            longitude: -73
+            latitude: 5,
+            longitude: -4.5
         };
 
         this.zoom = 8;
 
         /** Resize the Google Maps container as soon as the map is loaded. **/
         this.tilesloaded = function () {
-            self.resizeMapContainer();
+            vm.resizeMapContainer();
         };
 
         this.polygons = [];
@@ -42,16 +42,21 @@
                 stroke: "",
                 fill: ""
             };
-            self.polygons.push(polygon);
+            vm.polygons.push(polygon);
         };
 
         this.hideBoundary = function(boundary) {
             console.log("Hiding boundary:", boundary);
         };
 
+        this.centerMap = function(longitude, latitude) {
+            vm.getGMap().panTo(new google.maps.LatLng(longitude, latitude));
+            vm.getGMap().setZoom(19);
+        };
+
         this.centerOnMarkers = function () {
 
-            var markers = self.getGMarkers();
+            var markers = vm.getGMarkers();
 
             if (markers.length > 0) {
 
@@ -62,7 +67,7 @@
                     bounds.extend(position);
                 });
 
-                self.getGMap().fitBounds(bounds);
+                vm.getGMap().fitBounds(bounds);
             }
         };
     }

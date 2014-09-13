@@ -1,8 +1,10 @@
-﻿namespace OrangeCMS.Domain
+﻿using System.Data.Entity.Spatial;
+
+namespace OrangeCMS.Domain
 {
     public class Boundary
     {
-        public string WKT { get; set; }
+        public DbGeography Shape { get; set; }
 
         public string Name { get; set; }
 

@@ -40,6 +40,7 @@ namespace OrangeCMS.Application.Tests
             });
             fakeIdentityProvider = (FakeIdentityProvider)container.GetInstance<IIdentityProvider>();
             fakeClock = (FakeClock)container.GetInstance<IClock>();
+            fakeIdentityProvider.AssignCurrentUser(GetSpecificUser(Roles.Administrator));
         }
 
         [TearDown]

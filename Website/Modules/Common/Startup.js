@@ -10,7 +10,7 @@
                 $httpProvider.interceptors.push('OAuthInterceptor');
             },
 
-            configureRouting: function($stateProvider, $urlRouterProvider) {
+            configureRouting: function ($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider.otherwise("/cms");
                 $stateProvider
                     .state('login', {
@@ -33,16 +33,14 @@
                         url: "/import",
                         templateUrl: "Modules/Import/Import.html"
                     })
-                    .state('export', {
-                        url: "/export",
-                        templateUrl: "Modules/Export/Export.html"
-                    })
                     .state('cms', {
                         url: "/cms",
                         templateUrl: "Modules/CMS/CMS.html",
                         onEnter: function(IdentityService, $state) {
                             if (!IdentityService.token) {
                                 $state.go("login");
+                            } else {
+                                IdentityService.isAuthenticated = true;
                             }
                         }
                     });
