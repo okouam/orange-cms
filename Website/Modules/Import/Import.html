@@ -1,2 +1,16 @@
-﻿Please select the file you wish to import: 
-<input type="file"/>
+﻿<div data-ng-controller="ImportController as vm">
+    <div data-ng-if="!vm.outcome">
+        <div>
+            Please select the file you wish to import:
+            <input type="file" ng-file-select="vm.onFileSelect($files)" />
+        </div>
+        <div>
+            <button style="float: right" data-ng-click="vm.import()">Import</button>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    <div data-ng-if="vm.outcome">
+        {{vm.outcome}}
+    </div>
+
+</div>

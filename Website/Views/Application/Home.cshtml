@@ -19,15 +19,19 @@
         <link type="text/css" rel="stylesheet" href="/Modules/Common/google-plus-ui-buttons/css/css3-buttons.css" media="screen">
         <link type="text/css" rel="stylesheet" href="/Modules/Common/Application.css" />
         <link type="text/css" rel="stylesheet" href="/Libraries/ui-bootstrap-custom.css" />
+        <link href="~/Libraries/ngDialog/css/ngDialog.css" rel="stylesheet" />
+        <link href="~/Libraries/ngDialog/css/ngDialog-theme-plain.css" rel="stylesheet" />
+        <link href="~/Libraries/ngDialog/css/ngDialog-theme-default.css" rel="stylesheet" />
         <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
-        <script src="~/Libraries/faker.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="~/Libraries/angular-file-upload-shim.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
         <script src="~/Libraries/lodash.js"></script>
         <script src="~/Libraries/angular-google-maps.js"></script>
-        <script src="~/Libraries/ng-context-menu.js"></script>
         <script src="~/Libraries/angular-local-storage.js"></script>
+        <script src="~/Libraries/ngDialog/ngDialog.min.js"></script>
+        <script src="~/Libraries/angular-file-upload.min.js"></script> 
         <script type="text/javascript">
         </script>
     </head>
@@ -41,7 +45,7 @@
         <script type="text/javascript">
 
             var app = angular
-                .module("geocms", ['ui.router', 'google-maps', 'ui.bootstrap', 'ng-context-menu', 'LocalStorageModule'])
+                .module("geocms", ['ui.router', 'google-maps', 'ui.bootstrap', 'LocalStorageModule', 'ngDialog', 'angularFileUpload'])
                 .config(function ($stateProvider, $urlRouterProvider, $httpProvider, Startup) {
                     Startup.configureTokenAuthentication($httpProvider);
                     Startup.configureRouting($stateProvider, $urlRouterProvider);
@@ -57,12 +61,6 @@
     
             });
         </script>
-        
-        <div class="context-menu position-fixed" id="customer-context-menu">
-            <ul>
-                <li>Center Map</li>
-            </ul>
-        </div>
         
         <script src="/Modules/Navigation/PageController.js"></script>
         <script src="/Modules/Navigation/MainMenuController.js"></script>

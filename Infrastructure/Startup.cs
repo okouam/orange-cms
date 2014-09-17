@@ -37,7 +37,10 @@ namespace Codeifier.OrangeCMS.Application
 
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
 
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions
+                                             {
+                                                     Provider = new BearerAuthorizationProvider()
+                                             });
             
             RegisterApiRoutes(config);
 

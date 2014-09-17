@@ -137,7 +137,6 @@
     <Compile Include="Mappings\CustomerProfile.cs" />
     <Compile Include="Mappings\UserProfile.cs" />
     <Compile Include="Providers\BearerAuthorizationProvider.cs" />
-    <Compile Include="Providers\Clock.cs" />
     <Compile Include="Providers\IdentityProvider.cs" />
     <Compile Include="ViewModels\Boundaries\BoundaryModel.cs" />
     <Compile Include="Controllers\CustomersController.cs" />

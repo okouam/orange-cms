@@ -6,7 +6,8 @@
         </a>
         <div class="dropdown-slider" style="z-index: 9999999999">
             <a ui-sref="cms" class="ddm"><span class="label">Customers</span></a>
-            <a ui-sref="import" class="ddm"><span class="label">Import POI</span></a>
+            <a data-ng-click="vm.import()" class="ddm"><span class="label">Import POI</span></a>
+            <a data-ng-click="vm.export()" class="ddm"><span class="label">Export POI</span></a>
         </div>
     </div>
     <div class="dropdown">

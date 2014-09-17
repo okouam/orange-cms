@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -26,21 +28,30 @@ namespace OrangeCMS.Application.Controllers
             this.mappingEngine = mappingEngine;
         }
 
-        [HttpPost, Route("customers/{id}")]
-        public async Task<CustomerModel> Get(long id)
+
+        [HttpGet, Route("customers/export")]
+        public HttpResponseMessage Export(string access_token)
         {
-            var customer = await customerService.FindById(id);
-            var model = mappingEngine.Map<CustomerModel>(customer);
-            return model;
+            HttpResponseMessage result;
+
+            var filename = customerService.Export();
+
+            if (!File.Exists(filename))
+            {
+                result = Request.CreateResponse(HttpStatusCode.Gone);
+            }
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new StreamContent(new FileStream(filename, FileMode.Open, FileAccess.Read));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") {FileName = "Customers.csv"};
+            }
+            ;
+            return result;
         }
 
-        [HttpDelete, Route("customers/{id}")]
-        public void Delete(long id)
-        {
-            customerService.Delete(id);
-        }
-
-        [HttpGet, Route("customers/import")]
+        [HttpPost, Route("customers/import")]
         public async Task<IEnumerable<Customer>> Import()
         {
             var results = new List<Customer>();
@@ -65,6 +76,7 @@ namespace OrangeCMS.Application.Controllers
         [HttpGet, Route("customers")]
         public IList<CustomerModel> Search(string strMatch = null, int? boundary = null, int pageSize = 100, int pageNum = 0)
         {
+            if (!boundary.HasValue) return new List<CustomerModel>();
             var customers = customerService.Search(strMatch, boundary, int.MaxValue, pageNum, true);
             return mappingEngine.Map<IList<CustomerModel>>(customers);
         }

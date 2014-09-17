@@ -1,17 +1,14 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using Codeifier.OrangeCMS.Domain;
 using Codeifier.OrangeCMS.Domain.Models;
 using CsvHelper;
-using DotSpatial.Topology;
-using OrangeCMS.Domain;
 using System.Data.Entity;
 using OrangeCMS.Domain.Services;
-using Codeifier.OrangeCMS.Domain.Services.Parameters;
 using Codeifier.OrangeCMS.Repositories;
 
 namespace OrangeCMS.Application.Services
@@ -26,61 +23,6 @@ namespace OrangeCMS.Application.Services
 
                 return await query.Take(numCustomers).ToListAsync();
             }
-        }
-
-        public async Task<Customer> Save(Customer customer)
-        {
-            if (customer == null) throw new ArgumentNullException("customer", "No customer was provided when saving a customer.");
-
-            using (var dbContext = new DatabaseContext())
-            {
-                dbContext.Customers.Add(customer);
-                await dbContext.SaveChangesAsync();
-                return customer;
-            }
-        }
-
-        public async Task<Customer> FindById(long id)
-        {
-            using (var dbContext = new DatabaseContext())
-            {
-                return await dbContext
-                    .Customers
-                    .SingleOrDefaultAsync(x => x.Id == id);
-            }
-        }
-
-        public async Task<Customer> Update(long id, UpdateCustomerParams newValues)
-        {
-            if (newValues == null) throw new ArgumentNullException("newValues", "No service parameters were provided when updating a customer.");
-
-            using (var dbContext = new DatabaseContext())
-            {
-                var customer = dbContext.Customers.Find(id);
-                var entry = dbContext.Entry(customer);
-                entry.CurrentValues.SetValues(newValues);    
-                await dbContext.SaveChangesAsync();
-                return customer;
-            }
-        }
-
-        public async void Delete(long id)
-        {
-            using (var dbContext = new DatabaseContext())
-            {
-                var customer = dbContext.Customers.Find(id);
-                dbContext.Customers.Remove(customer);
-                await dbContext.SaveChangesAsync();
-            }
-        }
-
-        public Customer CreateFakeCustomer(IList<User> users, Coordinate coordinates)
-        {
-            return new Customer
-            {
-                Telephone = Faker.PhoneFaker.InternationalPhone(),
-                Coordinates = Coordinates.Create(coordinates.Y, coordinates.X)
-            };
         }
 
         public IEnumerable<Customer> Search(string strMatch, int? boundary, int pageSize, int pageNum, bool withCoordinatesOnly)
@@ -158,6 +100,28 @@ namespace OrangeCMS.Application.Services
             }
 
             return customers;
+        }
+
+        public string Export()
+        {
+            var filename = Path.GetTempFileName();
+
+            using (var writer = File.CreateText(filename))
+            {
+                var csv = new CsvWriter(writer);
+                csv.WriteHeader<Customer>();
+
+                using (var dbContext = new DatabaseContext())
+                {
+                    var customers = dbContext.Customers.ToList();
+                    foreach (var customer in customers)
+                    {
+                        csv.WriteRecord(customer);
+                    }
+                }
+            }
+
+            return filename;
         }
 
         private static DateTime? GetDate(CsvReader csv, string header)

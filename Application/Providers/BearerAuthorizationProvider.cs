@@ -1,20 +1,25 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 
 namespace OrangeCMS.Application.Providers
 {
     public class BearerAuthorizationProvider : OAuthBearerAuthenticationProvider
     {
+        // Required for when passing in the token via the URL and not the headers i.e. exporting
         public override Task RequestToken(OAuthRequestTokenContext context)
         {
-            var result = base.RequestToken(context);
-            return result;
-        }
+            var accessToken = context.Request.Query["access_token"];
 
-        public override Task ValidateIdentity(OAuthValidateIdentityContext context)
-        {
-            var result = base.ValidateIdentity(context);
-            return result;
+            if (!String.IsNullOrEmpty(accessToken))
+            {
+                context.Token = accessToken;
+                return Task.FromResult<object>(null);
+            }
+            else
+            {
+                return base.RequestToken(context);
+            }
         }
     }
 }
