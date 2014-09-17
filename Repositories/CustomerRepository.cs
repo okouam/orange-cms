@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Codeifier.OrangeCMS.Domain;
+using Codeifier.OrangeCMS.Domain.Repositories;
 
 namespace Codeifier.OrangeCMS.Repositories
 {
-    public class CustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
         private readonly DatabaseContext dbContext;
 

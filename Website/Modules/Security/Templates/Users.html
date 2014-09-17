@@ -1,0 +1,55 @@
+﻿<div data-ng-controller="UsersController as vm" style="display: flex; flex-direction: column">
+    <div class="image-label header" style="border-bottom-color: #999999">
+        <span class="icon icon127">&nbsp;</span>
+        <span class="label">Users</span>
+   </div>
+    <div style="display: flex; flex: 1; flex-direction: column">
+        
+        <div id="user-listing" style="flex: 1" data-ng-if="vm.mode == 'list'">
+            <table style="width: 100%; margin-bottom: 10px">
+                <thead>
+                    <tr>
+                        <td style="padding-left: 14px">Username</td>
+                        <td>Role</td>
+                        <td>Email</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="user in vm.users">
+                        <td style="padding-left: 14px">{{user.userName}}</td>
+                        <td>{{user.role}}</td>
+                        <td>{{user.email}}</td>
+                        <td style="width: 43px"><span data-ng-click="vm.edit(user)" class="icon gray icon145 standalone clickable">&nbsp;</span></td>
+                        <td style="width: 43px"><span data-ng-click="vm.delete(user)" class="icon gray icon56 standalone clickable">&nbsp;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="border-top: 1px solid #999; padding: 14px" data-ng-if="vm.mode == 'list'">
+            <a href="javascript:void(0)" data-ng-click="vm.create()" style="flex: 1; text-align: right; position: relative; top: 1px; color: #3b73af; padding-right: 5px; text-decoration: none">New User</a>
+        </div>
+
+        <div id="user-editor" style="flex: 1" class="dialog-form" data-ng-if="vm.mode == 'change'">
+            <div class="form-block">
+                <label><span>Username</span> <input type="text" data-ng-model="vm.username" /></label>
+            </div>
+            <div class="form-block">
+                <label><span>Role</span>  <input type="text" data-ng-model="vm.role" /></label>
+            </div>
+            <div class="form-block">
+                <label><span>Email</span>  <input type="text" data-ng-model="vm.email" /></label>
+            </div>
+            <div class="form-block">
+                <label><span>Password</span>  <input type="password" data-ng-model="vm.password" /></label>
+            </div>
+            <div class="form-block">
+                <label><span>Password Confirmation</span>  <input type="password" data-ng-model="vm.passwordConfirmation" /></label>
+            </div>
+        </div>
+        <div style="border-top: 1px solid #999; padding: 14px" data-ng-if="vm.mode == 'change'">
+            <a href="javascript:void(0)" data-ng-click="vm.cancelChanges()" style="flex: 1; text-align: right; position: relative; top: 1px; color: #3b73af; padding-right: 5px; text-decoration: none">Cancel</a>
+            <a href="javascript:void(0)" data-ng-click="vm.saveChanges()" style="flex: 1; text-align: right; position: relative; top: 1px; color: #3b73af; padding-right: 5px; text-decoration: none">Save</a>
+        </div>
+    </div>
+
+</div>

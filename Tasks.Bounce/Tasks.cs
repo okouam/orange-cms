@@ -105,15 +105,15 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
 
         static void SaveCustomerData(string connectionString, string customerData)
         {
-            var customers = new CustomerService().Import(customerData);
+            var customerService = new CustomerService(null);
+            var customers = customerService.Import(customerData);
 
             foreach (var batch in customers.Batch(1000))
             {
                 using (var batchContext = new DatabaseContext(connectionString))
                 {
-                    var customerRepository = new CustomerRepository(batchContext);
-                    customerRepository.Save(batch);
-                    batchContext.SaveChanges();
+                    customerService = new CustomerService(new CustomerRepository(batchContext));
+                    customerService.Save(batch.ToArray());
                 }
             }
         }

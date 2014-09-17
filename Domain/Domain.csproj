@@ -65,6 +65,7 @@
     <Compile Include="Providers\IClock.cs" />
     <Compile Include="Providers\IIdentityProvider.cs" />
     <Compile Include="Repositories\IBoundaryRepository.cs" />
+    <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Services\IBoundaryService.cs" />
     <Compile Include="Services\ICustomerService.cs" />
     <Compile Include="Services\IUserService.cs" />
@@ -74,7 +75,6 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

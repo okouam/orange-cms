@@ -38,7 +38,7 @@
                     "_": true
                 }
             },
-            src: []
+            src: ["Modules/**/*.js"]
         },
 
        watch: {

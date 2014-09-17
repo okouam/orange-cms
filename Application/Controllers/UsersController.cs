@@ -33,7 +33,7 @@ namespace OrangeCMS.Application.Controllers
         [HttpGet, Route("users")]
         public IEnumerable<UserModel> All()
         {
-            var users = userService.GetAll().Result;
+            var users = userService.GetAll();
             return mappingEngine.Map<IEnumerable<UserModel>>(users);
         }
 

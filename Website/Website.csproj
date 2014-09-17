@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +40,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="BundleTransformer.Core">
+      <HintPath>..\packages\BundleTransformer.Core.1.9.13\lib\net40\BundleTransformer.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BundleTransformer.SassAndScss">
+      <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.13\lib\net40\BundleTransformer.SassAndScss.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
@@ -47,7 +57,16 @@
       <Private>True</Private>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="IronRuby">
+      <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.13\lib\net40\IronRuby.dll</HintPath>
+    </Reference>
+    <Reference Include="IronRuby.Libraries">
+      <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.13\lib\net40\IronRuby.Libraries.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Dynamic">
+      <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.13\lib\net40\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -70,6 +89,9 @@
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting">
+      <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.13\lib\net40\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure">
       <Private>True</Private>
@@ -134,6 +156,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
@@ -163,6 +188,9 @@
     <Reference Include="WebActivatorEx">
       <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -172,10 +200,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="gruntfile.js" />
-    <Content Include="Libraries\angular-file-upload-html5-shim.min.js" />
-    <Content Include="Libraries\angular-file-upload-shim.min.js" />
-    <Content Include="Libraries\angular-file-upload.min.js" />
-    <Content Include="Libraries\angular-local-storage.js" />
+    <Content Include="Libraries\angular\angular-file-upload-html5-shim.min.js" />
+    <Content Include="Libraries\angular\angular-file-upload-shim.min.js" />
+    <Content Include="Libraries\angular\angular-file-upload.min.js" />
+    <Content Include="Libraries\angular\angular-local-storage.js" />
     <Content Include="Libraries\ngDialog\css\myth\ngDialog-theme-default.css" />
     <Content Include="Libraries\ngDialog\css\myth\ngDialog-theme-plain.css" />
     <Content Include="Libraries\ngDialog\css\myth\ngDialog.css" />
@@ -186,63 +214,57 @@
     <Content Include="Libraries\ngDialog\css\ngDialog.css" />
     <Content Include="Libraries\ngDialog\css\ngDialog.min.css" />
     <Content Include="Libraries\ngDialog\ngDialog.min.js" />
-    <Content Include="Modules\CMS\Map\Map.css" />
-    <Content Include="Modules\Common\ContextMenu.css" />
-    <Content Include="Modules\Common\Scrollbars.css" />
-    <Content Include="Modules\Common\Startup.js" />
-    <Content Include="Modules\Common\WideTables.css" />
-    <Content Include="Modules\Import\ImportController.js" />
-    <Content Include="Modules\Import\ImportService.js" />
-    <Content Include="Modules\Security\AuthenticationService.js" />
-    <Content Include="Modules\Common\google-plus-ui-buttons\css\css3-buttons.css" />
-    <Content Include="Modules\Common\google-plus-ui-buttons\demo.html" />
-    <Content Include="Modules\Common\google-plus-ui-buttons\images\google-ui-sprite-colour.png" />
-    <Content Include="Modules\Common\google-plus-ui-buttons\images\google-ui-sprite-gray.png" />
-    <Content Include="Modules\Common\google-plus-ui-buttons\images\toggle.png" />
-    <Content Include="Modules\Common\google-plus-ui-buttons\jquery.tiptip.js" />
-    <Content Include="Modules\Common\google-plus-ui-buttons\tile.jpg" />
-    <Content Include="Modules\Common\google-plus-ui-buttons\tiptip.css" />
+    <None Include="Modules\Common\Styles\Scrollbars.scss" />
+    <Content Include="Modules\Common\Scripts\Startup.js" />
+    <Content Include="Modules\Import\Scripts\ImportController.js" />
+    <Content Include="Modules\Import\Scripts\ImportService.js" />
+    <Content Include="Modules\Security\Scripts\AuthenticationService.js" />
+    <Content Include="Libraries\css3-buttons.css" />
+    <Content Include="Modules\Common\Images\google-ui-sprite-colour.png" />
+    <Content Include="Modules\Common\Images\google-ui-sprite-gray.png" />
+    <Content Include="Modules\Common\Images\toggle.png" />
+    <Content Include="Libraries\jquery\jquery.tiptip.js" />
+    <Content Include="Modules\Common\Images\tile.jpg" />
     <Content Include="Global.asax" />
-    <Content Include="Libraries\angular-google-maps.js" />
-    <Content Include="Libraries\bootstrap-theme.css" />
-    <Content Include="Libraries\bootstrap.css" />
+    <Content Include="Libraries\angular\angular-google-maps.js" />
+    <Content Include="Libraries\bootstrap\bootstrap-theme.css" />
+    <Content Include="Libraries\bootstrap\bootstrap.css" />
     <Content Include="Libraries\lodash.js" />
-    <Content Include="Libraries\ui-bootstrap-custom-0.10.0.min.js" />
-    <Content Include="Libraries\ui-bootstrap-custom-tpls-0.10.0.min.js" />
-    <Content Include="Libraries\ui-bootstrap-custom.css" />
-    <Content Include="Modules\CMS\Boundaries\BoundaryService.js" />
-    <Content Include="Modules\CMS\Boundaries\Boundaries.css" />
-    <Content Include="Modules\CMS\CMS.css" />
-    <Content Include="Modules\CMS\CMS.html" />
-    <Content Include="Modules\CMS\CMS.js" />
-    <Content Include="Modules\CMS\Boundaries\Boundaries.js" />
-    <Content Include="Modules\CMS\Customers\Customers.css" />
-    <Content Include="Modules\CMS\Customers\Customers.js" />
-    <Content Include="Modules\CMS\Boundaries\Boundaries.html" />
-    <Content Include="Modules\CMS\Customers\CustomerService.js" />
-    <Content Include="Modules\CMS\Map\Map.js" />
-    <Content Include="Modules\CMS\CollectionUtils.js" />
-    <Content Include="Modules\Common\Application.css" />
-    <Content Include="Modules\CMS\Customers\Customers.html" />
-    <Content Include="Modules\CMS\Boundaries\BoundariesController.js" />
-    <Content Include="Modules\CMS\Customers\CustomersController.js" />
-    <Content Include="Modules\Security\IdentityService.js" />
-    <Content Include="Modules\Security\image.png" />
-    <Content Include="Modules\Security\OAuthInterceptor.js" />
-    <Content Include="Modules\Common\Reset.css" />
-    <Content Include="Modules\Import\Import.html" />
-    <Content Include="Modules\Navigation\MainMenuController.js" />
-    <Content Include="Modules\Navigation\Navigation.css" />
-    <Content Include="Modules\Security\LoginController.js" />
-    <Content Include="Modules\CMS\Map\MapsController.js" />
-    <Content Include="Modules\Navigation\PageController.js" />
-    <Content Include="Modules\Security\UserEditor.html" />
-    <Content Include="Modules\Security\Users.js" />
-    <Content Include="Modules\Security\Users.html" />
-    <Content Include="Modules\Security\UsersController.js" />
-    <Content Include="Modules\CMS\Map\Map.html" />
-    <Content Include="Modules\Navigation\MainMenu.html" />
-    <Content Include="Modules\Security\Login.html" />
+    <Content Include="Libraries\bootstrap\ui-bootstrap-custom-0.10.0.min.js" />
+    <Content Include="Libraries\bootstrap\ui-bootstrap-custom-tpls-0.10.0.min.js" />
+    <Content Include="Libraries\bootstrap\ui-bootstrap-custom.css" />
+    <Content Include="Modules\CMS\Modules\Boundaries\BoundaryService.js" />
+    <None Include="Modules\CMS\Styles\CMS.scss" />
+    <Content Include="Modules\CMS\Templates\CMS.html" />
+    <Content Include="Modules\CMS\Scripts\CMS.js" />
+    <Content Include="Modules\CMS\Modules\Boundaries\Boundaries.js" />
+    <Content Include="Modules\CMS\Modules\Customers\Customers.js" />
+    <Content Include="Modules\CMS\Modules\Boundaries\Boundaries.html" />
+    <Content Include="Modules\CMS\Modules\Customers\CustomerService.js" />
+    <Content Include="Modules\CMS\Modules\Map\Map.js" />
+    <Content Include="Modules\CMS\Scripts\CollectionUtils.js" />
+    <None Include="Modules\Common\Styles\Application.scss" />
+    <Content Include="Modules\CMS\Modules\Customers\Customers.html" />
+    <Content Include="Modules\CMS\Modules\Boundaries\BoundariesController.js" />
+    <Content Include="Modules\CMS\Modules\Customers\CustomersController.js" />
+    <Content Include="Modules\Security\Scripts\IdentityService.js" />
+    <Content Include="Modules\Security\Images\image.png" />
+    <Content Include="Modules\Security\Templates\Setup.html" />
+    <Content Include="Modules\Security\Scripts\OAuthInterceptor.js" />
+    <None Include="Modules\Common\Styles\Reset.scss" />
+    <Content Include="Modules\Import\Templates\Import.html" />
+    <Content Include="Modules\Common\Scripts\MainMenuController.js" />
+    <None Include="Modules\Common\Styles\Navigation.scss" />
+    <Content Include="Modules\Security\Scripts\LoginController.js" />
+    <Content Include="Modules\CMS\Modules\Map\MapsController.js" />
+    <Content Include="Modules\Common\Scripts\PageController.js" />
+    <Content Include="Modules\Security\Templates\UserEditor.html" />
+    <Content Include="Modules\Security\Scripts\Users.js" />
+    <Content Include="Modules\Security\Templates\Users.html" />
+    <Content Include="Modules\Security\Scripts\UsersController.js" />
+    <Content Include="Modules\CMS\Modules\Map\Map.html" />
+    <Content Include="Modules\Common\Templates\MainMenu.html" />
+    <Content Include="Modules\Security\Templates\Login.html" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -271,6 +293,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BundleTransformer.Configuration.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

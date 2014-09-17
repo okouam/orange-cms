@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using OrangeCMS.Application.Providers;
 using Codeifier.OrangeCMS.Domain.Services.Parameters;
@@ -17,11 +17,11 @@ namespace OrangeCMS.Domain.Services
             this.identityProvider = identityProvider;
         }
 
-        public async Task<List<User>> GetAll()
+        public IList<User> GetAll()
         {
             using (var dbContext = new DatabaseContext())
             {
-                return await dbContext.Users.ToListAsync();
+                return dbContext.Users.ToList();
             }
         }
 
@@ -68,6 +68,21 @@ namespace OrangeCMS.Domain.Services
                 var user = dbContext.Users.Find(id);
                 dbContext.Users.Remove(user);
                 dbContext.SaveChangesAsync();
+            }
+        }
+
+        public int CountAll(Func<User, bool> filter = null)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                var query = dbContext.Users.AsQueryable();
+
+                if (filter != null)
+                {
+                    query = query.Where(filter).AsQueryable();
+                }
+
+                return query.Count();
             }
         }
     }

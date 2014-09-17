@@ -13,5 +13,7 @@ namespace OrangeCMS.Domain.Services
         IEnumerable<Customer> Import(string filename);
 
         string Export();
+
+        void Save(params Customer[] toArray);
     }
 }

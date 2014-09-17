@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 using Application.DependencyResolution;
 using AutoMapper;
+using BundleTransformer.Core.Builders;
+using BundleTransformer.Core.Orderers;
+using BundleTransformer.Core.Resolvers;
+using BundleTransformer.Core.Transformers;
 using GeoCMS.Infrastructure.Registries;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using OrangeCMS.Application.Providers;
+using OrangeCMS.Infrastructure;
 using Owin;
 using System.Web.Http;
 using StructureMap;
@@ -52,8 +58,12 @@ namespace Codeifier.OrangeCMS.Application
 
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter("Bearer"));
+
+            BundleResolver.Current = new CustomBundleResolver();
+            AssetPipeline.BundleJs(BundleTable.Bundles);
+            AssetPipeline.BundleCss(BundleTable.Bundles);
         }
-        
+
         public static IContainer CreateContainer(Action<ConfigurationExpression> configure = null)
         {
             var container = new Container(c =>

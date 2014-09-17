@@ -1,44 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Optimization
 
+<!DOCTYPE html>
 <html ng-app="geocms">
-    
     <head>
         <meta name="viewport" content="width=device-width" />
         <title>GeoCMS</title>
-        <link type="text/css" rel="stylesheet" href="/Libraries/bootstrap.css" />
-        <link type="text/css" rel="stylesheet" href="/Libraries/bootstrap-theme.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/Common/Reset.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/Common/ContextMenu.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/Common/Scrollbars.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/Common/WideTables.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/CMS/CMS.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/CMS/Customers/Customers.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/CMS/Boundaries/Boundaries.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/CMS/Map/Map.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/Navigation/Navigation.css" />
-        <link type="text/css" rel="stylesheet" href="/Modules/Common/google-plus-ui-buttons/css/css3-buttons.css" media="screen">
-        <link type="text/css" rel="stylesheet" href="/Modules/Common/Application.css" />
-        <link type="text/css" rel="stylesheet" href="/Libraries/ui-bootstrap-custom.css" />
-        <link href="~/Libraries/ngDialog/css/ngDialog.css" rel="stylesheet" />
-        <link href="~/Libraries/ngDialog/css/ngDialog-theme-plain.css" rel="stylesheet" />
-        <link href="~/Libraries/ngDialog/css/ngDialog-theme-default.css" rel="stylesheet" />
-        <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="~/Libraries/angular-file-upload-shim.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
-        <script src="~/Libraries/lodash.js"></script>
-        <script src="~/Libraries/angular-google-maps.js"></script>
-        <script src="~/Libraries/angular-local-storage.js"></script>
-        <script src="~/Libraries/ngDialog/ngDialog.min.js"></script>
-        <script src="~/Libraries/angular-file-upload.min.js"></script> 
-        <script type="text/javascript">
-        </script>
+        <script src="//maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+        @Styles.Render("~/bundles/css/libraries")
+        @Styles.Render("~/bundles/css/common")
+        @Styles.Render("~/bundles/css/cms")
+        @Scripts.Render("~/bundles/js/libraries")
     </head>
-
     <body data-ng-controller="pageController as vm">
         
-        <div data-ng-if="vm.identity.isAuthenticated" data-ng-include="'/Modules/Navigation/MainMenu.html'" id="main-menu"></div>
+        <div data-ng-if="vm.identity.isAuthenticated" data-ng-include="'/Modules/Common/Templates/MainMenu.html'" id="main-menu"></div>
         
         <div ui-view id="main-container"></div>
 
@@ -61,30 +36,9 @@
     
             });
         </script>
-        
-        <script src="/Modules/Navigation/PageController.js"></script>
-        <script src="/Modules/Navigation/MainMenuController.js"></script>
-        <script src="/Modules/Import/ImportController.js"></script>
-        <script src="/Modules/Import/ImportService.js"></script>
-        <script src="/Modules/CMS/CMS.js"></script>
-        <script src="/Modules/CMS/CollectionUtils.js"></script>
-        <script src="/Modules/CMS/Map/MapsController.js"></script>
-        <script src="/Modules/CMS/Map/Map.js"></script>
-        <script src="/Modules/CMS/Boundaries/BoundariesController.js"></script>
-        <script src="/Modules/CMS/Boundaries/BoundaryService.js"></script>
-        <script src="/Modules/CMS/Boundaries/Boundaries.js"></script>
-        <script src="/Modules/CMS/Customers/CustomersController.js"></script>
-        <script src="/Modules/CMS/Customers/CustomerService.js"></script>
-        <script src="/Modules/CMS/Customers/Customers.js"></script>
-        <script src="/Modules/Security/LoginController.js"></script>
-        <script src="/Modules/Security/AuthenticationService.js"></script>
-        <script src="/Modules/Security/OAuthInterceptor.js"></script>
-        <script src="/Modules/Security/LoginController.js"></script>
-        <script src="/Modules/Security/IdentityService.js"></script>
-        <script src="/Modules/Security/UsersController.js"></script>
-        <script src="/Modules/Security/Users.js"></script>
-        <script src="/Modules/Common/Startup.js"></script>
-        <script src="/Libraries/ui-bootstrap-custom-0.10.0.min.js"></script>
-        <script src="/Libraries/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
+        @Scripts.Render("~/bundles/js/common")
+        @Scripts.Render("~/bundles/js/import")
+        @Scripts.Render("~/bundles/js/cms")
+        @Scripts.Render("~/bundles/js/security")
     </body>
 </html>

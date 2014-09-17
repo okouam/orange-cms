@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Codeifier.OrangeCMS.Domain;
+using Codeifier.OrangeCMS.Domain.Repositories;
 using OrangeCMS.Application.Providers;
 using OrangeCMS.Application.ViewModels;
 using OrangeCMS.Domain.Services;
@@ -21,7 +22,7 @@ namespace OrangeCMS.Application.Controllers
         private readonly ICustomerService customerService;
         private readonly IMappingEngine mappingEngine;
 
-        public CustomersController(IIdentityProvider identityProvider, ICustomerService customerService, IMappingEngine mappingEngine)
+        public CustomersController(IIdentityProvider identityProvider, IMappingEngine mappingEngine, ICustomerService customerService)
             : base(identityProvider)
         {
             this.customerService = customerService;
@@ -47,12 +48,12 @@ namespace OrangeCMS.Application.Controllers
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") {FileName = "Customers.csv"};
             }
-            ;
+            
             return result;
         }
 
         [HttpPost, Route("customers/import")]
-        public async Task<IEnumerable<Customer>> Import()
+        public async Task<IEnumerable<CustomerModel>> Import()
         {
             var results = new List<Customer>();
 
@@ -67,10 +68,12 @@ namespace OrangeCMS.Application.Controllers
                 {
                     var customers = customerService.Import(new FileInfo(file.LocalFileName).FullName);
                     results.AddRange(customers);
-                }   
+                }
+
+                customerService.Save(results.ToArray());
             }
 
-            return results;
+            return mappingEngine.Map<IEnumerable<CustomerModel>>(results);
         }
 
         [HttpGet, Route("customers")]

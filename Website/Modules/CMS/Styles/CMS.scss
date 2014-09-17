@@ -1,0 +1,96 @@
+﻿#cms-wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#cms-map .angular-google-map-container {
+    height: 600px;
+    flex: 1;
+    width: 100%
+}
+
+#cms-boundaries {
+    width: 180px;
+}
+
+#cms-boundaries ul li.selected {
+    background-color: #333;
+}
+
+#cms-boundaries.minimized {
+    width: 40px;
+}
+
+#cms-boundaries.minimized .header,
+#cms-boundaries.minimized ul {
+    display: none;
+}
+
+#cms-boundaries .minimized {
+    display: none
+}
+
+#cms-boundaries.minimized .minimized {
+    transform: rotate(270deg);
+    margin-top: 70px;
+    color: #434343;
+    text-decoration: none;
+    display: block;
+}
+
+.marker-label {
+    background-color: #555;
+    border-radius: 3px;
+    color: white;
+    padding: 3px;
+}
+
+#cms-customers {
+    width: 435px;
+}
+    #cms-customers .query {
+        padding: 5px 10px;
+        padding-top: 5px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    #cms-customers .customer-summary {
+        margin-left: 7px;
+    }
+
+        #cms-customers .customer-summary .customer-phone {
+            margin-top: 5px;
+            display: inline-block;
+            font-style: italic;
+        }
+
+    #cms-customers li.customer-row {
+        display: flex;
+    }
+
+    #cms-customers li input[type='checkbox'] {
+        margin-top: 0;
+    }
+
+    #cms-customers .tabbable .nav li {
+        display: inline-block;
+        background-color: #ccc;
+        padding: 5px;
+        border-radius: 3px;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+        #cms-customers .tabbable .nav li.active {
+            background-color: #fff;
+        }
+
+           #cms-customers .tab-pane input {
+            width: 245px
+        }
+
+#cms-map {
+    display: flex; 
+    flex-direction: column; 
+    flex: 1
+}

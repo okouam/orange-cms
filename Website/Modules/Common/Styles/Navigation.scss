@@ -1,0 +1,20 @@
+﻿#main-menu {
+    width: 100%;
+    background-color: #535353;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    h1 {
+        margin-top: 5px;
+        font-size: 26px;
+        color: #789cc0;
+        margin-left: 10px;
+        display: inline-block;
+        margin-bottom: 10px;
+        font-weight: normal
+    }
+    .buttons {
+        width: 308px
+    }
+}

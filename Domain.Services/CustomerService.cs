@@ -1,11 +1,11 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Codeifier.OrangeCMS.Domain;
 using Codeifier.OrangeCMS.Domain.Models;
+using Codeifier.OrangeCMS.Domain.Repositories;
 using CsvHelper;
 using System.Data.Entity;
 using OrangeCMS.Domain.Services;
@@ -15,6 +15,13 @@ namespace OrangeCMS.Application.Services
 {
     public class CustomerService : ICustomerService
     {
+        private ICustomerRepository customerRepository;
+
+        public CustomerService(ICustomerRepository customerRepository)
+        {
+            this.customerRepository = customerRepository;
+        }
+
         public async Task<IEnumerable<Customer>> GetAll(int numCustomers = int.MaxValue)
         {
             using (var dbContext = new DatabaseContext())
@@ -122,6 +129,15 @@ namespace OrangeCMS.Application.Services
             }
 
             return filename;
+        }
+
+        public void Save(params Customer[] customers)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                customerRepository.Save(customers);
+                dbContext.SaveChanges();
+            }
         }
 
         private static DateTime? GetDate(CsvReader csv, string header)
