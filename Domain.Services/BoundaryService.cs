@@ -5,6 +5,7 @@ using System.Data.Entity.Spatial;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Codeifier.OrangeCMS.Domain.Providers;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 using DotSpatial.Topology.Utilities;
@@ -17,9 +18,16 @@ namespace OrangeCMS.Application.Services
 {
     public class BoundaryService : IBoundaryService
     {
+        private readonly IDbContextScope dbContextScope;
+
+        public BoundaryService(IDbContextScope dbContextScope)
+        {
+            this.dbContextScope = dbContextScope;
+        }
+
         public async Task<IEnumerable<Boundary>> GetAll()
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 return await dbContext.Boundaries.ToListAsync();
             }
@@ -28,7 +36,7 @@ namespace OrangeCMS.Application.Services
         public IEnumerable<Boundary> SaveBoundariesInZip(string nameColumn, string filename)
         {
             var boundaries = GetBoundariesFromZip(filename, nameColumn);
-            var repository = new BoundaryRepository(new DatabaseContext());
+            var repository = new BoundaryRepository(dbContextScope.CreateDbContext());
             repository.Save(boundaries);
             return boundaries;
         }
@@ -69,7 +77,7 @@ namespace OrangeCMS.Application.Services
 
         public async Task<Boundary> Get(long id)
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 return await dbContext.Boundaries.FindAsync(id);
             }

@@ -5,9 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Codeifier.OrangeCMS.Domain;
 using Codeifier.OrangeCMS.Domain.Models;
-using Codeifier.OrangeCMS.Domain.Repositories;
+using Codeifier.OrangeCMS.Domain.Providers;
 using CsvHelper;
 using System.Data.Entity;
+using MoreLinq;
 using OrangeCMS.Domain.Services;
 using Codeifier.OrangeCMS.Repositories;
 
@@ -15,16 +16,16 @@ namespace OrangeCMS.Application.Services
 {
     public class CustomerService : ICustomerService
     {
-        private ICustomerRepository customerRepository;
+        private readonly IDbContextScope dbContextScope;
 
-        public CustomerService(ICustomerRepository customerRepository)
+        public CustomerService(IDbContextScope dbContextScope)
         {
-            this.customerRepository = customerRepository;
+            this.dbContextScope = dbContextScope;
         }
 
         public async Task<IEnumerable<Customer>> GetAll(int numCustomers = int.MaxValue)
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 var query = dbContext.Customers;
 
@@ -34,7 +35,7 @@ namespace OrangeCMS.Application.Services
 
         public IEnumerable<Customer> Search(string strMatch, int? boundary, int pageSize, int pageNum, bool withCoordinatesOnly)
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 var query = dbContext.Customers.AsQueryable();
 
@@ -68,7 +69,7 @@ namespace OrangeCMS.Application.Services
 
             IList<Customer> customers;
 
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 customers = dbContext.Customers.ToList();
             }
@@ -118,7 +119,7 @@ namespace OrangeCMS.Application.Services
                 var csv = new CsvWriter(writer);
                 csv.WriteHeader<Customer>();
 
-                using (var dbContext = new DatabaseContext())
+                using (var dbContext = dbContextScope.CreateDbContext())
                 {
                     var customers = dbContext.Customers.ToList();
                     foreach (var customer in customers)
@@ -133,10 +134,14 @@ namespace OrangeCMS.Application.Services
 
         public void Save(params Customer[] customers)
         {
-            using (var dbContext = new DatabaseContext())
+            foreach (var batch in customers.Batch(1000))
             {
-                customerRepository.Save(customers);
-                dbContext.SaveChanges();
+                using (var dbContext = dbContextScope.CreateDbContext())
+                {
+                    dbContext.Configuration.AutoDetectChangesEnabled = false;
+                    new CustomerRepository(dbContext).Save(batch);
+                    dbContext.SaveChanges();
+                }
             }
         }
 

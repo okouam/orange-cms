@@ -1,4 +1,5 @@
-﻿using Codeifier.OrangeCMS.Repositories;
+﻿using Codeifier.OrangeCMS.Domain.Providers;
+using Codeifier.OrangeCMS.Repositories;
 using OrangeCMS.Domain;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace OrangeCMS.Application.Providers
 {
     public class IdentityProvider : IIdentityProvider
     {
+        private readonly IDbContextScope dbContextScope;
         public const int SALT_BYTE_SIZE = 24;
         public const int HASH_BYTE_SIZE = 24;
         public const int PBKDF2_ITERATIONS = 1000;
@@ -16,11 +18,16 @@ namespace OrangeCMS.Application.Providers
         public const int SALT_INDEX = 1;
         public const int PBKDF2_INDEX = 2;
 
+        public IdentityProvider(IDbContextScope dbContextScope)
+        {
+            this.dbContextScope = dbContextScope;
+        }
+
         public virtual User User
         {
             get
             {
-                using (var dbContext = new DatabaseContext())
+                using (var dbContext = dbContextScope.CreateDbContext())
                 {
                     return dbContext.Users.First();
                 }
@@ -29,7 +36,7 @@ namespace OrangeCMS.Application.Providers
 
         public User Authenticate(string username, string password)
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 var user = dbContext.Users.FirstOrDefault(x => x.UserName == username);
                 if (user == null) return null;

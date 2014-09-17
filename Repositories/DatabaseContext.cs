@@ -8,12 +8,7 @@ namespace Codeifier.OrangeCMS.Repositories
 {
     public class DatabaseContext : DbContext
     {
-        internal DatabaseContext(string connectionString) : base(connectionString)
-        {
-            Database.SetInitializer<DatabaseContext>(null);
-        }
-
-        public DatabaseContext() : base("name=Main")
+        public DatabaseContext(string connectionString) : base(connectionString)
         {
             Database.SetInitializer<DatabaseContext>(null);
         }

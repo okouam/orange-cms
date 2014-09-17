@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Configuration;
+using AutoMapper;
+using Codeifier.OrangeCMS.Domain.Providers;
+using Codeifier.OrangeCMS.Repositories;
 using OrangeCMS.Application.Controllers;
 using OrangeCMS.Application.Services;
 using StructureMap.Configuration.DSL;
@@ -15,6 +18,9 @@ namespace GeoCMS.Infrastructure.Registries
                 scan.AddAllTypesOf<Profile>();
                 scan.WithDefaultConventions();
             });
+
+            For<IDbContextScope>()
+                .Use<DbContextScope>(x => new DbContextScope(ConfigurationManager.ConnectionStrings["Main"].ConnectionString));
         }
     }
 }

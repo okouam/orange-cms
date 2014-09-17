@@ -49,6 +49,8 @@
     <Compile Include="BoundaryRepository.cs" />
     <Compile Include="Conventions\ForeignKeyConvention.cs" />
     <Compile Include="CustomerRepository.cs" />
+    <Compile Include="DbContextScope.cs" />
+    <Compile Include="IDbContextScope.cs" />
     <Compile Include="Mappings\BoundaryMap.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,7 @@ namespace OrangeCMS.Application.Tests
     {
         private User user;
 
-        public FakeIdentityProvider(User user)
+        public FakeIdentityProvider(User user) : base(null)
         {
             this.user = user;
         }

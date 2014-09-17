@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Codeifier.OrangeCMS.Domain.Providers;
 using OrangeCMS.Application.Providers;
 using Codeifier.OrangeCMS.Domain.Services.Parameters;
-using Codeifier.OrangeCMS.Repositories;
 
 namespace OrangeCMS.Domain.Services
 {
     public class UserService : IUserService
     {
         readonly IIdentityProvider identityProvider;
+        readonly IDbContextScope dbContextScope;
 
-        public UserService(IIdentityProvider identityProvider)
+        public UserService(IIdentityProvider identityProvider, IDbContextScope dbContextScope)
         {
             this.identityProvider = identityProvider;
+            this.dbContextScope = dbContextScope;
         }
 
         public IList<User> GetAll()
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 return dbContext.Users.ToList();
             }
@@ -31,7 +33,7 @@ namespace OrangeCMS.Domain.Services
 
             user.Password = identityProvider.CreateHash(user.Password);
 
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 dbContext.Users.Add(user);
                 await dbContext.SaveChangesAsync();
@@ -41,7 +43,7 @@ namespace OrangeCMS.Domain.Services
 
         public async Task<User> FindById(long id)
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 return await dbContext.Users.FindAsync(id);
             }
@@ -51,7 +53,7 @@ namespace OrangeCMS.Domain.Services
         {
             newValues.Password = identityProvider.CreateHash(newValues.Password);
 
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 var user = dbContext.Users.Find(id);
                 var entry = dbContext.Entry(user);
@@ -63,7 +65,7 @@ namespace OrangeCMS.Domain.Services
 
         public void Delete(long id)
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 var user = dbContext.Users.Find(id);
                 dbContext.Users.Remove(user);
@@ -73,7 +75,7 @@ namespace OrangeCMS.Domain.Services
 
         public int CountAll(Func<User, bool> filter = null)
         {
-            using (var dbContext = new DatabaseContext())
+            using (var dbContext = dbContextScope.CreateDbContext())
             {
                 var query = dbContext.Users.AsQueryable();
 

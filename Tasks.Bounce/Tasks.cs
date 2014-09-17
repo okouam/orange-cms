@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.IO;
@@ -74,8 +75,11 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
 
         private void GenerateData(string connectionString, string boundaryData, string customerData, string customerOrangeData)
         {
+            var dbContextScope = new DbContextScope(connectionString);
+
+            var identityProvider = new IdentityProvider(dbContextScope);
+
             var dbContext = new DatabaseContext(connectionString);
-            var identityProvider = new IdentityProvider();
 
             dbContext.Users.Add(new global::OrangeCMS.Domain.User
             {
@@ -87,35 +91,27 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
 
             dbContext.SaveChanges();
 
-            var boundaryService = new BoundaryService();
+            var boundaryService = new BoundaryService(dbContextScope);
             var boundaries = boundaryService.GetBoundariesFromZip(boundaryData, "name");
             Console.WriteLine("The boundaries have been read from their source file.");
 
-            var boundaryRepository = new BoundaryRepository(dbContext);
+            var boundaryRepository = new BoundaryRepository(dbContextScope.CreateDbContext());
             boundaryRepository.Save(boundaries);
             dbContext.SaveChanges();
             Console.WriteLine("The boundaries have been saved to the database.");
 
             dbContext.Database.ExecuteSqlCommand("DELETE FROM dbo.Boundaries WHERE Shape.STIsValid() = 0");
 
-            SaveCustomerData(connectionString, customerData);
-            SaveCustomerData(connectionString, customerOrangeData);
+            SaveCustomerData(dbContextScope, customerData);
+            SaveCustomerData(dbContextScope, customerOrangeData);
             Console.WriteLine("The customers have been saved to the database.");
         }
 
-        static void SaveCustomerData(string connectionString, string customerData)
+        static void SaveCustomerData(DbContextScope dbContextScope, string customerData)
         {
-            var customerService = new CustomerService(null);
+            var customerService = new CustomerService(dbContextScope);
             var customers = customerService.Import(customerData);
-
-            foreach (var batch in customers.Batch(1000))
-            {
-                using (var batchContext = new DatabaseContext(connectionString))
-                {
-                    customerService = new CustomerService(new CustomerRepository(batchContext));
-                    customerService.Save(batch.ToArray());
-                }
-            }
+            customerService.Save(customers.ToArray());
         }
 
         private string CreateOrReplaceDatabase(string userId, string password, string dataSource, string databaseName)
