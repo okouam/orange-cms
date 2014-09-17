@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees;
-using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using Bounce.Framework;
-using Codeifier.OrangeCMS.Domain;
+using Codeifier.OrangeCMS.Domain.Providers;
 using DbUp;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
-using MoreLinq;
 using NLog;
 using Codeifier.OrangeCMS.Repositories;
 using OrangeCMS.Application.Providers;
@@ -107,7 +103,7 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
             Console.WriteLine("The customers have been saved to the database.");
         }
 
-        static void SaveCustomerData(DbContextScope dbContextScope, string customerData)
+        static void SaveCustomerData(IDbContextScope dbContextScope, string customerData)
         {
             var customerService = new CustomerService(dbContextScope);
             var customers = customerService.Import(customerData);

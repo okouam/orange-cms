@@ -1,6 +1,6 @@
-﻿using System.Configuration;
-using System.Linq;
+﻿using System.Linq;
 using Codeifier.OrangeCMS.Application;
+using Codeifier.OrangeCMS.Domain.Providers;
 using NUnit.Framework;
 using OrangeCMS.Application.Providers;
 using OrangeCMS.Domain;
@@ -22,7 +22,7 @@ namespace OrangeCMS.Application.Tests
 
         protected DatabaseContext GetDatabaseContext()
         {
-            return container.GetInstance<DatabaseContext>();
+            return container.GetInstance<IDbContextScope>().CreateDbContext();
         }
 
         protected User GetSpecificUser(string role)
