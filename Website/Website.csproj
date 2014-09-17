@@ -214,7 +214,7 @@
     <Content Include="Libraries\ngDialog\css\ngDialog.css" />
     <Content Include="Libraries\ngDialog\css\ngDialog.min.css" />
     <Content Include="Libraries\ngDialog\ngDialog.min.js" />
-    <None Include="Modules\Common\Styles\Scrollbars.scss" />
+    <Content Include="Modules\Common\Styles\Scrollbars.scss" />
     <Content Include="Modules\Common\Scripts\Startup.js" />
     <Content Include="Modules\Import\Scripts\ImportController.js" />
     <Content Include="Modules\Import\Scripts\ImportService.js" />
@@ -234,7 +234,7 @@
     <Content Include="Libraries\bootstrap\ui-bootstrap-custom-tpls-0.10.0.min.js" />
     <Content Include="Libraries\bootstrap\ui-bootstrap-custom.css" />
     <Content Include="Modules\CMS\Modules\Boundaries\BoundaryService.js" />
-    <None Include="Modules\CMS\Styles\CMS.scss" />
+    <Content Include="Modules\CMS\Styles\CMS.scss" />
     <Content Include="Modules\CMS\Templates\CMS.html" />
     <Content Include="Modules\CMS\Scripts\CMS.js" />
     <Content Include="Modules\CMS\Modules\Boundaries\Boundaries.js" />
@@ -243,7 +243,7 @@
     <Content Include="Modules\CMS\Modules\Customers\CustomerService.js" />
     <Content Include="Modules\CMS\Modules\Map\Map.js" />
     <Content Include="Modules\CMS\Scripts\CollectionUtils.js" />
-    <None Include="Modules\Common\Styles\Application.scss" />
+    <Content Include="Modules\Common\Styles\Application.scss" />
     <Content Include="Modules\CMS\Modules\Customers\Customers.html" />
     <Content Include="Modules\CMS\Modules\Boundaries\BoundariesController.js" />
     <Content Include="Modules\CMS\Modules\Customers\CustomersController.js" />
@@ -251,10 +251,10 @@
     <Content Include="Modules\Security\Images\image.png" />
     <Content Include="Modules\Security\Templates\Setup.html" />
     <Content Include="Modules\Security\Scripts\OAuthInterceptor.js" />
-    <None Include="Modules\Common\Styles\Reset.scss" />
+    <Content Include="Modules\Common\Styles\Reset.scss" />
     <Content Include="Modules\Import\Templates\Import.html" />
     <Content Include="Modules\Common\Scripts\MainMenuController.js" />
-    <None Include="Modules\Common\Styles\Navigation.scss" />
+    <Content Include="Modules\Common\Styles\Navigation.scss" />
     <Content Include="Modules\Security\Scripts\LoginController.js" />
     <Content Include="Modules\CMS\Modules\Map\MapsController.js" />
     <Content Include="Modules\Common\Scripts\PageController.js" />
