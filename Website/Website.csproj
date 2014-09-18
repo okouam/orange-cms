@@ -206,6 +206,7 @@
     <Content Include="Libraries\angular\angular-local-storage.js" />
     <Content Include="Libraries\angular\angular-ui-router.min.js" />
     <Content Include="Libraries\angular\angular.min.js" />
+    <Content Include="Libraries\jquery\jquery.min.js" />
     <Content Include="Libraries\ngDialog\css\myth\ngDialog-theme-default.css" />
     <Content Include="Libraries\ngDialog\css\myth\ngDialog-theme-plain.css" />
     <Content Include="Libraries\ngDialog\css\myth\ngDialog.css" />
