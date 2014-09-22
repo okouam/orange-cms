@@ -3,7 +3,7 @@ using OrangeCMS.Domain;
 
 namespace OrangeCMS.Application.Tests
 {
-    class FakeIdentityProvider : IdentityProvider
+    public class FakeIdentityProvider : IdentityProvider
     {
         private User user;
 

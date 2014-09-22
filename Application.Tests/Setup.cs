@@ -10,8 +10,8 @@ public class Setup
     public void RunBeforeAnyTests()
     {
         var builder = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["Main"].ConnectionString);
-        var tasks = new Tasks();
-        tasks.CreateDevelopmentDatabase(builder.UserID, builder.Password, builder.DataSource, builder.InitialCatalog);
+        var task = new db_create_development();
+        task.Execute(builder.UserID, builder.Password, builder.DataSource, builder.InitialCatalog);
     }
 }
 

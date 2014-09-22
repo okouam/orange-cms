@@ -36,8 +36,13 @@ namespace OrangeCMS.Application.Services
         public IEnumerable<Boundary> SaveBoundariesInZip(string nameColumn, string filename)
         {
             var boundaries = GetBoundariesFromZip(filename, nameColumn);
-            var repository = new BoundaryRepository(dbContextScope.CreateDbContext());
-            repository.Save(boundaries);
+            using (var dbContext = dbContextScope.CreateDbContext())
+            {
+                dbContext.Configuration.AutoDetectChangesEnabled = false;
+                var repository = new BoundaryRepository(dbContext);
+                repository.Save(boundaries);
+                dbContext.SaveChanges();
+            }
             return boundaries;
         }
 
