@@ -1,4 +1,5 @@
-﻿using CodeKinden.OrangeCMS.Tasks.Bounce;
+﻿using System.Text.RegularExpressions;
+using CodeKinden.OrangeCMS.Tasks.Bounce;
 using NUnit.Framework;
 
 namespace Tasks.Bounce.Tests
@@ -10,8 +11,7 @@ namespace Tasks.Bounce.Tests
         public void Works()
         {
             var task = new db_create_development();
-            task.Execute("Data Source=localhost;Initial Catalog=orangecms_development;User=geocms;Password=test", 
-                "Data Source=188.165.255.78;Initial Catalog=orangecms;User=orangecms;Password=349[lks]Qas9");
+            task.Execute("Data Source=188.165.255.78;Initial Catalog=orangecms;User=orangecms;Password=349[lks]Qas9");
         }
     }
 }

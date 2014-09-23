@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
-using Codeifier.OrangeCMS.Repositories;
+using CodeKinden.OrangeCMS.Repositories;
 using DbUp;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;

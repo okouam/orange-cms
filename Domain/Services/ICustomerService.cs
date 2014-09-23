@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Codeifier.OrangeCMS.Domain;
+using CodeKinden.OrangeCMS.Domain.Models;
 
-namespace OrangeCMS.Domain.Services
+namespace CodeKinden.OrangeCMS.Domain.Services
 {
     public interface ICustomerService
     {
@@ -10,7 +10,7 @@ namespace OrangeCMS.Domain.Services
 
         IEnumerable<Customer> Search(string strMatch, int? boundary, int pageSize, int pageNum, bool withCoordinatesOnly);
 
-        IEnumerable<Customer> Import(string filename);
+        IEnumerable<Customer> Import(string filename, int maxCustomers = int.MaxValue);
 
         string Export();
 

@@ -4,14 +4,15 @@ using CodeKinden.OrangeCMS.Tasks.Bounce;
 using NUnit.Framework;
 
 [SetUpFixture]
+// ReSharper disable CheckNamespace
 public class Setup
+// ReSharper restore CheckNamespace
 {
     [SetUp]
     public void RunBeforeAnyTests()
     {
-        var builder = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["Main"].ConnectionString);
         var task = new db_create_development();
-        task.Execute(builder.UserID, builder.Password, builder.DataSource, builder.InitialCatalog);
+        task.Execute(ConfigurationManager.ConnectionStrings["Main"].ConnectionString, 10, 10000);
     }
 }
 

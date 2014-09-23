@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
-using OrangeCMS.Application.Providers;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Providers;
+using CodeKinden.OrangeCMS.Domain.Services;
+using CodeKinden.OrangeCMS.Domain.Services.Parameters;
 using OrangeCMS.Application.ViewModels;
-using OrangeCMS.Domain;
-using OrangeCMS.Domain.Services;
-using Codeifier.OrangeCMS.Domain.Services.Parameters;
 
-namespace OrangeCMS.Application.Controllers
+namespace CodeKinden.OrangeCMS.Application.Controllers
 {
     [Authorize]
     public class UsersController : BaseApiController

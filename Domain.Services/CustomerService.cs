@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Codeifier.OrangeCMS.Domain;
-using Codeifier.OrangeCMS.Domain.Models;
-using Codeifier.OrangeCMS.Domain.Providers;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Repositories;
 using CsvHelper;
-using System.Data.Entity;
 using MoreLinq;
-using OrangeCMS.Domain.Services;
-using Codeifier.OrangeCMS.Repositories;
 
-namespace OrangeCMS.Application.Services
+namespace CodeKinden.OrangeCMS.Domain.Services
 {
     public class CustomerService : ICustomerService
     {
@@ -63,7 +60,7 @@ namespace OrangeCMS.Application.Services
             }
         }
 
-        public IEnumerable<Customer> Import(string filename)
+        public IEnumerable<Customer> Import(string filename, int maxCustomers = int.MaxValue)
         {
             var csv = new CsvReader(File.OpenText(filename));
 
@@ -105,6 +102,8 @@ namespace OrangeCMS.Application.Services
                 if (csv.FieldHeaders.Contains("ETAT")) customer.Status = csv.GetField<string>("ETAT");
             
                 customers.Add(customer);
+
+                if (customers.Count > maxCustomers) break;
             }
 
             return customers;
@@ -134,6 +133,8 @@ namespace OrangeCMS.Application.Services
 
         public void Save(params Customer[] customers)
         {
+            var counter = 0;
+
             foreach (var batch in customers.Batch(1000))
             {
                 using (var dbContext = dbContextScope.CreateDbContext())
@@ -142,7 +143,14 @@ namespace OrangeCMS.Application.Services
                     new CustomerRepository(dbContext).Save(batch);
                     dbContext.SaveChanges();
                 }
+
+                counter = counter + 1000;
             }
+        }
+
+        public OnCustomerBatchSaved()
+        {
+            
         }
 
         private static DateTime? GetDate(CsvReader csv, string header)

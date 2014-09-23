@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using Codeifier.OrangeCMS.Application;
-using Codeifier.OrangeCMS.Domain.Providers;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Providers;
+using CodeKinden.OrangeCMS.Repositories;
 using NUnit.Framework;
-using OrangeCMS.Application.Providers;
-using OrangeCMS.Domain;
-using Codeifier.OrangeCMS.Repositories;
 using StructureMap;
 
-namespace OrangeCMS.Application.Tests
+namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
 {
     class BaseTest
     {

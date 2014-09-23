@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using Codeifier.OrangeCMS.Domain;
-using Codeifier.OrangeCMS.Repositories.Conventions;
-using OrangeCMS.Domain;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Repositories.Conventions;
 
-namespace Codeifier.OrangeCMS.Repositories
+namespace CodeKinden.OrangeCMS.Repositories
 {
     public class DatabaseContext : DbContext
     {
@@ -27,6 +26,7 @@ namespace Codeifier.OrangeCMS.Repositories
 
             modelBuilder.Entity<Boundary>()
                 .HasKey(c => c.Id)
+                .Ignore(x => x.CustomerCount)
                 .Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<Customer>()

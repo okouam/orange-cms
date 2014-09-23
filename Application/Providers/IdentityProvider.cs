@@ -1,12 +1,12 @@
-﻿using Codeifier.OrangeCMS.Domain.Providers;
-using Codeifier.OrangeCMS.Repositories;
-using OrangeCMS.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Providers;
+using CodeKinden.OrangeCMS.Repositories;
 
-namespace OrangeCMS.Application.Providers
+namespace CodeKinden.OrangeCMS.Application.Providers
 {
     public class IdentityProvider : IIdentityProvider
     {

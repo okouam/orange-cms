@@ -5,16 +5,14 @@ using System.Data.Entity.Spatial;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Codeifier.OrangeCMS.Domain.Providers;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Repositories;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 using DotSpatial.Topology.Utilities;
 using Ionic.Zip;
-using OrangeCMS.Domain;
-using OrangeCMS.Domain.Services;
-using Codeifier.OrangeCMS.Repositories;
 
-namespace OrangeCMS.Application.Services
+namespace CodeKinden.OrangeCMS.Domain.Services
 {
     public class BoundaryService : IBoundaryService
     {
@@ -29,13 +27,18 @@ namespace OrangeCMS.Application.Services
         {
             using (var dbContext = dbContextScope.CreateDbContext())
             {
-                return await dbContext.Boundaries.ToListAsync();
+                return await dbContext.Boundaries.SqlQuery("select a.Id, a.Name, a.Shape, b.CustomerCount from boundaries as a join (select Boundaries.Id, count(*) as CustomerCount from boundaries join customers on customers.coordinates.STWithin(boundaries.shape) = 0 group by Boundaries.Id) as b on a.id = b.id").ToListAsync();
             }
         }
 
-        public IEnumerable<Boundary> SaveBoundariesInZip(string nameColumn, string filename)
+        public IEnumerable<Boundary> SaveBoundariesInZip(string nameColumn, string filename, int maxBoundaries = int.MaxValue)
         {
-            var boundaries = GetBoundariesFromZip(filename, nameColumn);
+            return SaveBoundariesInZip(nameColumn, x => x, filename, maxBoundaries);
+        }
+
+        public IEnumerable<Boundary> SaveBoundariesInZip(string nameColumn, Func<string, string> nameColumnParser, string filename, int maxBoundaries = int.MaxValue)
+        {
+            var boundaries = GetBoundariesFromZip(filename, nameColumn, nameColumnParser, maxBoundaries);
             using (var dbContext = dbContextScope.CreateDbContext())
             {
                 dbContext.Configuration.AutoDetectChangesEnabled = false;
@@ -68,7 +71,7 @@ namespace OrangeCMS.Application.Services
                 }
             }
 
-            var files = Directory.GetFiles(outputDirectory);
+            var files = Directory.GetFiles(outputDirectory, "*.shp");
 
             var shp = files.FirstOrDefault();
 
@@ -88,14 +91,19 @@ namespace OrangeCMS.Application.Services
             }
         }
 
-        public IEnumerable<Boundary> GetBoundariesFromZip(string file, string nameColumn, int maxBoundaries = int.MaxValue)
+        private IEnumerable<Boundary> GetBoundariesFromZip(string file, string nameColumn, Func<string, string> nameColumnParser, int maxBoundaries = int.MaxValue)
         {
             var shp = ExtractShapefileFromZip(file);
-            return GetBoundariesFromShapefile(shp, nameColumn, maxBoundaries);
+            return GetBoundariesFromShapefile(shp, nameColumn, nameColumnParser, maxBoundaries);
         }
 
-        private IEnumerable<Boundary> GetBoundariesFromShapefile(string file, string nameColumn, int maxBoundaries = int.MaxValue)
+        private static IEnumerable<Boundary> GetBoundariesFromShapefile(string file, string nameColumn, Func<string, string> nameColumnParser, int maxBoundaries = int.MaxValue)
         {
+            if (!File.Exists(file))
+            {
+                throw new RuntimeException("The file '{0}' does not exist.", file);
+            }
+
             using (var featureSet = FeatureSet.Open(file))
             {
                 var dataTable = featureSet.DataTable;
@@ -117,7 +125,7 @@ namespace OrangeCMS.Application.Services
 
                     yield return new Boundary
                     {
-                        Name = featureSet.GetFeature(i).DataRow[nameColumn].ToString(),
+                        Name = nameColumnParser(featureSet.GetFeature(i).DataRow[nameColumn].ToString()),
                         Shape = DbGeography.FromText(writer.Write(geometry), 4326),
                     };
                 }

@@ -1,8 +1,8 @@
 ﻿using System.Web.Http;
-using OrangeCMS.Application.Providers;
-using OrangeCMS.Domain;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Providers;
 
-namespace OrangeCMS.Application.Controllers
+namespace CodeKinden.OrangeCMS.Application.Controllers
 {
     public class BaseApiController : ApiController
     {

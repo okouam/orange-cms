@@ -1,6 +1,4 @@
-﻿using Codeifier.OrangeCMS.Repositories;
-
-namespace Codeifier.OrangeCMS.Domain.Providers
+﻿namespace CodeKinden.OrangeCMS.Repositories
 {
     public interface IDbContextScope
     {

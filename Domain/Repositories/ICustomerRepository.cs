@@ -1,4 +1,6 @@
-﻿namespace Codeifier.OrangeCMS.Domain.Repositories
+﻿using CodeKinden.OrangeCMS.Domain.Models;
+
+namespace CodeKinden.OrangeCMS.Domain.Repositories
 {
     public interface ICustomerRepository
     {

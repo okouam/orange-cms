@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Spatial;
 
-namespace Codeifier.OrangeCMS.Domain.Models
+namespace CodeKinden.OrangeCMS.Domain.Models
 {
     public static class Coordinates
     {

@@ -1,4 +1,4 @@
-﻿namespace OrangeCMS.Domain
+﻿namespace CodeKinden.OrangeCMS.Domain.Models
 {
     public class User 
     {

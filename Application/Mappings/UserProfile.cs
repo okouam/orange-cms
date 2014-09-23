@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using CodeKinden.OrangeCMS.Domain.Models;
 using OrangeCMS.Application.ViewModels;
-using OrangeCMS.Domain;
 
-namespace OrangeCMS.Application.Mappings
+namespace CodeKinden.OrangeCMS.Application.Mappings
 {
     public class UserProfile : Profile
     {

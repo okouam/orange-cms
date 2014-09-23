@@ -1,9 +1,10 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using CodeKinden.OrangeCMS.Domain.Providers;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 
-namespace OrangeCMS.Application.Providers
+namespace CodeKinden.OrangeCMS.Application.Providers
 {
     public class TokenProvider : OAuthAuthorizationServerProvider
     {

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Codeifier.OrangeCMS.Domain.Services.Parameters;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Services.Parameters;
 
-namespace OrangeCMS.Domain.Services
+namespace CodeKinden.OrangeCMS.Domain.Services
 {
     public interface IUserService
     {

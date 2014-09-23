@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using OrangeCMS.Domain;
+using CodeKinden.OrangeCMS.Domain.Models;
 
-namespace Codeifier.OrangeCMS.Repositories
+namespace CodeKinden.OrangeCMS.Domain.Repositories
 {
     public interface IBoundaryRepository
     {

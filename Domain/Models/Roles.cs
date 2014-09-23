@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OrangeCMS.Domain
+namespace CodeKinden.OrangeCMS.Domain.Models
 {
     public class Roles
     {

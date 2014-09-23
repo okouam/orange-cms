@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Codeifier.OrangeCMS.Domain.Providers;
-using OrangeCMS.Application.Providers;
-using Codeifier.OrangeCMS.Domain.Services.Parameters;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Providers;
+using CodeKinden.OrangeCMS.Domain.Services.Parameters;
+using CodeKinden.OrangeCMS.Repositories;
 
-namespace OrangeCMS.Domain.Services
+namespace CodeKinden.OrangeCMS.Domain.Services
 {
     public class UserService : IUserService
     {

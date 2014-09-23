@@ -1,6 +1,6 @@
-﻿using OrangeCMS.Domain;
+﻿using CodeKinden.OrangeCMS.Domain.Models;
 
-namespace OrangeCMS.Application.Providers
+namespace CodeKinden.OrangeCMS.Domain.Providers
 {
     public interface IIdentityProvider
     {

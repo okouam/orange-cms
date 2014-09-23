@@ -7,8 +7,8 @@
     <ProjectGuid>{226D049B-2347-486B-AB48-3D59487602EF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codeifier.OrangeCMS.Domain.Services</RootNamespace>
-    <AssemblyName>Codeifier.OrangeCMS.Domain.Services</AssemblyName>
+    <RootNamespace>CodeKinden.OrangeCMS.Domain.Services</RootNamespace>
+    <AssemblyName>CodeKinden.OrangeCMS.Domain.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OrangeCMS.Application
+namespace CodeKinden.OrangeCMS.Domain
 {
     public static class Extensions
     {

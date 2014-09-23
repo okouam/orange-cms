@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Reflection;
+using CodeKinden.OrangeCMS.Domain;
 
-namespace Fixtures
+namespace CodeKinden.OrangeCMS.Fixtures
 {
     public class FixtureManager
     {
@@ -17,8 +17,14 @@ namespace Fixtures
         {
             const int bufferSize = 4096;
             var buffer = new byte[bufferSize];
-            using (var input = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var input = assembly.GetManifestResourceStream(resourceName))
             {
+                if (input == null)
+                {
+                    throw new RuntimeException("The resource named '{0}' could not be found in the assembly '{1}.", resourceName, Assembly.GetExecutingAssembly().FullName);
+                }
+
                 using (Stream output = new FileStream(fileName, FileMode.Create))
                 {
                     var byteCount = input.Read(buffer, 0, bufferSize);

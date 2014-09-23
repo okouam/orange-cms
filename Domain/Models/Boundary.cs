@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Spatial;
 
-namespace OrangeCMS.Domain
+namespace CodeKinden.OrangeCMS.Domain.Models
 {
     public class Boundary
     {
@@ -9,5 +9,7 @@ namespace OrangeCMS.Domain
         public string Name { get; set; }
 
         public long Id { get; set; }
+
+        public long CustomerCount { get; set; }
     }
 }

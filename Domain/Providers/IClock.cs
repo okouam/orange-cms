@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrangeCMS.Application.Providers
+namespace CodeKinden.OrangeCMS.Domain.Providers
 {
     public interface IClock
     {

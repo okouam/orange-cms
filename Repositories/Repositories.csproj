@@ -7,8 +7,8 @@
     <ProjectGuid>{7308BC3F-B2AF-4D65-8FEA-448865FCDE81}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codeifier.OrangeCMS.Repositories</RootNamespace>
-    <AssemblyName>Codeifier.OrangeCMS.Repositories</AssemblyName>
+    <RootNamespace>CodeKinden.OrangeCMS.Repositories</RootNamespace>
+    <AssemblyName>CodeKinden.OrangeCMS.Repositories</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,11 +39,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoundaryRepository.cs" />
@@ -51,7 +46,6 @@
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="DbContextScope.cs" />
     <Compile Include="IDbContextScope.cs" />
-    <Compile Include="Mappings\BoundaryMap.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

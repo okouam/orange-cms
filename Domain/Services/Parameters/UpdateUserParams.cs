@@ -1,4 +1,4 @@
-﻿namespace Codeifier.OrangeCMS.Domain.Services.Parameters
+﻿namespace CodeKinden.OrangeCMS.Domain.Services.Parameters
 {
     public class UpdateUserParams
     {

@@ -1,9 +1,8 @@
 ﻿using System.Configuration;
 using AutoMapper;
-using Codeifier.OrangeCMS.Domain.Providers;
-using Codeifier.OrangeCMS.Repositories;
-using OrangeCMS.Application.Controllers;
-using OrangeCMS.Application.Services;
+using CodeKinden.OrangeCMS.Application.Controllers;
+using CodeKinden.OrangeCMS.Domain.Services;
+using CodeKinden.OrangeCMS.Repositories;
 using StructureMap.Configuration.DSL;
 
 namespace GeoCMS.Infrastructure.Registries

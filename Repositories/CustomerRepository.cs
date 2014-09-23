@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Codeifier.OrangeCMS.Domain;
-using Codeifier.OrangeCMS.Domain.Repositories;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Repositories;
 
-namespace Codeifier.OrangeCMS.Repositories
+namespace CodeKinden.OrangeCMS.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {

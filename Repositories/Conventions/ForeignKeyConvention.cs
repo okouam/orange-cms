@@ -4,7 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 
-namespace Codeifier.OrangeCMS.Repositories.Conventions
+namespace CodeKinden.OrangeCMS.Repositories.Conventions
 {
     public class ForeignKeyConvention : IStoreModelConvention<AssociationType>
     {

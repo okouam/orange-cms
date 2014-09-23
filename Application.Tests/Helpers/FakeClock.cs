@@ -1,15 +1,15 @@
 ﻿using System;
-using OrangeCMS.Application.Providers;
+using CodeKinden.OrangeCMS.Domain.Providers;
 
-namespace OrangeCMS.Application.Tests
+namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
 {
     class FakeClock : IClock
     {
         private DateTime now;
 
-        public void Set(DateTime now)
+        public void Set(DateTime currentDateTime)
         {
-            this.now = now;
+            this.now = currentDateTime;
         }
 
         public DateTime Now()

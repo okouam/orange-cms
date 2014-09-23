@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
-using Codeifier.OrangeCMS.Domain;
-using Codeifier.OrangeCMS.Domain.Repositories;
-using OrangeCMS.Application.Providers;
+using CodeKinden.OrangeCMS.Application.ViewModels.Customers;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Providers;
+using CodeKinden.OrangeCMS.Domain.Services;
 using OrangeCMS.Application.ViewModels;
-using OrangeCMS.Domain.Services;
 
-namespace OrangeCMS.Application.Controllers
+namespace CodeKinden.OrangeCMS.Application.Controllers
 {
     [Authorize]
     public class CustomersController : BaseApiController

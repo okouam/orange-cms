@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrangeCMS.Application.ViewModels
+namespace CodeKinden.OrangeCMS.Application.ViewModels.Customers
 {
     public class CustomerModel 
     {

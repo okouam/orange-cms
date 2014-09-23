@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 
-namespace OrangeCMS.Application.Tests.Controllers
+namespace CodeKinden.OrangeCMS.Application.Tests.Controllers
 {
     class UsersControllerTests : BaseTest
     {

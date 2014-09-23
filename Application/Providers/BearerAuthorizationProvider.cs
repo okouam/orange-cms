@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 
-namespace OrangeCMS.Application.Providers
+namespace CodeKinden.OrangeCMS.Application.Providers
 {
     public class BearerAuthorizationProvider : OAuthBearerAuthenticationProvider
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity.Spatial;
 
-namespace Codeifier.OrangeCMS.Domain
+namespace CodeKinden.OrangeCMS.Domain.Models
 {
     public class Customer
     {

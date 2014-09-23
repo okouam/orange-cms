@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using CodeKinden.OrangeCMS.Application.ViewModels.Boundaries;
+using CodeKinden.OrangeCMS.Domain.Models;
 using OrangeCMS.Application.ViewModels;
-using OrangeCMS.Domain;
 
-namespace OrangeCMS.Application.Mappings
+namespace CodeKinden.OrangeCMS.Application.Mappings
 {
     public class BoundaryProfile : Profile
     {

@@ -1,4 +1,4 @@
-﻿using Codeifier.OrangeCMS.Repositories;
+﻿using CodeKinden.OrangeCMS.Repositories;
 using StructureMap.Configuration.DSL;
 
 namespace GeoCMS.Infrastructure.Registries

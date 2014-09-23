@@ -1,7 +1,7 @@
-﻿using OrangeCMS.Application.Providers;
-using OrangeCMS.Domain;
+﻿using CodeKinden.OrangeCMS.Application.Providers;
+using CodeKinden.OrangeCMS.Domain.Models;
 
-namespace OrangeCMS.Application.Tests
+namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
 {
     public class FakeIdentityProvider : IdentityProvider
     {
