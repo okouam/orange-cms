@@ -2,7 +2,7 @@
 
     "use strict";
 
-    function CustomersController(CMS) {
+    function CustomersController(CMS, ngDialog) {
 
         var vm = this;
 
@@ -19,6 +19,15 @@
             CMS.centerMap(customer.latitude, customer.longitude);
         };
 
+        vm.showImageInDialog = function(url) {
+            ngDialog.open({
+                template: '/Modules/Common/Templates/ImageInDialog.html',
+                controller: ['$scope', function ($scope) {
+                    $scope.url = url;
+                }]
+            });
+        };
+
         vm.search = function () {
             CMS.refresh();
         };
@@ -28,6 +37,7 @@
      .module("geocms")
      .controller("customersController", [
          "GeoCMS.CMS",
+         "ngDialog",
          CustomersController
      ]);
 

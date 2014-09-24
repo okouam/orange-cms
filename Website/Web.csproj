@@ -219,6 +219,7 @@
     <Content Include="Libraries\ngDialog\ngDialog.min.js" />
     <Content Include="Modules\Common\Styles\Scrollbars.scss" />
     <Content Include="Modules\Common\Scripts\Startup.js" />
+    <Content Include="Modules\Common\Templates\ImageInDialog.html" />
     <Content Include="Modules\Import\Scripts\ImportController.js" />
     <Content Include="Modules\Import\Scripts\ImportService.js" />
     <Content Include="Modules\Security\Scripts\AuthenticationService.js" />

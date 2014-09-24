@@ -15,7 +15,7 @@
                 <div class="customer-summary" style="display: flex; width: 100%">
                     <span class="customer-phone" style="flex: 1">
                         <p style="font-style: normal">{{customer.name}} </p>
-                        <p style="margin-top: 5px">{{customer.telephone}}</p> 
+                        <p style="margin-top: 5px">{{customer.telephone}}</p>
                     </span>
                     <span data-ng-click="vm.zoomToCustomer(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon121">&nbsp;</span></span>
                     <span data-ng-click="vm.showDetails(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon191">&nbsp;</span></span>
@@ -39,9 +39,11 @@
                         </div>
                     </div>
                     <div data-ng-if="customer.imageUrl" style="width: 113px; display: inline-block">
-                        <a href="javascript:alert('Show in dialog full screen');"><img style="border: 1px solid #aaa; width: 113px; height: 200px" data-ng-src="{{customer.imageUrl}}" /> </a> 
+                        <a data-ng-click="vm.showImageInDialog(customer.imageUrl)" href="javascript:void(0)">
+                            <img style="border: 1px solid #aaa; width: 113px; height: 200px" data-ng-src="{{customer.imageUrl}}" />
+                        </a>
                     </div>
-                </div> 
+                </div>
             </div>
         </li>
     </ul>

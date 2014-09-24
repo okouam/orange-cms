@@ -1,29 +1,43 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Bounce.Framework;
-using CodeKinden.OrangeCMS.Application.Providers;
-using CodeKinden.OrangeCMS.Domain.Models;
-using CodeKinden.OrangeCMS.Domain.Services;
-using CodeKinden.OrangeCMS.Fixtures;
-using CodeKinden.OrangeCMS.Repositories;
+using Codeifier.OrangeCMS.Domain.Providers;
+using Codeifier.OrangeCMS.Repositories;
+using Fixtures;
+using OrangeCMS.Application.Providers;
+using OrangeCMS.Application.Services;
+using OrangeCMS.Domain;
 
 namespace CodeKinden.OrangeCMS.Tasks.Bounce
 {
     public class db_create_development
     {
         [Task(Command = "db:create:development", Description = "Creates the development database.")]
-        public void Execute(string targetConnectionString, int maxBoundaries = int.MaxValue, int maxCustomers = int.MaxValue)
+        public void Execute(string sourceConnectionString, string targetConnectionString, string customers = "", string customersOrange = "")
         {
             DB.CreateOrReplaceDatabase(targetConnectionString);
 
             DB.RunDatabaseMigrations(targetConnectionString);
-            
-            GenerateData(targetConnectionString, maxBoundaries, maxCustomers);
+
+            var customerData = customers == "" ? FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Customers.csv") : customers;
+
+            if (!File.Exists(customerData))
+            {
+                throw new Exception(String.Format("The file '{0}' could not be found.", customerData));
+            }
+
+            var customerOrangeData = customers == "" ? FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Customers.FromOrange.csv") : customersOrange;
+
+            if (!File.Exists(customerOrangeData))
+            {
+                throw new Exception(String.Format("The file '{0}' could not be found.", customerOrangeData));
+            }
+
+            GenerateData(targetConnectionString, customerData, customerOrangeData);
         }
         
-        private static void GenerateData(string connectionString, int maxBoundaries, int maxCustomers)
+        private static void GenerateData(string connectionString, string customerData, string customerOrangeData)
         {
             var dbContextScope = new DbContextScope(connectionString);
 
@@ -41,54 +55,28 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
 
             dbContext.SaveChanges();
 
-            SaveBoundaryData(maxBoundaries, dbContextScope, "CodeKinden.OrangeCMS.Fixtures.Quartiers.Abidjan.Commune.zip", "quartier_8");
+            var boundaryService = new BoundaryService(dbContextScope);
 
-            SaveBoundaryData(maxBoundaries, dbContextScope, "CodeKinden.OrangeCMS.Fixtures.Quartiers_092010.zip", "Descriptio", x => Regex.Match(x, (@"<br/>Quartier : .(.+)<br/>")).Groups[1].Value);
+            boundaryService.SaveBoundariesInZip("name", FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Countries.zip"));
+            Console.WriteLine("The boundaries from '{0}' have been saved to the database.", "Countries.zip");
 
-            var customerData = FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Customers.csv");
-
-            if (!File.Exists(customerData))
-            {
-                throw new Exception(String.Format("The file '{0}' could not be found.", customerData));
-            }
-
-            var customerOrangeData = FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Customers.FromOrange.csv");
-
-            if (!File.Exists(customerOrangeData))
-            {
-                throw new Exception(String.Format("The file '{0}' could not be found.", customerOrangeData));
-            }
+            //boundaryService.SaveBoundariesInZip("name", FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Quartiers.A.zip"));
+            //Console.WriteLine("The boundaries from '{0}' have been saved to the database.", "Quartiers.A.zip");
             
+            //boundaryService.SaveBoundariesInZip("name", FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Quartiers.B.zip"));
+            //Console.WriteLine("The boundaries from '{0}' have been saved to the database.", "Quartiers.B.zip");
+
             dbContext.Database.ExecuteSqlCommand("DELETE FROM dbo.Boundaries WHERE Shape.STIsValid() = 0");
 
-            SaveCustomerData(dbContextScope, customerData, maxCustomers);
-            SaveCustomerData(dbContextScope, customerOrangeData, maxCustomers);
+            SaveCustomerData(dbContextScope, customerData);
+            SaveCustomerData(dbContextScope, customerOrangeData);
             Console.WriteLine("The customers have been saved to the database.");
         }
-
-        private static void SaveBoundaryData(int maxBoundaries, IDbContextScope dbContextScope, string resourceName, string columnName, Func<string, string> columnNameParser)
-        {
-            var boundaryData = FixtureManager.Extract(resourceName);
-
-            if (!File.Exists(boundaryData))
-            {
-                throw new Exception(String.Format("The file '{0}' could not be found.", boundaryData));
-            }
-
-            var boundaryService = new BoundaryService(dbContextScope);
-            boundaryService.SaveBoundariesInZip(columnName, columnNameParser, boundaryData, maxBoundaries);
-            Console.WriteLine("The boundaries from '{0}' have been saved to the database.", resourceName);
-        }
-
-        private static void SaveBoundaryData(int maxBoundaries, IDbContextScope dbContextScope, string resourceName, string columnName)
-        {
-            SaveBoundaryData(maxBoundaries, dbContextScope, resourceName, columnName, x => x);
-        }
-
-        private static void SaveCustomerData(IDbContextScope dbContextScope, string customerData, int maxCustomers)
+        
+        private static void SaveCustomerData(IDbContextScope dbContextScope, string customerData)
         {
             var customerService = new CustomerService(dbContextScope);
-            var customers = customerService.Import(customerData, maxCustomers);
+            var customers = customerService.Import(customerData);
             customerService.Save(customers.ToArray());
         }
     }
