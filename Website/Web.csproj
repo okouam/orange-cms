@@ -217,11 +217,13 @@
     <Content Include="Libraries\ngDialog\css\ngDialog.css" />
     <Content Include="Libraries\ngDialog\css\ngDialog.min.css" />
     <Content Include="Libraries\ngDialog\ngDialog.min.js" />
+    <Content Include="Modules\Common\Images\login-background.jpg" />
     <Content Include="Modules\Common\Styles\Scrollbars.scss" />
     <Content Include="Modules\Common\Scripts\Startup.js" />
     <Content Include="Modules\Common\Templates\ImageInDialog.html" />
     <Content Include="Modules\Import\Scripts\ImportController.js" />
     <Content Include="Modules\Import\Scripts\ImportService.js" />
+    <Content Include="Modules\Security\Images\image.jpg" />
     <Content Include="Modules\Security\Scripts\AuthenticationService.js" />
     <Content Include="Libraries\css3-buttons.css" />
     <Content Include="Modules\Common\Images\google-ui-sprite-colour.png" />
@@ -252,7 +254,6 @@
     <Content Include="Modules\CMS\Modules\Boundaries\BoundariesController.js" />
     <Content Include="Modules\CMS\Modules\Customers\CustomersController.js" />
     <Content Include="Modules\Security\Scripts\IdentityService.js" />
-    <Content Include="Modules\Security\Images\image.png" />
     <Content Include="Modules\Security\Templates\Setup.html" />
     <Content Include="Modules\Security\Scripts\OAuthInterceptor.js" />
     <Content Include="Modules\Common\Styles\Reset.scss" />
