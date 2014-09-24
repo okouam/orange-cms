@@ -70,8 +70,9 @@
     <Compile Include="Services\IBoundaryService.cs" />
     <Compile Include="Services\ICustomerService.cs" />
     <Compile Include="Services\IUserService.cs" />
-    <Compile Include="Services\Parameters\UpdateCustomerParams.cs" />
-    <Compile Include="Services\Parameters\UpdateUserParams.cs" />
+    <Compile Include="Services\BoundaryWithCustomerCount.cs" />
+    <Compile Include="Services\Models\UpdateCustomerParams.cs" />
+    <Compile Include="Services\Models\UpdateUserParams.cs" />
     <Compile Include="Models\User.cs" />
   </ItemGroup>
   <ItemGroup>

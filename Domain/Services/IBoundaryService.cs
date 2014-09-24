@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Services.Parameters;
 
 namespace CodeKinden.OrangeCMS.Domain.Services
 {
     public interface IBoundaryService
     {
-        Task<IEnumerable<Boundary>> GetAll();
+        Task<IEnumerable<BoundaryWithCustomerCount>> GetAll();
 
         Task<Boundary> Get(long id);
 

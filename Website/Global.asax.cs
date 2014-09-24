@@ -2,7 +2,7 @@
 using Codeifier.OrangeCMS.Application;
 using OrangeCMS.Infrastructure;
 
-namespace Application
+namespace  CodeKinden.OrangeCMS.Web
 {
     public class MvcApplication : HttpApplication
     {

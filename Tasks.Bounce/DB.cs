@@ -21,19 +21,19 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
             upgrader.PerformUpgrade();
         }
 
-        public static void CreateOrReplaceDatabase(string userId, string password, string dataSource, string databaseName)
+        public static void CreateOrReplaceDatabase(string connectionString)
         {
-            var sqlConnectionStringBuilder = new SqlConnectionStringBuilder
+            var targetConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+
+            var tempDbConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString)
             {
-                InitialCatalog = "tempdb",
-                UserID = userId,
-                Password = password,
-                DataSource = dataSource
+                InitialCatalog = "tempdb"
             };
 
-            var server = GetServer(sqlConnectionStringBuilder.ToString());
+            var server = GetServer(tempDbConnectionStringBuilder.ToString());
 
             Database existingDatabase;
+            var databaseName = targetConnectionStringBuilder.InitialCatalog;
 
             try
             {
@@ -41,7 +41,7 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
             }
             catch (Exception e)
             {
-                throw new Exception("Unable to connect using the connection string '" + sqlConnectionStringBuilder + "'", e);
+                throw new Exception("Unable to connect using the connection string '" + tempDbConnectionStringBuilder + "'", e);
             }
 
             if (existingDatabase != null)
@@ -68,12 +68,6 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
             log.Debug("The database [{0}] has been created.", databaseName);
         }
 
-        public static void CreateOrReplaceDatabase(string connectionString)
-        {
-            var builder = new SqlConnectionStringBuilder(connectionString);
-            CreateOrReplaceDatabase(builder.UserID, builder.Password, builder.DataSource, builder.InitialCatalog);
-        }
-        
         private static Server GetServer(string connectionString)
         {
             var connection = new SqlConnection(connectionString);

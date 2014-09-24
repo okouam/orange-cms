@@ -8,6 +8,7 @@
 
         vm.customers = CMS.customers;
         vm.query = CMS.query;
+        vm.CMS = CMS;
 
         CMS.refresh();
 

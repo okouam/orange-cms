@@ -57,15 +57,23 @@
         vm.saveChanges = function () {
             vm.error = null;
 
+            if (!vm.username || !vm.role || !vm.email || !vm.passwordConfirmation || !vm.password) {
+                vm.error = "One or more required fields have not been provided.";
+                alert(vm.error);
+                return;
+            }
+
             if (vm.password !== PASSWORD_PLACEHOLDER) {
 
                 if (!vm.password) {
-                    vm.error = "No password provided is not correct.";
+                    vm.error = "No password provided.";
+                     alert(vm.error);
                     return;
                 }
 
-                if (vm.password && vm.password != vm.passwordConfirmation) {
+                if (vm.password != vm.passwordConfirmation) {
                     vm.error = "Your password confirmation is not correct.";
+                    alert(vm.error);
                     return;
                 }
             }

@@ -1,12 +1,13 @@
-﻿<div data-ng-controller="UsersController as vm" style="display: flex; flex-direction: column">
-    <div class="image-label header" style="border-bottom-color: #999999">
+﻿<div data-ng-controller="UsersController as vm" id="user-box">
+   
+    <div class="image-label header">
         <span class="icon icon127">&nbsp;</span>
         <span class="label">Users</span>
    </div>
-    <div style="display: flex; flex: 1; flex-direction: column">
-        
-        <div id="user-listing" style="flex: 1" data-ng-if="vm.mode == 'list'">
-            <table style="width: 100%; margin-bottom: 10px">
+
+    <div style="display: flex; flex: 1; flex-direction: column" data-ng-if="vm.mode == 'list'">        
+        <div id="user-listing">
+            <table>
                 <thead>
                     <tr>
                         <td style="padding-left: 14px">Username</td>
@@ -25,11 +26,15 @@
                 </tbody>
             </table>
         </div>
-        <div style="border-top: 1px solid #999; padding: 14px" data-ng-if="vm.mode == 'list'">
-            <a href="javascript:void(0)" data-ng-click="vm.create()" style="flex: 1; text-align: right; position: relative; top: 1px; color: #3b73af; padding-right: 5px; text-decoration: none">New User</a>
-        </div>
 
-        <div id="user-editor" style="flex: 1" class="dialog-form" data-ng-if="vm.mode == 'change'">
+        <div class="actions">
+            <a href="javascript:void(0)" data-ng-click="vm.create()">New User</a>
+        </div>
+    </div>
+
+    <div style="display: flex; flex: 1; flex-direction: column" data-ng-if="vm.mode == 'change'">
+
+        <div id="user-editor" class="dialog-form">
             <div class="form-block">
                 <label><span>Username</span> <input type="text" data-ng-model="vm.username" /></label>
             </div>
@@ -46,10 +51,52 @@
                 <label><span>Password Confirmation</span>  <input type="password" data-ng-model="vm.passwordConfirmation" /></label>
             </div>
         </div>
-        <div style="border-top: 1px solid #999; padding: 14px" data-ng-if="vm.mode == 'change'">
-            <a href="javascript:void(0)" data-ng-click="vm.cancelChanges()" style="flex: 1; text-align: right; position: relative; top: 1px; color: #3b73af; padding-right: 5px; text-decoration: none">Cancel</a>
-            <a href="javascript:void(0)" data-ng-click="vm.saveChanges()" style="flex: 1; text-align: right; position: relative; top: 1px; color: #3b73af; padding-right: 5px; text-decoration: none">Save</a>
+
+        <div class="actions">
+            <a href="javascript:void(0)" data-ng-click="vm.cancelChanges()">Cancel</a>
+            <a href="javascript:void(0)" data-ng-click="vm.saveChanges()">Save</a>
         </div>
+
     </div>
 
 </div>
+
+<style type="text/css">
+
+#user-editor {
+    flex: 1
+}
+
+#user-listing {
+    flex: 1;
+}
+
+#user-listing table {
+    width: 100%; 
+    margin-bottom: 10px
+}
+
+#user-box .actions {
+    border-top: 1px solid #999; 
+    padding: 14px
+}
+
+#user-box .actions a {
+    flex: 1; 
+    text-align: right; 
+    position: relative; 
+    top: 1px; 
+    color: #3b73af; 
+    padding-right: 5px; 
+    text-decoration: none
+}
+
+    #user-box {
+        display: flex; 
+        flex-direction: column
+    } 
+
+    #user-box .header {
+        border-bottom-color: #999999
+    }
+</style>

@@ -11,9 +11,11 @@
         @Styles.Render("~/bundles/css/cms")
         @Scripts.Render("~/bundles/js/libraries")
     </head>
-    <body data-ng-controller="pageController as vm">
-        
-        <div data-ng-if="vm.identity.isAuthenticated" data-ng-include="'/Modules/Common/Templates/MainMenu.html'" id="main-menu"></div>
+    <style>
+        .login #main-menu {display: none}
+    </style>
+    <body data-ng-controller="pageController as vm" data-ng-class="{'login': vm.isLogin()}">
+        <div data-ng-include="'/Modules/Common/Templates/MainMenu.html'" id="main-menu"></div>
         
         <div ui-view id="main-container"></div>
 

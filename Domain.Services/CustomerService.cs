@@ -133,8 +133,6 @@ namespace CodeKinden.OrangeCMS.Domain.Services
 
         public void Save(params Customer[] customers)
         {
-            var counter = 0;
-
             foreach (var batch in customers.Batch(1000))
             {
                 using (var dbContext = dbContextScope.CreateDbContext())
@@ -144,11 +142,11 @@ namespace CodeKinden.OrangeCMS.Domain.Services
                     dbContext.SaveChanges();
                 }
 
-                counter = counter + 1000;
+                RaiseCustomerBatchSaved(1000);
             }
         }
 
-        public OnCustomerBatchSaved()
+        public void RaiseCustomerBatchSaved(int batchSize)
         {
             
         }

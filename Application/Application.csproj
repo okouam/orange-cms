@@ -142,12 +142,10 @@
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BoundariesController.cs" />
-    <Compile Include="Mappings\BoundaryProfile.cs" />
     <Compile Include="Mappings\CustomerProfile.cs" />
     <Compile Include="Mappings\UserProfile.cs" />
     <Compile Include="Providers\BearerAuthorizationProvider.cs" />
     <Compile Include="Providers\IdentityProvider.cs" />
-    <Compile Include="ViewModels\Boundaries\BoundaryModel.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="ViewModels\Users\CreateUserModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerModel.cs" />
@@ -159,7 +157,6 @@
     <Compile Include="ViewModels\Users\UserSummaryModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

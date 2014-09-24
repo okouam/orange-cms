@@ -6,6 +6,8 @@
 
         var self = this;
 
+        self.isRefreshing = false;
+
         this.customers = [];
 
         this.boundaries = [];
@@ -13,6 +15,7 @@
 
         Boundaries.findAll(function(results) {
             Utils.replaceContents(results, self.boundaries);
+
         });
 
         this.mode = 'map';
@@ -27,6 +30,7 @@
         };
 
         this.refresh = function (onSuccess) {
+            self.isRefreshing = true;
             Utils.replaceContents([], self.customers);
             Customers.search(self.query, function (results) {
                 Utils.replaceContents(results, self.customers);
@@ -39,6 +43,7 @@
                     };
                     customer.labelContent = customer.telephone;
                 });
+                self.isRefreshing = false;
                  if (onSuccess) {
                      onSuccess(self.customers);
                  }

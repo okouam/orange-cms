@@ -14,6 +14,8 @@
                 $state.go("cms");
                 
             }, function () {
+                vm.username = "";
+                vm.password = "";
                 vm.error = "Your username or password is incorrect";
                 vm.problem = "Authentication failed.";
             });

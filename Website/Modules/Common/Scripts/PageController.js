@@ -2,9 +2,12 @@
 
     "use strict";
 
-    function PageController($scope, IdentityService) {
+    function PageController($scope, IdentityService, $location) {
         var vm = this;
         vm.identity = IdentityService;
+        vm.isLogin = function() {
+            return $location.path() == "/login";
+        }
     }
 
     angular
@@ -12,6 +15,7 @@
     .controller("pageController", [
         "$scope",
         "IdentityService",
+        "$location",
         PageController
     ]);
 

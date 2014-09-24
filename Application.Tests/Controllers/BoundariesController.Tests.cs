@@ -22,7 +22,7 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Controllers
         {
             var boundaryCount = GetDatabaseContext().Boundaries.Count();
             var boundaries = await controller.GetAll();
-            Assert.That(boundaryCount, Is.EqualTo(boundaries.Count));
+            Assert.That(boundaryCount, Is.EqualTo(boundaries.Count()));
         }
     }
 }

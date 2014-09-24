@@ -2,12 +2,33 @@
     <a class="minimized" href="javascript:void(0)" data-ng-click="vm.open()">Boundaries</a>
     <div class="image-label header" style="cursor: pointer" data-ng-click="vm.minimize()" >
         <span class=" icon icon61">
-        &nbsp;</span>
+            &nbsp;</span>
         <span class="label">Boundaries</span>
         <a href="#" class="x">x</a>
     </div>
-    <ul>
+    <div style="text-align: center; padding-top: 30px" data-ng-if="vm.boundaries.length == 0">
+        <div id="fountainG" style="margin: auto">
+            <div id="fountainG_1" class="fountainG">
+            </div>
+            <div id="fountainG_2" class="fountainG">
+            </div>
+            <div id="fountainG_3" class="fountainG">
+            </div>
+            <div id="fountainG_4" class="fountainG">
+            </div>
+            <div id="fountainG_5" class="fountainG">
+            </div>
+            <div id="fountainG_6" class="fountainG">
+            </div>
+            <div id="fountainG_7" class="fountainG">
+            </div>
+            <div id="fountainG_8" class="fountainG">
+            </div>
+        </div>
+    </div>
+    <ul data-ng-if="vm.boundaries.length > 0">
         <li class="row clickable" data-ng-click="vm.select(boundary)" data-ng-class="{selected: boundary.selected} " data-ng-repeat="boundary in vm.boundaries">
+            <span style="background-color: #333; font-size: 10px; margin-right: 6px; display: inline-block; position: relative; top: -2px; padding: 3px 4px; border-radius: 5px">{{boundary.customerCount}}</span>
             <label>{{boundary.name}}</label>
         </li>
     </ul>

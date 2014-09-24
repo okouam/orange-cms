@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Services.Parameters;
 using CodeKinden.OrangeCMS.Repositories;
 using DotSpatial.Data;
 using DotSpatial.Topology;
@@ -23,11 +24,11 @@ namespace CodeKinden.OrangeCMS.Domain.Services
             this.dbContextScope = dbContextScope;
         }
 
-        public async Task<IEnumerable<Boundary>> GetAll()
+        public async Task<IEnumerable<BoundaryWithCustomerCount>> GetAll()
         {
             using (var dbContext = dbContextScope.CreateDbContext())
             {
-                return await dbContext.Boundaries.SqlQuery("select a.Id, a.Name, a.Shape, b.CustomerCount from boundaries as a join (select Boundaries.Id, count(*) as CustomerCount from boundaries join customers on customers.coordinates.STWithin(boundaries.shape) = 0 group by Boundaries.Id) as b on a.id = b.id").ToListAsync();
+                return await dbContext.Database.SqlQuery<BoundaryWithCustomerCount>("select a.Id, a.Name, a.Shape, b.CustomerCount from boundaries as a join (select Boundaries.Id, count(*) as CustomerCount from boundaries join customers on customers.coordinates.STWithin(boundaries.shape) = 0 group by Boundaries.Id) as b on a.id = b.id ORDER BY a.Name").ToListAsync();
             }
         }
 
