@@ -33,12 +33,12 @@ namespace OrangeCMS.Infrastructure
                 "~/Libraries/css3-buttons.css"));
 
             bundles.Add(CreateStyleBundle("~/bundles/css/common",
-                "~/Modules/Common/Styles/Reset.scss",
-                "~/Modules/Common/Styles/Navigation.scss",
-                "~/Modules/Common/Styles/Scrollbars.scss",
-                "~/Modules/Common/Styles/Application.scss"));
+                "~/Modules/Common/Styles/Reset.css",
+                "~/Modules/Common/Styles/Navigation.css",
+                "~/Modules/Common/Styles/Scrollbars.css",
+                "~/Modules/Common/Styles/Application.css"));
 
-            bundles.Add(CreateModuleStyleBundle("~/bundles/css/cms", "~/Modules/CMS", "*.scss"));
+            bundles.Add(CreateModuleStyleBundle("~/bundles/css/cms", "~/Modules/CMS", "*.css"));
         }
 
         public static void BundleJs(BundleCollection bundles)

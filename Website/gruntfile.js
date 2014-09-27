@@ -2,8 +2,25 @@
 
     grunt.initConfig({
 
+        autoprefixer: {
+          compile: {
+              files: [{
+                  src: 'Modules/**/*.css',
+                  dest: './',
+                  expand: true
+              }]
+          }
+        },
+
         stylus: {
-            files: ["Modules/**/*.styl"]
+            compile: {
+                files: [{
+                    src: 'Modules/**/*.styl',
+                    dest: './',
+                    expand: true,
+                    ext: ".css"
+                }]
+            }
         },
 
         jshint: {
@@ -44,17 +61,17 @@
         watch: {
             js: {
                 files: ["*.js"],
-                tasks: ['jshint', 'karma:unit:run', 'stylus']
+                tasks: ['jshint']
             },
             stylus: {
-                files: ['**/*.styl'],
                 tasks: ['stylus']
             }
         }
     });
 
+    grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-stylus');
-    grunt.registerTask('default', ['jshint']);
+    grunt.registerTask('default', ['jshint', 'stylus']);
 };

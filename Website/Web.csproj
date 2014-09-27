@@ -240,7 +240,7 @@
     <Content Include="Libraries\bootstrap\ui-bootstrap-custom-tpls-0.10.0.min.js" />
     <Content Include="Libraries\bootstrap\ui-bootstrap-custom.css" />
     <Content Include="Modules\CMS\Modules\Boundaries\BoundaryService.js" />
-    <Content Include="Modules\CMS\Styles\CMS.scss" />
+    <None Include="Modules\CMS\Styles\CMS.scss" />
     <Content Include="Modules\CMS\Templates\CMS.html" />
     <Content Include="Modules\CMS\Scripts\CMS.js" />
     <Content Include="Modules\CMS\Modules\Boundaries\Boundaries.js" />
@@ -259,7 +259,7 @@
     <Content Include="Modules\Common\Styles\Reset.scss" />
     <Content Include="Modules\Import\Templates\Import.html" />
     <Content Include="Modules\Common\Scripts\MainMenuController.js" />
-    <Content Include="Modules\Common\Styles\Navigation.scss" />
+    <None Include="Modules\Common\Styles\Navigation.styl" />
     <Content Include="Modules\Security\Scripts\LoginController.js" />
     <Content Include="Modules\CMS\Modules\Map\MapsController.js" />
     <Content Include="Modules\Common\Scripts\PageController.js" />
@@ -298,11 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="BundleTransformer.Configuration.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

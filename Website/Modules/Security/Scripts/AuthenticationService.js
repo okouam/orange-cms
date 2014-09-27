@@ -28,7 +28,9 @@
             var headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
 
             $http.post('/tokens', data, { headers: headers }).success(function (response) {
+                /* jshint ignore:start */
                 IdentityService.token = response.access_token;
+                /* jshint ignore:end */
                 deferred.resolve(response);
             }).error(function (err) {
                 self.logout();

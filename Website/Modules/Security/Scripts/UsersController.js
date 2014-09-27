@@ -1,4 +1,6 @@
-﻿(function () {
+﻿/* globals alert: true, confirm: true */
+
+(function () {
 
     "use strict";
 
@@ -71,7 +73,7 @@
                     return;
                 }
 
-                if (vm.password != vm.passwordConfirmation) {
+                if (vm.password !== vm.passwordConfirmation) {
                     vm.error = "Your password confirmation is not correct.";
                     alert(vm.error);
                     return;

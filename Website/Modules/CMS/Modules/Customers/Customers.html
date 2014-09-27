@@ -7,24 +7,7 @@
         <input data-ng-model="vm.query.strMatch" style="width: 338px; margin-top: 5px; padding: 5px" type="text" /><button style="display: inline-block; float: right" data-ng-click="vm.search()">Search</button>
     </div>
 <div style="text-align: center; padding-top: 30px" data-ng-if="vm.CMS.isRefreshing">
-    <div id="fountainG" style="margin: auto">
-        <div id="fountainG_1" class="fountainG">
-        </div>
-        <div id="fountainG_2" class="fountainG">
-        </div>
-        <div id="fountainG_3" class="fountainG">
-        </div>
-        <div id="fountainG_4" class="fountainG">
-        </div>
-        <div id="fountainG_5" class="fountainG">
-        </div>
-        <div id="fountainG_6" class="fountainG">
-        </div>
-        <div id="fountainG_7" class="fountainG">
-        </div>
-        <div id="fountainG_8" class="fountainG">
-        </div>
-    </div>
+    <img src="/Modules/Common/Images/gif-load.gif" />
 </div>
     <ul data-ng-if="!vm.CMS.isRefreshing">
     <li class="row" data-ng-if="vm.customers.length < 1">
