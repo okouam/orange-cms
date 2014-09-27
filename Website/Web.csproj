@@ -217,8 +217,14 @@
     <Content Include="Libraries\ngDialog\css\ngDialog.css" />
     <Content Include="Libraries\ngDialog\css\ngDialog.min.css" />
     <Content Include="Libraries\ngDialog\ngDialog.min.js" />
+    <Content Include="Modules\CMS\Styles\CMS.css" />
+    <Content Include="Modules\Common\Images\gif-load.gif" />
     <Content Include="Modules\Common\Images\login-background.jpg" />
     <Content Include="Modules\Common\Scripts\Startup.js" />
+    <Content Include="Modules\Common\Styles\Application.css" />
+    <Content Include="Modules\Common\Styles\Navigation.css" />
+    <Content Include="Modules\Common\Styles\Reset.css" />
+    <Content Include="Modules\Common\Styles\Scrollbars.css" />
     <Content Include="Modules\Common\Templates\ImageInDialog.html" />
     <Content Include="Modules\Import\Scripts\ImportController.js" />
     <Content Include="Modules\Import\Scripts\ImportService.js" />
