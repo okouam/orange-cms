@@ -314,7 +314,7 @@
   </PropertyGroup>
   <Target Name="CustomCollectFiles">
     <ItemGroup>
-      <CompressedStylesheets Include="**\*.css" />
+      <CompressedStylesheets Include="Modules\**\*.css" />
       <FilesForPackagingFromProject Include="%(CompressedStylesheets.Identity)">
         <DestinationRelativePath>%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
       </FilesForPackagingFromProject>
