@@ -2,8 +2,8 @@
 
     grunt.initConfig({
 
-       stylus: {
-            files: []
+        stylus: {
+            files: ["Modules/**/*.styl"]
         },
 
         jshint: {
@@ -41,21 +41,20 @@
             src: ["Modules/**/*.js"]
         },
 
-       watch: {
+        watch: {
             js: {
                 files: ["*.js"],
                 tasks: ['jshint', 'karma:unit:run', 'stylus']
             },
             stylus: {
                 files: ['**/*.styl'],
-                tasks: ['stylus'],
-
+                tasks: ['stylus']
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
-  
+    grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.registerTask('default', ['jshint']);
 };
