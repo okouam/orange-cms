@@ -218,7 +218,6 @@
     <Content Include="Libraries\ngDialog\css\ngDialog.min.css" />
     <Content Include="Libraries\ngDialog\ngDialog.min.js" />
     <Content Include="Modules\Common\Images\login-background.jpg" />
-    <Content Include="Modules\Common\Styles\Scrollbars.scss" />
     <Content Include="Modules\Common\Scripts\Startup.js" />
     <Content Include="Modules\Common\Templates\ImageInDialog.html" />
     <Content Include="Modules\Import\Scripts\ImportController.js" />
@@ -240,7 +239,6 @@
     <Content Include="Libraries\bootstrap\ui-bootstrap-custom-tpls-0.10.0.min.js" />
     <Content Include="Libraries\bootstrap\ui-bootstrap-custom.css" />
     <Content Include="Modules\CMS\Modules\Boundaries\BoundaryService.js" />
-    <None Include="Modules\CMS\Styles\CMS.scss" />
     <Content Include="Modules\CMS\Templates\CMS.html" />
     <Content Include="Modules\CMS\Scripts\CMS.js" />
     <Content Include="Modules\CMS\Modules\Boundaries\Boundaries.js" />
@@ -249,16 +247,16 @@
     <Content Include="Modules\CMS\Modules\Customers\CustomerService.js" />
     <Content Include="Modules\CMS\Modules\Map\Map.js" />
     <Content Include="Modules\CMS\Scripts\CollectionUtils.js" />
-    <Content Include="Modules\Common\Styles\Application.scss" />
     <Content Include="Modules\CMS\Modules\Customers\Customers.html" />
     <Content Include="Modules\CMS\Modules\Boundaries\BoundariesController.js" />
     <Content Include="Modules\CMS\Modules\Customers\CustomersController.js" />
     <Content Include="Modules\Security\Scripts\IdentityService.js" />
     <Content Include="Modules\Security\Templates\Setup.html" />
     <Content Include="Modules\Security\Scripts\OAuthInterceptor.js" />
-    <Content Include="Modules\Common\Styles\Reset.scss" />
     <Content Include="Modules\Import\Templates\Import.html" />
     <Content Include="Modules\Common\Scripts\MainMenuController.js" />
+    <Content Include="Modules\CMS\Styles\CMS.styl" />
+    <Content Include="Modules\Common\Styles\Application.styl" />
     <None Include="Modules\Common\Styles\Navigation.styl" />
     <Content Include="Modules\Security\Scripts\LoginController.js" />
     <Content Include="Modules\CMS\Modules\Map\MapsController.js" />
@@ -279,6 +277,8 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Modules\Common\Styles\Reset.styl" />
+    <Content Include="Modules\Common\Styles\Scrollbars.styl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -306,6 +306,20 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <PropertyGroup>
+    <CopyAllFilesToSingleFolderForPackageDependsOn>
+    CustomCollectFiles;
+    $(CopyAllFilesToSingleFolderForPackageDependsOn);
+  </CopyAllFilesToSingleFolderForPackageDependsOn>
+  </PropertyGroup>
+  <Target Name="CustomCollectFiles">
+    <ItemGroup>
+      <CompressedStylesheets Include="**\*.css" />
+      <FilesForPackagingFromProject Include="%(CompressedStylesheets.Identity)">
+        <DestinationRelativePath>%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
@@ -313,7 +327,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2548</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
