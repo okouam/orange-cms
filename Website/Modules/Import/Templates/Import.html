@@ -1,11 +1,11 @@
 ﻿<div data-ng-controller="ImportController as vm">
     <div data-ng-if="!vm.outcome">
         <div>
-            Please select the file you wish to import:
+            {{vm.texts.import.SELECT_FILE[vm.language]}}
             <input type="file" ng-file-select="vm.onFileSelect($files)" />
         </div>
         <div>
-            <button style="float: right" data-ng-click="vm.import()">Import</button>
+            <button style="float: right" data-ng-click="vm.import()">{{vm.texts.import.IMPORT_ACTION[vm.language]}}</button>
         </div>
         <div style="clear: both"></div>
     </div>

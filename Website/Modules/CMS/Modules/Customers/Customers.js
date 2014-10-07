@@ -13,6 +13,10 @@
            }
            $http.get("/customers", { params: params }).success(onSuccess).error(onError);
        };
+
+       this.remove = function (id, onSuccess, onError) {
+           $http.delete("/customers/" + id).success(onSuccess).error(onError);
+       };
    }
 
    angular

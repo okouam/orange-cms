@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CodeKinden.OrangeCMS.Application.ViewModels.Customers;
 using CodeKinden.OrangeCMS.Domain.Models;
-using OrangeCMS.Application.ViewModels;
 
 namespace CodeKinden.OrangeCMS.Application.Mappings
 {

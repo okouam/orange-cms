@@ -2,9 +2,11 @@
 
     "use strict";
 
-    function MainMenuController(AuthenticationService, $state, ngDialog, IdentityService) {
+    function MainMenuController(AuthenticationService, $state, ngDialog, IdentityService, Texts, Language) {
 
         var vm = this;
+        vm.language = Language;
+        vm.texts = Texts;
 
         vm.logout = function () {
             AuthenticationService.logout();
@@ -48,6 +50,8 @@
         "$state",
         "ngDialog",
         "IdentityService",
+        "Texts",
+        "Language",
         MainMenuController
     ]);
 

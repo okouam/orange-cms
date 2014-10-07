@@ -26,12 +26,31 @@ namespace CodeKinden.OrangeCMS.Repositories
 
             modelBuilder.Entity<Boundary>()
                 .HasKey(c => c.Id)
-                .Ignore(x => x.CustomerCount)
                 .Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<Boundary>()
+                .HasMany(x => x.Customers)
+                .WithMany(x => x.Boundaries)
+                .Map(x =>
+                {
+                    x.MapLeftKey("BoundaryId");
+                    x.MapRightKey("CustomerId");
+                    x.ToTable("BoundaryCustomer");
+                });
 
             modelBuilder.Entity<Customer>()
                 .HasKey(c => c.Id)
                 .Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<Customer>()
+                .HasMany(x => x.Boundaries)
+                .WithMany(x => x.Customers)
+                .Map(x =>
+                {
+                    x.MapLeftKey("CustomerId");
+                    x.MapRightKey("BoundaryId");
+                    x.ToTable("BoundaryCustomer");
+                });
 
             base.OnModelCreating(modelBuilder);
         }

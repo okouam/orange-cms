@@ -7,7 +7,7 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
         [Task(Command = "db:create", Description = "Creates an empty database.")]
         public void CreateDatabase(string sqlConnectionString)
         {
-            DB.RunDatabaseMigrations(sqlConnectionString);
+            DB.RunDatabaseMigrations(sqlConnectionString, true);
         }
     }
 }

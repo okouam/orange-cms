@@ -2,8 +2,10 @@
 
     "use strict";
 
-    function LoginController($state, AuthenticationService, IdentityService) {
+    function LoginController($state, AuthenticationService, IdentityService, Language, Texts) {
         var vm = this;
+        vm.language = Language;
+        vm.texts = Texts;
 
         this.login = function() {
             var username = vm.username;
@@ -28,6 +30,8 @@
         "$state",
         "AuthenticationService",
         "IdentityService",
+        "Language",
+        "Texts",
         LoginController
     ]);
 

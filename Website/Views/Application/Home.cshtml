@@ -4,6 +4,7 @@
 <html ng-app="geocms">
     <head>
         <meta name="viewport" content="width=device-width" />
+        <meta name="http-equiv" content="Content-type: text/html; charset=UTF-8" />
         <title>GeoCMS</title>
         <script src="//maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
         @Styles.Render("~/bundles/css/libraries")
@@ -23,6 +24,7 @@
 
             var app = angular
                 .module("geocms", ['ui.router', 'google-maps', 'ui.bootstrap', 'LocalStorageModule', 'ngDialog', 'angularFileUpload'])
+                .constant("Language", "fr")
                 .config(function ($stateProvider, $urlRouterProvider, $httpProvider, Startup) {
                     Startup.configureTokenAuthentication($httpProvider);
                     Startup.configureRouting($stateProvider, $urlRouterProvider);

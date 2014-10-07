@@ -2,10 +2,12 @@
 
     "use strict";
 
-    function BoundariesController(CMS) {
+    function BoundariesController(CMS, Texts, Language) {
 
         var vm = this;
-
+        vm.texts = Texts;
+        vm.language = Language;
+        
         vm.minimize = function() {
             $("#cms-boundaries").addClass("minimized");
         };
@@ -21,6 +23,8 @@
                     boundary.selected = false;
                 }
             });
+
+            CMS.query.strMatch = null;
 
             if (item.selected) {
                 CMS.query.boundary = item.id;
@@ -38,6 +42,8 @@
     .module("geocms")
     .controller("boundariesController", [
         "GeoCMS.CMS",
+        "Texts",
+        "Language",
         BoundariesController
     ]);
 

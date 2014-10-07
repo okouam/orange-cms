@@ -11,7 +11,6 @@ using CodeKinden.OrangeCMS.Application.ViewModels.Customers;
 using CodeKinden.OrangeCMS.Domain.Models;
 using CodeKinden.OrangeCMS.Domain.Providers;
 using CodeKinden.OrangeCMS.Domain.Services;
-using OrangeCMS.Application.ViewModels;
 
 namespace CodeKinden.OrangeCMS.Application.Controllers
 {
@@ -75,10 +74,16 @@ namespace CodeKinden.OrangeCMS.Application.Controllers
             return mappingEngine.Map<IEnumerable<CustomerModel>>(results);
         }
 
+        [HttpDelete, Route("customers/{id}")]
+        public void Delete(int id)
+        {
+            customerService.Delete(id);
+        }
+
         [HttpGet, Route("customers")]
         public IList<CustomerModel> Search(string strMatch = null, int? boundary = null, int pageSize = 100, int pageNum = 0)
         {
-            if (!boundary.HasValue) return new List<CustomerModel>();
+            if (!boundary.HasValue && String.IsNullOrEmpty(strMatch)) return new List<CustomerModel>();
             var customers = customerService.Search(strMatch, boundary, int.MaxValue, pageNum, true);
             return mappingEngine.Map<IList<CustomerModel>>(customers);
         }

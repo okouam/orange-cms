@@ -3,10 +3,10 @@
 <div class="background">
     <div class="login-box">
         <div data-ng-controller="LoginController as vm">
-            <label style="margin-right: 10px; display: block">Username <input type="text" style="padding: 5px; width: 218px" data-ng-model="vm.username" /> </label>
-            <label style="margin-right: 10px; margin-top: 10px; display: block">Password <input type="password" style="padding: 5px; width: 218px" data-ng-model="vm.password" /></label>
+            <label style="margin-right: 10px; display: block">{{vm.texts.security.USERNAME[vm.language]}} <input type="text" style="padding: 5px; width: 218px" data-ng-model="vm.username" /> </label>
+            <label style="margin-right: 10px; margin-top: 10px; display: block">{{vm.texts.security.PASSWORD[vm.language]}} <input type="password" style="padding: 5px; width: 218px" data-ng-model="vm.password" /></label>
             <div>
-               <button data-ng-click="vm.login()">Submit</button>
+               <button data-ng-click="vm.login()">{{vm.texts.security.SUBMIT[vm.language]}}</button>
                <div style="clear: both"></div>
             </div>
             <div>

@@ -15,7 +15,6 @@
 
         Boundaries.findAll(function(results) {
             Utils.replaceContents(results, self.boundaries);
-
         });
 
         this.mode = 'map';
@@ -25,8 +24,26 @@
             boundary: null
         };
 
+        this.deleteCustomer = function(id) {
+            Customers.remove(id, function() {
+                var customer = _.findWhere(self.customers, { id: id });
+                Utils.replaceContents(_.without(self.customers, customer), self.customers);
+                Boundaries.findAll(function (results) {
+                    Utils.replaceContents(results, self.boundaries);
+                    if (self.query.boundary) {
+                        var boundary = _.findWhere(self.boundaries, { id: self.query.boundary });
+                        boundary.selected = true;
+                    }
+                });
+            });
+        };
+
         this.centerMap = function(latitude, longitude) {
             Map.centerMap(latitude, longitude);
+        };
+
+        this.centerOnMarkers = function() {
+            Map.centerOnMarkers();
         };
 
         this.refresh = function (onSuccess) {

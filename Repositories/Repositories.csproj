@@ -59,9 +59,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\2 - Create Users Table.sql" />
-    <EmbeddedResource Include="Migrations\6 - Create Boundaries Table.sql" />
-    <EmbeddedResource Include="Migrations\5 - Create Customers Table.sql" />
+    <EmbeddedResource Include="Migrations\201410041110 Create Users Table.sql" />
+    <EmbeddedResource Include="Migrations\201410041113 Create Boundaries Table.sql" />
+    <EmbeddedResource Include="Migrations\201410041111 Create Customers Table.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201410041114 Create BoundaryCustomer Table.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

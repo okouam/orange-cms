@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity.Spatial;
 
 namespace CodeKinden.OrangeCMS.Domain.Models
 {
     public class Customer
     {
+        public Customer()
+        {
+            Boundaries = new Collection<Boundary>();
+        }
+
         public long Id { get; set; }
 
         public string ImageUrl { get; set; }
@@ -26,5 +33,7 @@ namespace CodeKinden.OrangeCMS.Domain.Models
         public string Login { get; set; }
 
         public DbGeography Coordinates { get; set; }
+
+        public virtual ICollection<Boundary> Boundaries { get; set; }
     }
 }

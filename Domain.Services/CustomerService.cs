@@ -34,29 +34,29 @@ namespace CodeKinden.OrangeCMS.Domain.Services
         {
             using (var dbContext = dbContextScope.CreateDbContext())
             {
-                var query = dbContext.Customers.AsQueryable();
+                var query = dbContext.Customers.Include(x => x.Boundaries).AsNoTracking().AsQueryable();
 
                 if (!String.IsNullOrEmpty(strMatch))
                 {
-                    query = query.Where(x => x.Telephone.Contains(strMatch) || x.Name.Contains(strMatch) || x.Formula.Contains(strMatch));
+                    query = query.Where(x => x.Telephone.Contains(strMatch) 
+                        || x.Boundaries.Any(y => y.Name.Contains(strMatch))
+                        || x.Name.Contains(strMatch) 
+                        || x.Formula.Contains(strMatch));
                 }
 
                 if (withCoordinatesOnly)
                 {
                     query = query.Where(x => x.Coordinates != null);
                 }
-
-
+                
                 var customers = query.OrderBy(x => x.Name).Skip(pageNum).Take(pageSize).ToList();
 
                 if (boundary.HasValue)
                 {
-                    var sql = String.Format("select telephone from customers where coordinates is not null AND EXISTS(SELECT * FROM Boundaries WHERE Boundaries.Id = {0} AND customers.Coordinates.STIntersects(Boundaries.Shape) = 0)", boundary.Value);
-                    var inBoundary = dbContext.Database.SqlQuery<string>(sql).ToList();
-                    return customers.Where(x => inBoundary.Contains(x.Telephone)).ToList();
+                    return customers.Where(x => x.Boundaries.Any(y => y.Id == boundary.Value));
                 }
 
-                return customers;
+                return customers.ToList();
             }
         }
 
@@ -120,7 +120,7 @@ namespace CodeKinden.OrangeCMS.Domain.Services
 
                 using (var dbContext = dbContextScope.CreateDbContext())
                 {
-                    var customers = dbContext.Customers.ToList();
+                    var customers = dbContext.Customers.AsNoTracking().ToList();
                     foreach (var customer in customers)
                     {
                         csv.WriteRecord(customer);
@@ -141,14 +141,16 @@ namespace CodeKinden.OrangeCMS.Domain.Services
                     new CustomerRepository(dbContext).Save(batch);
                     dbContext.SaveChanges();
                 }
-
-                RaiseCustomerBatchSaved(1000);
             }
         }
 
-        public void RaiseCustomerBatchSaved(int batchSize)
+        public void Delete(int id)
         {
-            
+            using (var dbContext = dbContextScope.CreateDbContext())
+            {
+               dbContext.Customers.Remove(dbContext.Customers.Find(id));
+               dbContext.SaveChanges();
+            }
         }
 
         private static DateTime? GetDate(CsvReader csv, string header)

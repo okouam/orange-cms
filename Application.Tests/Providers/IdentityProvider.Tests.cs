@@ -1,7 +1,7 @@
 ﻿using CodeKinden.OrangeCMS.Application.Providers;
 using NUnit.Framework;
 
-namespace OrangeCMS.Application.Tests.Providers
+namespace CodeKinden.OrangeCMS.Application.Tests.Providers
 {
     class IdentityProviderTests
     {

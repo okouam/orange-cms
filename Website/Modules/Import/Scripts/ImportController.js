@@ -2,8 +2,11 @@
 
     "use strict";
 
-    function ImportController($upload, IdentityService) {
+    function ImportController($upload, IdentityService, Texts, Language) {
         var vm = this;
+        vm.texts = Texts;
+        vm.language = Language;
+
         var file;
 
         vm.onFileSelect = function ($files) {
@@ -19,10 +22,10 @@
             }).progress(function () {
 
             }).success(function () {
-                vm.outcome = "The file has been successfully imported.";
+                vm.outcome = Texts.imports.IMPORT_SUCCESS[Language];
             })
             .error(function (ex) {
-                vm.outcome = "Failed when trying to import the file. " + ex.exceptionMessage;
+                vm.outcome = Texts.imports.IMPORT_FAILURE[Language] + ex.exceptionMessage;
             });
         };
     }
@@ -32,6 +35,8 @@
     .controller("ImportController", [
         '$upload',
         "IdentityService",
+        "Texts",
+        "Language",
         ImportController
     ]);
 

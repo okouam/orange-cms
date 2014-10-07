@@ -1,17 +1,17 @@
 ﻿<div data-ng-controller="customersController as vm" class="column-contents listing">
     <div class="image-label header">
         <span class="icon icon127">&nbsp;</span>
-        <span class="label">Customers</span>
+        <span class="label">{{vm.texts.cms.CUSTOMERS[vm.language]}}</span>
     </div>
     <div class="query">
-        <input data-ng-model="vm.query.strMatch" style="width: 338px; margin-top: 5px; padding: 5px" type="text" /><button style="display: inline-block; float: right" data-ng-click="vm.search()">Search</button>
+        <input data-ng-model="vm.query.strMatch" style="width: 338px; margin-top: 5px; padding: 5px" type="text" /><button style="display: inline-block; float: right" data-ng-click="vm.search()">{{vm.texts.cms.SEARCH[vm.language]}}</button>
     </div>
 <div style="text-align: center; padding-top: 30px" data-ng-if="vm.CMS.isRefreshing">
     <img src="/Modules/Common/Images/gif-load.gif" />
 </div>
     <ul data-ng-if="!vm.CMS.isRefreshing">
     <li class="row" data-ng-if="vm.customers.length < 1">
-        No customers found. Change boundary or modify your search query.
+        {{vm.texts.cms.NO_CUSTOMERS_FOUND[vm.language]}}
     </li>
     <li class="highlightable row" style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers">
         <div style="display: flex; flex-direction: column">
@@ -20,6 +20,7 @@
                     <p style="font-style: normal">{{customer.name}} </p>
                     <p style="margin-top: 5px">{{customer.telephone}}</p>
                 </span>
+                <span data-ng-click="vm.deleteCustomer(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon56">&nbsp;</span></span>
                 <span data-ng-click="vm.zoomToCustomer(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon121">&nbsp;</span></span>
                 <span data-ng-click="vm.showDetails(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon191">&nbsp;</span></span>
             </div>

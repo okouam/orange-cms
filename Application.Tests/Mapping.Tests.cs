@@ -2,7 +2,7 @@
 using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using NUnit.Framework;
 
-namespace OrangeCMS.Application.Tests
+namespace CodeKinden.OrangeCMS.Application.Tests
 {
     [TestFixture]
     class MappingTests : BaseTest

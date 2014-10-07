@@ -52,6 +52,8 @@
 
             var markers = vm.getGMarkers();
 
+            console.log(markers);
+
             if (markers.length > 0) {
 
                 var bounds = new google.maps.LatLngBounds();

@@ -1,5 +1,5 @@
 ﻿<google-map center="vm.map.center" height="100%" control="vm.map" draggable="true" zoom="vm.map.zoom" events="vm.map">
-    <markers models="vm.customers" idKey="id" isLabel="true" labelContent="telephone" options="'options'" coords="'self'" doCluster="true"></markers>
+    <markers models="vm.customers" idKey="id" isLabel="true" fit="true" labelContent="telephone" options="'options'" coords="'self'" doCluster="true" control="vm.map"></markers>
     <polygon data-ng-repeat="polygon in polygons track by polygon.id" 
              data-fill="polygon.fill" 
              data-editable="false" 

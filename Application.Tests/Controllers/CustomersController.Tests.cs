@@ -40,11 +40,11 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Controllers
         [Test]
         public async void When_importing_adds_the_customers_to_the_database()
         {
-            var fixture = FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Customers.csv");
+            var fixture = FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Development.Customers.csv");
             var content = FakeFormData.CreateMultipartFormDataContent(fixture);
             controller.Request = new HttpRequestMessage(HttpMethod.Post, "import") { Content = content };
             var customers = await controller.Import();
-            Assert.That(customers.Count(), Is.EqualTo(351));
+            Assert.That(customers.Count(), Is.EqualTo(339));
         }
     }
 }

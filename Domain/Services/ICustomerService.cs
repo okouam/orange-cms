@@ -15,5 +15,7 @@ namespace CodeKinden.OrangeCMS.Domain.Services
         string Export();
 
         void Save(params Customer[] toArray);
+
+        void Delete(int id);
     }
 }

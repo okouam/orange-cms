@@ -1,15 +1,22 @@
-﻿using System.Data.Entity.Spatial;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity.Spatial;
 
 namespace CodeKinden.OrangeCMS.Domain.Models
 {
     public class Boundary
     {
+        public Boundary()
+        {
+            Customers = new Collection<Customer>();
+        }
+
         public DbGeography Shape { get; set; }
 
         public string Name { get; set; }
 
         public long Id { get; set; }
 
-        public long CustomerCount { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

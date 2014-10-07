@@ -8,17 +8,17 @@ using NLog;
 
 namespace CodeKinden.OrangeCMS.Tasks.Bounce
 {
-    class DB
+    public class DB
     {
-        public static void RunDatabaseMigrations(string sqlConnectionString)
+        public static void RunDatabaseMigrations(string sqlConnectionString, bool logScriptOutput)
         {
-            var upgrader = DeployChanges.To
-                .SqlDatabase(sqlConnectionString)
-                .LogScriptOutput()
-                .WithScriptsEmbeddedInAssembly(typeof(DatabaseContext).Assembly)
-                .Build();
+            var upgrader = DeployChanges.To.SqlDatabase(sqlConnectionString);
 
-            upgrader.PerformUpgrade();
+            if (logScriptOutput) upgrader = upgrader.LogScriptOutput();
+
+            var builder = upgrader.WithScriptsEmbeddedInAssembly(typeof(DatabaseContext).Assembly).Build();
+
+            builder.PerformUpgrade();
         }
 
         public static void CreateOrReplaceDatabase(string connectionString)
