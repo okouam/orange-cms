@@ -1,77 +1,57 @@
-﻿<div data-ng-controller="customersController as vm" class="column-contents listing">
+﻿<div data-ng-controller="customersController as vm" class="column-contents listing customers">
+    
     <div class="image-label header">
         <span class="icon icon127">&nbsp;</span>
-        <span class="label">{{vm.texts.cms.CUSTOMERS[vm.language]}}</span>
+        <span class="label" ng-bind-html="vm.texts.cms.CUSTOMERS[vm.language]"></span>
     </div>
+
     <div class="query">
-        <input data-ng-model="vm.query.strMatch" style="width: 338px; margin-top: 5px; padding: 5px" type="text" /><button style="display: inline-block; float: right" data-ng-click="vm.search()">{{vm.texts.cms.SEARCH[vm.language]}}</button>
+        <input data-ng-model="vm.query.strMatch" type="text" />
+        <button data-ng-click="vm.search()" ng-bind-html="vm.texts.cms.SEARCH[vm.language]"></button>
     </div>
-<div style="text-align: center; padding-top: 30px" data-ng-if="vm.CMS.isRefreshing">
-    <img src="/Modules/Common/Images/gif-load.gif" />
-</div>
+
+    <div data-ng-if="vm.CMS.isRefreshing" class="loader">
+        <img src="/Modules/Common/Images/gif-load.gif" />
+    </div>
+
     <ul data-ng-if="!vm.CMS.isRefreshing">
-    <li class="row" data-ng-if="vm.customers.length < 1">
-        {{vm.texts.cms.NO_CUSTOMERS_FOUND[vm.language]}}
-    </li>
-    <li class="highlightable row" style="display: flex; flex-direction: column" class="row" data-ng-repeat="customer in vm.customers">
-        <div style="display: flex; flex-direction: column">
-            <div class="customer-summary" style="display: flex; width: 100%">
-                <span class="customer-phone" style="flex: 1">
-                    <p style="font-style: normal">{{customer.name}} </p>
-                    <p style="margin-top: 5px">{{customer.telephone}}</p>
-                </span>
-                <span data-ng-click="vm.deleteCustomer(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon56">&nbsp;</span></span>
-                <span data-ng-click="vm.zoomToCustomer(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon121">&nbsp;</span></span>
-                <span data-ng-click="vm.showDetails(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon191">&nbsp;</span></span>
-            </div>
-            <div data-ng-if="customer.selected" class="customer-details">
-                <div style="width: 282px; display: inline-block; vertical-align: top; margin-left: 4px">
+        <li class="row" data-ng-if="vm.customers.length < 1" style="line-height: 16px" ng-bind-html="vm.texts.cms.NO_CUSTOMERS_FOUND[vm.language]"></li>
+        <li class="highlightable row customer-row" style="line-height: 15px" data-ng-repeat="customer in vm.customers">
+            <div>
+                <div class="customer-summary">
+                    <span class="customer-phone">
+                        <p style="font-style: normal" ng-bind-html="customer.name"></p>
+                        <p style="margin-top: 5px" ng-bind-html="customer.telephone"></p>
+                    </span>
+                    <span data-ng-click="vm.deleteCustomer(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon56">&nbsp;</span></span>
+                    <span data-ng-click="vm.zoomToCustomer(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon121">&nbsp;</span></span>
+                    <span data-ng-click="vm.showDetails(customer)" class="image-label gray" style="border-width: 0; padding: 0"><span class="icon icon191">&nbsp;</span></span>
+                </div>
+                <div data-ng-if="customer.selected" class="customer-details">
                     <div>
-                        <label>Login: </label>{{customer.login}}
+                        <div>
+                            <label>Login: </label>{{customer.login}}
+                        </div>
+                        <div>
+                            <label>Formule: </label> {{customer.formula}}
+                        </div>
+                        <div>
+                            <label>Debit: </label> {{customer.speed}}
+                        </div>
+                        <div>
+                            <label>Date d'expiration: </label> {{customer.expiryDate}}
+                        </div>
+                        <div>
+                            <label>Etat: </label> {{customer.status}}
+                        </div>
                     </div>
-                    <div>
-                        <label>Formule: </label> {{customer.formula}}
-                    </div>
-                    <div>
-                        <label>Debit: </label> {{customer.speed}}
-                    </div>
-                    <div>
-                        <label>Date d'expiration: </label> {{customer.expiryDate}}
-                    </div>
-                    <div>
-                        <label>Etat: </label> {{customer.status}}
+                    <div data-ng-if="customer.imageUrl" style="width: 113px; display: inline-block">
+                        <a data-ng-click="vm.showImageInDialog(customer.imageUrl)" href="javascript:void(0)">
+                            <img style="border: 1px solid #aaa; width: 113px; height: 200px" data-ng-src="{{customer.imageUrl}}" />
+                        </a>
                     </div>
                 </div>
-                <div data-ng-if="customer.imageUrl" style="width: 113px; display: inline-block">
-                    <a data-ng-click="vm.showImageInDialog(customer.imageUrl)" href="javascript:void(0)">
-                        <img style="border: 1px solid #aaa; width: 113px; height: 200px" data-ng-src="{{customer.imageUrl}}" />
-                    </a>
-                </div>
             </div>
-        </div>
-    </li>
-</ul>
+        </li>
+    </ul>
 </div> 
-
-<style type="text/css">
-    .customer-details  {
-        display: block;
-        margin-top: 10px;
-        font-size: 11px;
-        background-color: #282828
-    }
-
-    .customer-details label {
-        font-weight: bold;
-    }
-
-        .customer-details div {
-            margin-top: 5px;
-            margin-left: 6px;
-    }
-
-        .customer-summary .image-label {
-            cursor: pointer
-        }
-
-</style>

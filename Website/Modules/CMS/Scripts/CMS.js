@@ -17,6 +17,16 @@
             Utils.replaceContents(results, self.boundaries);
         });
 
+        this.selectBoundary = function(id) {
+            self.query.boundary = id;
+            Map.showBoundary(_.findWhere(self.boundaries, { id: id }).shape);
+        };
+
+        this.deselectBoundary = function () {
+            self.query.boundary = null;
+            Map.hideBoundaries();
+        };
+        
         this.mode = 'map';
 
         this.query = {

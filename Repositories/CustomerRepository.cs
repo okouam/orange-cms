@@ -20,48 +20,23 @@ namespace CodeKinden.OrangeCMS.Repositories
             return dbContext.Customers.Count();
         }
 
+        public Customer Get(long id)
+        {
+            return dbContext.Customers.Where(x => x.Id == 1).Include(x => x.Boundaries).FirstOrDefault();
+        }
+
         public void Save(params Customer[] customers)
         {
             foreach (var customer in customers)
             {
-                if (customer.Id == 0)
-                {
-                    dbContext.Entry(customer).State = EntityState.Added;
-                }
-                else
-                {
-                    var existing = dbContext.Customers.Find(customer.Id);
-                    dbContext.Entry(existing).CurrentValues.SetValues(customer);
-                }
-
-                dbContext.SaveChanges();
-                var record = dbContext.Customers.Find(customer.Id);
-
-                record.Boundaries.Clear();
-
-                if (record.Coordinates != null)
-                {
-                    FindContainingBoundaries(record);
-                }
+                dbContext.Customers.Attach(customer);
+                dbContext.Entry(customer).State = customer.Id == 0 ? EntityState.Added : EntityState.Modified;
             }
         }
 
         public void Save(IEnumerable<Customer> customers)
         {
             Save(customers.ToArray());
-        }
-
-        private void FindContainingBoundaries(Customer customer)
-        {
-            var boundaries = dbContext.Boundaries.Where(x => !x.Shape.Intersects(customer.Coordinates));
-
-            if (boundaries.Any())
-            {
-                foreach (var boundary in boundaries)
-                {
-                    customer.Boundaries.Add(boundary);
-                }
-            }
         }
     }
 }

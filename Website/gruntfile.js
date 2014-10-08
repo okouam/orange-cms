@@ -12,10 +12,10 @@
           }
         },
 
-        stylus: {
+        sass: {
             compile: {
                 files: [{
-                    src: 'Modules/**/*.styl',
+                    src: 'Modules/**/*.scss',
                     dest: './',
                     expand: true,
                     ext: ".css"
@@ -72,6 +72,7 @@
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-stylus');
-    grunt.registerTask('default', ['jshint', 'stylus']);
+    grunt.registerTask('default', ['sass', 'autoprefixer']);
 };

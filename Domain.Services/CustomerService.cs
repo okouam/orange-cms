@@ -133,7 +133,7 @@ namespace CodeKinden.OrangeCMS.Domain.Services
 
         public void Save(params Customer[] customers)
         {
-            foreach (var batch in customers.Batch(1000))
+            foreach (var batch in customers.Batch(500))
             {
                 using (var dbContext = dbContextScope.CreateDbContext())
                 {

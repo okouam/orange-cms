@@ -27,9 +27,9 @@
             CMS.query.strMatch = null;
 
             if (item.selected) {
-                CMS.query.boundary = item.id;
+                CMS.selectBoundary(item.id);
             } else {
-                CMS.query.boundary = null;
+                CMS.deselectBoundary();
             }
 
             CMS.refresh();

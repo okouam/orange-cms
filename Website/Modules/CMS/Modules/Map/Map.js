@@ -7,6 +7,7 @@
     function Map() {
 
         var vm = this;
+        var counter = 1;
 
         this.center = {
             latitude: 5,
@@ -20,7 +21,7 @@
             vm.resizeMapContainer();
         };
 
-        this.polygons = [];
+        vm.polygons = [];
 
         /** Resize the Google Maps container every time the window dimensions change. **/
         $(window).resize(Map.resizeMapContainer);
@@ -31,16 +32,30 @@
             $("#cms-map .angular-google-map-container").height(containerHeight);
         };
         
-        this.showBoundary = function() {
-            var polygon = {
-                path: "",
-                stroke: "",
-                fill: ""
-            };
-            vm.polygons.push(polygon);
+        this.showBoundary = function (wkt) {
+            this.hideBoundaries();
+            var shape = wkt.substring(wkt.indexOf(";") + 1);
+            var coordinates = _.map($.geo._WKT.parse(shape).coordinates[0], function(coords) {
+                return { longitude: coords[0], latitude: coords[1] };
+            });
+            vm.polygons.push({
+                id: counter++,
+                path: coordinates,
+                stroke: {
+                    opacity: 0.1,
+                    color: "#6060FB",
+                    weight: 3
+                },
+                fill: {
+                    opacity: 0.1,
+                    color: "#ff0000"
+                } 
+            });
+            console.log(vm.polygons[0].path);
         };
 
-        this.hideBoundary = function() {
+        this.hideBoundaries = function () {
+            vm.polygons.pop();
         };
 
         this.centerMap = function(longitude, latitude) {

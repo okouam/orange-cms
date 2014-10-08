@@ -18,10 +18,10 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Controllers
         }
 
         [Test]
-        public async void When_getting_all_boundaries_retrieves_all_available()
+        public void When_getting_all_boundaries_retrieves_all_available()
         {
             var boundaryCount = GetDatabaseContext().Boundaries.Count();
-            var boundaries = await controller.GetAll();
+            var boundaries = controller.GetAll();
             Assert.That(boundaryCount, Is.EqualTo(boundaries.Count()));
         }
     }

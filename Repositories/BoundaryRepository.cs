@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using CodeKinden.OrangeCMS.Domain.Models;
 using CodeKinden.OrangeCMS.Domain.Repositories;
@@ -20,34 +20,16 @@ namespace CodeKinden.OrangeCMS.Repositories
             return Save(boundaries.ToArray());
         }
 
+        public Boundary Get(long id)
+        {
+            return dbContext.Boundaries.Where(x => x.Id == id).Include(x => x.Customers).FirstOrDefault();
+        }
+
         public IEnumerable<Boundary> Save(params Boundary[] boundaries)
         {
             foreach (var boundary in boundaries)
             {
-                var current = boundary;
-
-                try
-                {
-                    var customers = dbContext.Customers
-                        .Where(x => x.Coordinates != null)
-                        .Where(x => !x.Coordinates.Intersects(current.Shape));
-
-                    boundary.Customers.Clear();
-
-                    if (customers.Any())
-                    {
-                        foreach (var customer in customers)
-                        {
-                            boundary.Customers.Add(customer);
-                        }
-                    }
-
-                    dbContext.Boundaries.Add(boundary);
-                }
-                catch
-                {
-                    // This empty block is required to handle invalid geometries. 
-                }
+                dbContext.Boundaries.Add(boundary);
             }
 
             return boundaries;

@@ -39,6 +39,8 @@ namespace OrangeCMS.Infrastructure
                 "~/Modules/Common/Styles/Application.css"));
 
             bundles.Add(CreateModuleStyleBundle("~/bundles/css/cms", "~/Modules/CMS", "*.css"));
+
+            bundles.Add(CreateModuleStyleBundle("~/bundles/css/security", "~/Modules/Security", "*.css"));
         }
 
         public static void BundleJs(BundleCollection bundles)

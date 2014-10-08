@@ -1,9 +1,9 @@
 ﻿<div id="left-window" data-ng-controller="boundariesController as vm" class="column-contents">
-    <a class="minimized" href="javascript:void(0)" data-ng-click="vm.open()">{{vm.texts.cms.BOUNDARIES[vm.language]}}</a>
+    <a class="minimized" href="javascript:void(0)" data-ng-click="vm.open()" ng-bind-html="vm.texts.cms.BOUNDARIES[vm.language]"></a>
     <div class="image-label header" style="cursor: pointer" data-ng-click="vm.minimize()" >
         <span class=" icon icon61">
             &nbsp;</span>
-        <span class="label">{{vm.texts.cms.BOUNDARIES[vm.language]}}</span>
+        <span class="label" ng-bind-html="vm.texts.cms.BOUNDARIES[vm.language]"></span>
         <a href="#" class="x">x</a>
     </div>
     <div style="text-align: center; padding-top: 30px" data-ng-if="vm.boundaries.length == 0">
@@ -11,8 +11,8 @@
     </div>
     <ul data-ng-if="vm.boundaries.length > 0">
         <li class="row clickable" data-ng-click="vm.select(boundary)" data-ng-class="{selected: boundary.selected} " data-ng-repeat="boundary in vm.boundaries">
-            <span style="background-color: #333; font-size: 10px; margin-right: 6px; display: inline-block; position: relative; top: -2px; padding: 3px 4px; border-radius: 5px">{{boundary.customerCount}}</span>
-            <label>{{boundary.name}}</label>
+            <span style="background-color: #333; font-size: 10px; margin-right: 6px; display: inline-block; position: relative; top: -2px; padding: 3px 4px; border-radius: 5px" ng-bind-html="boundary.customerCount"></span>
+            <label ng-bind-html="boundary.name"></label>
         </li>
     </ul>
 </div>

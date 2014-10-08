@@ -34,6 +34,6 @@ namespace CodeKinden.OrangeCMS.Domain.Models
 
         public DbGeography Coordinates { get; set; }
 
-        public virtual ICollection<Boundary> Boundaries { get; set; }
+        public ICollection<Boundary> Boundaries { get; set; }
     }
 }

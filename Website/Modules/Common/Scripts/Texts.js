@@ -20,7 +20,7 @@
                 },
                 LOGOUT: {
                     "en": "Logout",
-                    "fr": "Déconnecter"
+                    "fr": "D&eacute;connecter"
                 },
                 CMS: {
                     "en": "CMS",
@@ -46,13 +46,13 @@
                 },
                 NO_CUSTOMERS_FOUND: {
                     "en": "No customers found. Change boundary or modify your search query.",
-                    "fr": "Aucun client correspond aux critères demandés. Veuillez modifier votre recherche ou changer de commune."
+                    "fr": "Aucun client correspond aux crit&egrave;res demand&eacute;s. Veuillez modifier votre recherche ou changer de commune."
                 },
             },
             "import": {
                 SELECT_FILE: {
                     "en": "Please select the file you wish to import:",
-                    "fr": "Veuillez choisir un fichier à importer:"
+                    "fr": "Veuillez choisir un fichier &agrave; importer:"
                 },
                 IMPORT_ACTION: {
                     "en": "Import",
@@ -60,7 +60,7 @@
                 },
                 IMPORT_SUCCESS: {
                     "en": "The file has been successfully imported.",
-                    "fr": "Le fichier a été importé avec succès."
+                    "fr": "Le fichier a &eacute;t&eacute; import&eacute; avec succ&egrave;s."
                 },
                 IMPORT_FAILURE: {
                     "en": "Failed when trying to import the file.",

@@ -17,6 +17,6 @@ namespace CodeKinden.OrangeCMS.Domain.Models
 
         public long Id { get; set; }
 
-        public virtual ICollection<Customer> Customers { get; set; }
+        public ICollection<Customer> Customers { get; set; }
     }
 }

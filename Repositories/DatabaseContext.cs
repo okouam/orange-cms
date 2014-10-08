@@ -10,6 +10,8 @@ namespace CodeKinden.OrangeCMS.Repositories
         public DatabaseContext(string connectionString) : base(connectionString)
         {
             Database.SetInitializer<DatabaseContext>(null);
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Customer> Customers { get; set; }
@@ -25,22 +27,39 @@ namespace CodeKinden.OrangeCMS.Repositories
                 .Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<Boundary>()
+                .MapToStoredProcedures(sp => {
+                    sp.Update(x => x.HasName("UpdateBoundary"));
+                    sp.Insert(x => x.HasName("InsertBoundary"));
+                    sp.Delete(x => x.HasName("DeleteBoundary"));
+                })
                 .HasKey(c => c.Id)
-                .Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
+                .Property(c => c.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            
             modelBuilder.Entity<Boundary>()
                 .HasMany(x => x.Customers)
                 .WithMany(x => x.Boundaries)
-                .Map(x =>
-                {
-                    x.MapLeftKey("BoundaryId");
-                    x.MapRightKey("CustomerId");
+                .Map(x => {
+                    x.MapLeftKey("CustomerId");
+                    x.MapRightKey("BoundaryId");
                     x.ToTable("BoundaryCustomer");
+                })
+                .MapToStoredProcedures(sp => {
+                    sp.Insert(x => x.HasName("DoNothingCustomerBoundary"));
+                    sp.Insert(x => x.HasName("DoNothingCustomerBoundary"));
+                    sp.Insert(x => x.HasName("DoNothingCustomerBoundary"));
                 });
 
             modelBuilder.Entity<Customer>()
+                .MapToStoredProcedures(sp =>
+                {
+                    sp.Update(x => x.HasName("UpdateCustomer"));
+                    sp.Insert(x => x.HasName("InsertCustomer"));
+                    sp.Delete(x => x.HasName("DeleteCustomer"));
+                })
                 .HasKey(c => c.Id)
-                .Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+                .Property(c => c.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(x => x.Boundaries)
@@ -50,7 +69,14 @@ namespace CodeKinden.OrangeCMS.Repositories
                     x.MapLeftKey("CustomerId");
                     x.MapRightKey("BoundaryId");
                     x.ToTable("BoundaryCustomer");
+                })
+                .MapToStoredProcedures(sp =>
+                {
+                    sp.Insert(x => x.HasName("DoNothingCustomerBoundary"));
+                    sp.Insert(x => x.HasName("DoNothingCustomerBoundary"));
+                    sp.Insert(x => x.HasName("DoNothingCustomerBoundary"));
                 });
+
 
             base.OnModelCreating(modelBuilder);
         }

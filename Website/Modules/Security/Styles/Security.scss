@@ -1,0 +1,55 @@
+﻿.login-page {
+    flex-direction: column;
+	display: flex;
+    flex: 1;
+    button {
+	    float: right;
+	    margin-right: 0;
+	    position: relative;
+	    margin-top: 12px;
+	    border-color: #aaa;
+    }
+}
+
+.login {
+	overflow: hidden;
+	.background {
+		 width: 100%;
+		 flex: 1;
+		 border-bottom: 1px solid #aaa;
+		 border-top: 2px solid #aaa;
+		 display: flex;
+		 justify-content: center;
+		 background-position: center;
+		 background-image: url('/Modules/Security/Images/image.jpg');
+    }
+	.login-page button {
+		float: right;
+		margin-right: 0;
+		position: relative;
+		margin-top: 12px;
+		border-color: #aaa;
+    }
+	.banner {
+		background-color: #333;
+		color: white;
+		padding: 5px;
+	}
+}
+
+.login-box {
+	padding: 20px;
+    border-radius: 10px;
+    width: 230px;
+    opacity: 0.9;
+    background-color: #333333;
+    margin: auto;
+    position: relative;
+    color: white;
+	.wrapper { 
+		margin-right: 50px;
+		margin: auto;
+	}
+}
+
+    

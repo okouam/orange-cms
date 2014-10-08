@@ -6,6 +6,8 @@
 
         public long Id { get; set; }
 
+        public string Shape { get; set; }
+
         public int CustomerCount { get; set; }
     }
 }

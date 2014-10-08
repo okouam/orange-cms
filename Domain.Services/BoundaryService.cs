@@ -23,11 +23,11 @@ namespace CodeKinden.OrangeCMS.Domain.Services
             this.dbContextScope = dbContextScope;
         }
 
-        public async Task<IEnumerable<Boundary>> GetAll()
+        public IEnumerable<Boundary> GetAll()
         {
             using (var dbContext = dbContextScope.CreateDbContext())
             {
-                return await dbContext.Boundaries.Include(x => x.Customers).OrderBy(x => x.Name).Where(x => x.Customers.Any()).AsNoTracking().ToListAsync();
+                return dbContext.Boundaries.Include(x => x.Customers).OrderBy(x => x.Name).AsNoTracking().ToList();
             }
         }
 

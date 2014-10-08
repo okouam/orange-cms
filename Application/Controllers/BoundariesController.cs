@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using CodeKinden.OrangeCMS.Application.ViewModels;
@@ -21,10 +21,10 @@ namespace CodeKinden.OrangeCMS.Application.Controllers
         }
 
         [HttpGet, Route("boundaries")]
-        public async Task<IEnumerable<BoundaryModel>> GetAll()
+        public IEnumerable<BoundaryModel> GetAll()
         {
-            var boundaries = await boundaryService.GetAll();
-            return mappingEngine.Map<IEnumerable<BoundaryModel>>(boundaries);
+            var boundaries = boundaryService.GetAll();
+            return mappingEngine.Map<IEnumerable<BoundaryModel>>(boundaries.Where(x => x.Customers.Count > 0));
         }
     }
 }

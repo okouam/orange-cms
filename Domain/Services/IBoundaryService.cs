@@ -7,7 +7,7 @@ namespace CodeKinden.OrangeCMS.Domain.Services
 {
     public interface IBoundaryService
     {
-        Task<IEnumerable<Boundary>> GetAll();
+        IEnumerable<Boundary> GetAll();
 
         Task<Boundary> Get(long id);
 

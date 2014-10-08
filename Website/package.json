@@ -10,6 +10,7 @@
     "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-stylus": "*",
+    "grunt-sass": "*",
     "grunt-contrib-watch": "^0.6.1",
     "jasmine-reporters": "^0.4.1",
     "jshint": "*",

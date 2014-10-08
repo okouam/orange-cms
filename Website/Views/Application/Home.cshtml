@@ -10,7 +10,10 @@
         @Styles.Render("~/bundles/css/libraries")
         @Styles.Render("~/bundles/css/common")
         @Styles.Render("~/bundles/css/cms")
+        @Styles.Render("~/bundles/css/security")
         @Scripts.Render("~/bundles/js/libraries")
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquerygeo.com/jquery.geo-1.0.0-b1.5.min.js"></script>
     </head>
     <style>
         .login #main-menu {display: none}
@@ -25,9 +28,10 @@
             var app = angular
                 .module("geocms", ['ui.router', 'google-maps', 'ui.bootstrap', 'LocalStorageModule', 'ngDialog', 'angularFileUpload'])
                 .constant("Language", "fr")
-                .config(function ($stateProvider, $urlRouterProvider, $httpProvider, Startup) {
+                .config(function ($stateProvider, $urlRouterProvider, $httpProvider, Startup, $sceProvider) {
                     Startup.configureTokenAuthentication($httpProvider);
                     Startup.configureRouting($stateProvider, $urlRouterProvider);
+                    $sceProvider.enabled(false);
             });
           
             $(document).ready(function () {

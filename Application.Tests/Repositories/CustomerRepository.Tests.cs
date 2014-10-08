@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using CodeKinden.OrangeCMS.Domain.Models;
 using CodeKinden.OrangeCMS.Repositories;
+using CodeKinden.OrangeCMS.Tasks.Bounce;
 using NUnit.Framework;
 
 namespace CodeKinden.OrangeCMS.Application.Tests.Repositories
@@ -34,8 +35,8 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Repositories
             
             WithDbContext(dbContext =>
             {
-                Assert.That(dbContext.Boundaries.Find(boundary.Id).Customers.Count, Is.EqualTo(1));
-                Assert.That(dbContext.Customers.Find(customer.Id).Boundaries.Count, Is.EqualTo(1));
+                Assert.That(new BoundaryRepository(dbContext).Get(boundary.Id).Customers.Count, Is.EqualTo(1));
+                Assert.That(new CustomerRepository(dbContext).Get(customer.Id).Boundaries.Count, Is.EqualTo(1));
             });
             
             WithDbContext(dbContext => dbContext.Customers.Remove(dbContext.Customers.First()));

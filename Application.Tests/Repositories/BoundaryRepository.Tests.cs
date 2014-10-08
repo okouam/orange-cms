@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Spatial;
+﻿using System.Data.Entity;
+using System.Data.Entity.Spatial;
 using System.Linq;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using CodeKinden.OrangeCMS.Domain.Models;
@@ -36,10 +37,9 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Repositories
 
             WithDbContext(dbContext =>
             {
-                Assert.That(dbContext.Boundaries.Find(boundary.Id).Customers.Count, Is.EqualTo(1));
-                Assert.That(dbContext.Customers.Find(customer.Id).Boundaries.Count, Is.EqualTo(1));
+                Assert.That(new BoundaryRepository(dbContext).Get(boundary.Id).Customers.Count, Is.EqualTo(1));
+                Assert.That(new CustomerRepository(dbContext).Get(customer.Id).Boundaries.Count, Is.EqualTo(1));
             });
-
 
             WithDbContext(dbContext => dbContext.Boundaries.Remove(dbContext.Boundaries.First()));
             
