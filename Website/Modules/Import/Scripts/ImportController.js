@@ -14,18 +14,19 @@
         };
 
         vm.import = function () {
+            vm.processing = true;
             vm.upload = $upload.upload({
                 url: '/customers/import',
                 method: 'POST',
                 headers: { 'Authorization': 'Bearer ' + IdentityService.token }, 
                 file: file,
-            }).progress(function () {
-
             }).success(function () {
-                vm.outcome = Texts.imports.IMPORT_SUCCESS[Language];
+                vm.outcome = Texts.import.IMPORT_SUCCESS[Language];
+                vm.processing = false;
             })
             .error(function (ex) {
-                vm.outcome = Texts.imports.IMPORT_FAILURE[Language] + ex.exceptionMessage;
+                vm.outcome = Texts.import.IMPORT_FAILURE[Language] + ex.exceptionMessage;
+                vm.processing = false;
             });
         };
     }

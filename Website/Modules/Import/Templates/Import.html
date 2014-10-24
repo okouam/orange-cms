@@ -1,16 +1,15 @@
 ﻿<div data-ng-controller="ImportController as vm">
-    <div data-ng-if="!vm.outcome">
-        <div>
-            {{vm.texts.import.SELECT_FILE[vm.language]}}
-            <input type="file" ng-file-select="vm.onFileSelect($files)" />
+    <div data-ng-if="!vm.outcome && !vm.processing">
+        <div style="padding: 20px; padding-top: 40px" ng-bind-html="vm.texts.import.SELECT_FILE[vm.language]">
         </div>
-        <div>
+        <input type="file" style="margin-left: 20px" ng-file-select="vm.onFileSelect($files)" />
+        <div style="padding: 20px">
             <button style="float: right" data-ng-click="vm.import()">{{vm.texts.import.IMPORT_ACTION[vm.language]}}</button>
         </div>
-        <div style="clear: both"></div>
+        <div style="clear: both; margin-bottom: 20px"></div>
     </div>
-    <div data-ng-if="vm.outcome">
-        {{vm.outcome}}
+    <div data-ng-if="vm.processing" style="padding: 10px; text-align: center">
+        <img src="/Modules/Common/Images/gif-load.gif" />
     </div>
-
+    <div style="padding: 20px" data-ng-if="vm.outcome && !vm.processing" ng-bind-html="vm.outcome"></div>
 </div>

@@ -51,8 +51,19 @@
             },
             "import": {
                 SELECT_FILE: {
-                    "en": "Please select the file you wish to import:",
-                    "fr": "Veuillez choisir un fichier &agrave; importer:"
+                    "en": "Please select the file you wish to import:<br/>",
+                    "fr": "<p>Veuillez choisir un fichier &agrave; importer. Le fichier doit &ecirc;tre en format CSV.</p><br/>" +
+                            "Il peut contenir les colonnes suivantes: <br/>" +
+                            "[Num&eacute;ro de T&eacute;l&eacute;phone] ou [NUM_ADSL] (Requis)<br/>" +
+                            "[Coordon&eacute;es GPS Longitude] (Optionel)<br/>" +
+                            "[Coordon&eacute;es GPS Latitude] (Optionel)<br/>" +
+                            "[Photo de l'entr&eacute;e] (Optionel)<br/>" +
+                            "[NOM] (Optionel)<br/>" +
+                            "[LOGIN] (Optionel)<br/>" +
+                            "[FORMULE] (Optionel)<br/>" +
+                            "[DEBIT] (Optionel)<br/>" +
+                            "[DATE_EXPIRATION] (Optionel)<br/>" +
+                            "[ETAT] (Optionel) "
                 },
                 IMPORT_ACTION: {
                     "en": "Import",
@@ -63,8 +74,8 @@
                     "fr": "Le fichier a &eacute;t&eacute; import&eacute; avec succ&egrave;s."
                 },
                 IMPORT_FAILURE: {
-                    "en": "Failed when trying to import the file.",
-                    "fr": "Erreur lors de l'importation du fichier."
+                    "en": "Failed when trying to import the file. ",
+                    "fr": "Erreur lors de l'importation du fichier. "
                 }
             },
             security: {
