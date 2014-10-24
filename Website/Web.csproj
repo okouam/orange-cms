@@ -17,6 +17,10 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -259,7 +263,7 @@
     <Content Include="Modules\Security\Scripts\OAuthInterceptor.js" />
     <Content Include="Modules\Import\Templates\Import.html" />
     <Content Include="Modules\Common\Scripts\MainMenuController.js" />
-    <Content Include="Modules\CMS\Styles\CMS.styl" />
+    <None Include="Modules\CMS\Styles\CMS.scss" />
     <None Include="Modules\Common\Styles\Application.scss" />
     <None Include="Modules\CMS\Modules\Customers\Customers.scss" />
     <None Include="Modules\Common\Styles\Navigation.scss" />
@@ -335,11 +339,11 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort></DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://geocms.localhost.io/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>True</UseCustomServer>
+          <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
