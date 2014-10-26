@@ -51,7 +51,6 @@
                     color: "#ff0000"
                 } 
             });
-            console.log(vm.polygons[0].path);
         };
 
         this.hideBoundaries = function () {
@@ -66,8 +65,6 @@
         this.centerOnMarkers = function () {
 
             var markers = vm.getGMarkers();
-
-            console.log(markers);
 
             if (markers.length > 0) {
 

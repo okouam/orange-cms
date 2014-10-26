@@ -197,6 +197,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="Modules\CMS\Modules\Customers\Customers.css" />
+    <Content Include="Modules\CMS\Styles\CMS.css" />
     <Content Include="Modules\Common\Scripts\Texts.js" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
