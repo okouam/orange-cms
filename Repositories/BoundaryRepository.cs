@@ -17,6 +17,7 @@ namespace CodeKinden.OrangeCMS.Repositories
 
         public IEnumerable<Boundary> Save(IEnumerable<Boundary> boundaries)
         {
+            if (boundaries == null || !boundaries.Any()) return Enumerable.Empty<Boundary>();
             return Save(boundaries.ToArray());
         }
 

@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Application/Application.csproj",
+      "bin": {
+        "assembly": "../../Application/obj/{configuration}/CodeKinden.OrangeCMS.Application.dll",
+        "pdb": "../../Application/obj/{configuration}/CodeKinden.OrangeCMS.Application.pdb"
+      },
+      "dependencies": {
+        "AutoMapper": "3.2.1",
+        "CommonServiceLocator": "1.3",
+        "CsvHelper": "2.7.1",
+        "DotNetZip": "1.9.3",
+        "DotSpatial.Analysis": "1.7",
+        "DotSpatial.Controls": "1.7",
+        "DotSpatial.Data": "1.7",
+        "DotSpatial.Data.Forms": "1.7",
+        "DotSpatial.Extensions": "1.7",
+        "DotSpatial.Modeling.Forms": "1.7",
+        "DotSpatial.Mono": "1.7",
+        "DotSpatial.Projections": "1.7",
+        "DotSpatial.Projections.Forms": "1.7",
+        "DotSpatial.Serialization": "1.7",
+        "DotSpatial.Symbology": "1.7",
+        "DotSpatial.Symbology.Forms": "1.7",
+        "DotSpatial.Topology": "1.7",
+        "EntityFramework": "6.1.1",
+        "Microsoft.AspNet.Cors": "5.2.2",
+        "Microsoft.AspNet.Mvc": "5.2.2",
+        "Microsoft.AspNet.Razor": "3.2.2",
+        "Microsoft.AspNet.WebApi.Client": "5.2.2",
+        "Microsoft.AspNet.WebApi.Core": "5.2.2",
+        "Microsoft.AspNet.WebApi.Owin": "5.2.2",
+        "Microsoft.AspNet.WebPages": "3.2.2",
+        "Microsoft.Owin": "3.0.0",
+        "Microsoft.Owin.Cors": "3.0.0",
+        "Microsoft.Owin.Security": "3.0.0",
+        "Microsoft.Owin.Security.OAuth": "3.0.0",
+        "Microsoft.Web.Infrastructure": "1.0.0.0",
+        "Newtonsoft.Json": "6.0.5",
+        "Owin": "1.0",
+        "structuremap": "3.1.2.138",
+        "structuremap.web": "3.1.0.133",
+        "CodeKinden.OrangeCMS.Domain": "1.0.0-*",
+        "CodeKinden.OrangeCMS.Repositories": "1.0.0-*"
+      }
+    }
+  }
+}

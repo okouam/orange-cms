@@ -15,7 +15,7 @@ namespace CodeKinden.OrangeCMS.Application.Providers
             this.identityProvider = identityProvider;
         }
 
-#pragma warning disable 1998
+#pragma warning disable 19983
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
 #pragma warning restore 1998
         {

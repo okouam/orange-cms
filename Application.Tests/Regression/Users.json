@@ -1,0 +1,26 @@
+﻿[
+	{
+		"userName": "qa-administrator",
+		"password": "qa-administrator-password",
+		"email": "administrator@nowhere.com",
+		"role": "Administrator"
+	},
+	{
+		"userName": "qa-system",
+		"password": "qa-system-password",
+		"email": "system@nowhere.com",
+		"role": "System"
+	},	
+	{
+		"userName": "qa-collector",
+		"password": "qa-collector-password",
+		"email": "collector@nowhere.com",
+		"role": "Collector"
+	},
+	{
+		"userName": "qa-standard",
+		"password": "qa-standard-password",
+		"email": "standard@nowhere.com",
+		"role": "Standard"
+	}
+]

@@ -11,5 +11,11 @@
         public string Password { get; set; }
 
         public string Role { get; set; }
+
+        public bool IsAdministrator => Role.Equals(Roles.Administrator);
+
+        public bool IsStandard => Role.Equals(Roles.Standard);
+
+        public bool IsSystem => Role.Equals(Roles.System);
     }
 }

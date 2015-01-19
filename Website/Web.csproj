@@ -193,9 +193,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Content Include="Modules\CMS\Modules\Customers\Customers.css" />
     <Content Include="Modules\CMS\Styles\CMS.css" />
     <Content Include="Modules\Common\Scripts\Texts.js" />
@@ -223,10 +220,6 @@
     <Content Include="Modules\Common\Images\gif-load.gif" />
     <Content Include="Modules\Common\Images\login-background.jpg" />
     <Content Include="Modules\Common\Scripts\Startup.js" />
-    <Content Include="Modules\Common\Styles\Application.css" />
-    <Content Include="Modules\Common\Styles\Navigation.css" />
-    <Content Include="Modules\Common\Styles\Reset.css" />
-    <Content Include="Modules\Common\Styles\Scrollbars.css" />
     <Content Include="Modules\Common\Templates\ImageInDialog.html" />
     <Content Include="Modules\Import\Scripts\ImportController.js" />
     <Content Include="Modules\Import\Scripts\ImportService.js" />
@@ -238,7 +231,6 @@
     <Content Include="Modules\Common\Images\toggle.png" />
     <Content Include="Libraries\jquery\jquery.tiptip.js" />
     <Content Include="Modules\Common\Images\tile.jpg" />
-    <Content Include="Global.asax" />
     <Content Include="Libraries\angular\angular-google-maps.js" />
     <Content Include="Libraries\bootstrap\bootstrap-theme.css" />
     <Content Include="Libraries\bootstrap\bootstrap.css" />
@@ -301,10 +293,6 @@
     <ProjectReference Include="..\Application\Application.csproj">
       <Project>{F48B4BE6-FD7E-477F-B796-864958C377F5}</Project>
       <Name>Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{C2CD2ABB-14FB-41D1-B729-36402BFAAFA1}</Project>
-      <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

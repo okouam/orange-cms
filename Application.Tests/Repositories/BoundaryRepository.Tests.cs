@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Spatial;
+﻿using System.Data.Entity.Spatial;
 using System.Linq;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using CodeKinden.OrangeCMS.Domain.Models;

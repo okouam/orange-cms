@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using CodeKinden.OrangeCMS.Domain.Models;
 using CodeKinden.OrangeCMS.Domain.Providers;
@@ -23,17 +24,6 @@ namespace CodeKinden.OrangeCMS.Application.Providers
             this.dbContextScope = dbContextScope;
         }
 
-        public virtual User User
-        {
-            get
-            {
-                using (var dbContext = dbContextScope.CreateDbContext())
-                {
-                    return dbContext.Users.First();
-                }
-            }
-        }
-
         public User Authenticate(string username, string password)
         {
             using (var dbContext = dbContextScope.CreateDbContext())
@@ -51,6 +41,16 @@ namespace CodeKinden.OrangeCMS.Application.Providers
             csprng.GetBytes(salt);
             var hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
             return PBKDF2_ITERATIONS + ":" + Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
+        }
+
+        public User Identify(ClaimsIdentity identity)
+        {
+            var id = identity.Claims.First().Value;
+
+            using (var dbContext = dbContextScope.CreateDbContext())
+            {
+                return dbContext.Users.Find(int.Parse(id));
+            }
         }
 
         public bool ValidatePassword(string password, string correctHash)

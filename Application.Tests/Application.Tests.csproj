@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\packages\Dapper.1.38\lib\net45\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="DotSpatial.Data, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DotSpatial.Data.1.7\lib\net40-Client\DotSpatial.Data.dll</HintPath>
@@ -64,6 +67,23 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Cors.3.0.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Diagnostics">
+      <HintPath>..\packages\Microsoft.Owin.Diagnostics.3.0.0\lib\net45\Microsoft.Owin.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.0\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Hosting">
+      <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.0\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -107,6 +127,10 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="QuickGraph">
       <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
     </Reference>
@@ -118,6 +142,9 @@
     </Reference>
     <Reference Include="QuickGraph.Serialization">
       <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -137,9 +164,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.2\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.2\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.2\lib\net45\System.Web.Http.Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -148,26 +185,78 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\API.cs" />
+    <Compile Include="Helpers\Attributes\ApplicationDatabase.cs" />
+    <Compile Include="Helpers\Attributes\RestoreSnapshotAttribute.cs" />
+    <Compile Include="Helpers\Attributes\WithoutAuthorizationToken.cs" />
+    <Compile Include="Helpers\Attributes\WithAuthorizationToken.cs" />
+    <Compile Include="Helpers\Attributes\ProvideWebApplicationAttribute.cs" />
     <Compile Include="Helpers\BaseTest.cs" />
     <Compile Include="Controllers\BoundariesController.Tests.cs" />
     <Compile Include="Controllers\CustomersController.Tests.cs" />
     <Compile Include="Controllers\UsersController.Tests.cs" />
-    <Compile Include="Helpers\FakeClock.cs" />
-    <Compile Include="Helpers\FakeIdentityProvider.cs" />
-    <Compile Include="Helpers\FakeFormData.cs" />
+    <Compile Include="Helpers\Attributes\CleanupWebApplicationAttribute.cs" />
+    <Compile Include="Helpers\Fakes\FakeClock.cs" />
+    <Compile Include="Helpers\Fakes\FakeIdentityProvider.cs" />
+    <Compile Include="Helpers\Fakes\FakeFormData.cs" />
     <Compile Include="Helpers\RepositoryTest.cs" />
     <Compile Include="Mapping.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\IdentityProvider.Tests.cs" />
+    <Compile Include="Regression\Authenticating\Login\Scenario.cs" />
+    <Compile Include="Helpers\Attributes\ProvideDatabaseAttribute.cs" />
+    <Compile Include="Regression\Managing.Customers\Deleting.Customers\Scenario.cs" />
+    <Compile Include="Regression\Managing.Customers\Exporting.Customers\Scenario.cs" />
+    <Compile Include="Regression\Managing.Customers\Importing.Customers\From.Collector.Spreadsheets\Scenarios.cs" />
+    <Compile Include="Regression\Managing.Customers\Importing.Customers\From.Orange.Subscription.Spreadsheets\Scenarios.cs" />
+    <Compile Include="Regression\Managing.Users\Adding.Users\When.Administrator\Scenario.cs" />
+    <Compile Include="Regression\Managing.Users\Adding.Users\When.System.Administrator\Scenario.cs" />
+    <Compile Include="Regression\Managing.Users\Deleting.Users\When.Administrator\Scenario.cs" />
+    <Compile Include="Regression\Managing.Users\Deleting.Users\When.System.Administrator\Scenario.cs" />
+    <Compile Include="Regression\Managing.Users\Editing.Users\Scenarios.cs" />
+    <Compile Include="Regression\Managing.Users\Listing.Users\When.Administrator\Scenarios.cs" />
+    <Compile Include="Regression\Managing.Users\Listing.Users\When.Standard.User\Scenarios.cs" />
+    <Compile Include="Regression\Managing.Users\Listing.Users\When.System.Administrator\Scenarios.cs" />
+    <Compile Include="Regression\Searching\By.Boundary\Scenario.cs" />
+    <Compile Include="Regression\Searching\By.Customer.Details\Scenario.cs" />
     <Compile Include="Repositories\BoundaryRepository.Tests.cs" />
     <Compile Include="Repositories\CustomerRepository.Tests.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Regression\Users.json" />
     <None Include="app.config" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <None Include="Regression\Authenticating\Login\README.md" />
+    <EmbeddedResource Include="Regression\Boundaries.json" />
+    <EmbeddedResource Include="Regression\Customers.json" />
+    <None Include="Regression\Managing.Customers\Deleting.Customers\README.md" />
+    <None Include="Regression\Managing.Customers\Exporting.Customers\README.md" />
+    <EmbeddedResource Include="Regression\Managing.Customers\Importing.Customers\From.Collector.Spreadsheets\Collector.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Regression\Managing.Customers\Importing.Customers\From.Orange.Subscription.Spreadsheets\Orange.Subscription.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="Regression\Managing.Customers\Importing.Customers\From.Collector.Spreadsheets\README.md" />
+    <None Include="Regression\Managing.Customers\Importing.Customers\From.Orange.Address.Spreadsheets\README.md" />
+    <None Include="Regression\Managing.Customers\Importing.Customers\From.Orange.Subscription.Spreadsheets\README.md" />
+    <None Include="Regression\Managing.Users\Adding.Users\When.Administrator\README.md" />
+    <None Include="Regression\Managing.Users\Adding.Users\When.System.Administrator\README.md" />
+    <None Include="Regression\Managing.Users\Deleting.Users\When.Administrator\README.md" />
+    <None Include="Regression\Managing.Users\Deleting.Users\When.System.Administrator\README.md" />
+    <None Include="Regression\Managing.Users\Editing.Users\README.md" />
+    <None Include="Regression\Managing.Users\Listing.Users\When.Administrator\README.md" />
+    <None Include="Regression\Managing.Users\Listing.Users\When.Standard.User\README.md" />
+    <None Include="Regression\Managing.Users\Listing.Users\When.System.Administrator\README.md" />
+    <None Include="Regression\README.md" />
+    <None Include="Regression\Searching\By.Boundary\README.md" />
+    <None Include="Regression\Searching\By.Customer.Details\README.md" />
+    <None Include="Regression\Searching\Paging\README.md" />
+    <None Include="Regression\Searching\Sorting\README.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj">
@@ -186,10 +275,6 @@
       <Project>{49C8A8C5-96BF-4EC3-A67E-320765E24A4D}</Project>
       <Name>Fixtures</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{C2CD2ABB-14FB-41D1-B729-36402BFAAFA1}</Project>
-      <Name>Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Repositories\Repositories.csproj">
       <Project>{7308BC3F-B2AF-4D65-8FEA-448865FCDE81}</Project>
       <Name>Repositories</Name>
@@ -199,7 +284,11 @@
       <Name>Tasks.Bounce</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Regression\Managing.Users\Editing.Users\When.Administrator\" />
+    <Folder Include="Regression\Managing.Users\Editing.Users\When.Standard.User\" />
+    <Folder Include="Regression\Managing.Users\Editing.Users\When.System.Administrator\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

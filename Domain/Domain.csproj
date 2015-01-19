@@ -67,9 +67,12 @@
     <Compile Include="Providers\IIdentityProvider.cs" />
     <Compile Include="Repositories\IBoundaryRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />
-    <Compile Include="Services\IBoundaryService.cs" />
-    <Compile Include="Services\ICustomerService.cs" />
-    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\Commands\IBoundaryCommands.cs" />
+    <Compile Include="Services\Commands\ICustomerCommands.cs" />
+    <Compile Include="Services\Commands\IUserCommands.cs" />
+    <Compile Include="Services\Queries\IBoundaryQueries.cs" />
+    <Compile Include="Services\Queries\ICustomerQueries.cs" />
+    <Compile Include="Services\Queries\IUserQueries.cs" />
     <Compile Include="Services\Models\UpdateCustomerParams.cs" />
     <Compile Include="Services\Models\UpdateUserParams.cs" />
     <Compile Include="Models\User.cs" />

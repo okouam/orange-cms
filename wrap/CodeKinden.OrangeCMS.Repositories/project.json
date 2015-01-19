@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Repositories/Repositories.csproj",
+      "bin": {
+        "assembly": "../../Repositories/obj/{configuration}/CodeKinden.OrangeCMS.Repositories.dll",
+        "pdb": "../../Repositories/obj/{configuration}/CodeKinden.OrangeCMS.Repositories.pdb"
+      },
+      "dependencies": {
+        "EntityFramework": "6.1.1",
+        "CodeKinden.OrangeCMS.Domain": "1.0.0-*"
+      }
+    }
+  }
+}

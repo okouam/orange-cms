@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Domain.Services/Domain.Services.csproj",
+      "bin": {
+        "assembly": "../../Domain.Services/obj/{configuration}/CodeKinden.OrangeCMS.Domain.Services.dll",
+        "pdb": "../../Domain.Services/obj/{configuration}/CodeKinden.OrangeCMS.Domain.Services.pdb"
+      },
+      "dependencies": {
+        "CsvHelper": "2.7.1",
+        "DotNetZip": "1.9.3",
+        "DotSpatial.Analysis": "1.7",
+        "DotSpatial.Controls": "1.7",
+        "DotSpatial.Data": "1.7",
+        "DotSpatial.Data.Forms": "1.7",
+        "DotSpatial.Extensions": "1.7",
+        "DotSpatial.Modeling.Forms": "1.7",
+        "DotSpatial.Mono": "1.7",
+        "DotSpatial.Projections": "1.7",
+        "DotSpatial.Projections.Forms": "1.7",
+        "DotSpatial.Serialization": "1.7",
+        "DotSpatial.Symbology": "1.7",
+        "DotSpatial.Symbology.Forms": "1.7",
+        "DotSpatial.Topology": "1.7",
+        "EntityFramework": "6.1.1",
+        "morelinq": "1.1.0",
+        "CodeKinden.OrangeCMS.Domain": "1.0.0-*",
+        "CodeKinden.OrangeCMS.Repositories": "1.0.0-*"
+      }
+    }
+  }
+}

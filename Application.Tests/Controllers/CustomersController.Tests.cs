@@ -2,6 +2,7 @@
 using System.Net.Http;
 using CodeKinden.OrangeCMS.Application.Controllers;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers;
+using CodeKinden.OrangeCMS.Application.Tests.Helpers.Fakes;
 using CodeKinden.OrangeCMS.Fixtures;
 using NUnit.Framework;
 

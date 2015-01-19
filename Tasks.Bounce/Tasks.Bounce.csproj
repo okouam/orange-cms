@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Bounce-SocialDotCom.0.9.4\lib\net40\Bounce.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\packages\Dapper.1.38\lib\net45\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="DbUp">
       <HintPath>..\packages\dbup.3.0.6\lib\NET35\DbUp.dll</HintPath>
     </Reference>
@@ -137,6 +140,9 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="Nustache.Core">
       <HintPath>..\packages\Nustache.1.13.8.22\lib\net20\Nustache.Core.dll</HintPath>
     </Reference>
@@ -148,7 +154,6 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="db_create.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="db_create_development.cs" />
@@ -179,10 +184,6 @@
     <ProjectReference Include="..\Fixtures\Fixtures.csproj">
       <Project>{49C8A8C5-96BF-4EC3-A67E-320765E24A4D}</Project>
       <Name>Fixtures</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{C2CD2ABB-14FB-41D1-B729-36402BFAAFA1}</Project>
-      <Name>Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repositories\Repositories.csproj">
       <Project>{7308bc3f-b2af-4d65-8fea-448865fcde81}</Project>

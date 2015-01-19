@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Configuration;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Application.DependencyResolution;
 using AutoMapper;
-using BundleTransformer.Core.Builders;
-using BundleTransformer.Core.Orderers;
 using BundleTransformer.Core.Resolvers;
-using BundleTransformer.Core.Transformers;
+using CodeKinden.OrangeCMS.Application;
 using CodeKinden.OrangeCMS.Application.Providers;
+using CodeKinden.OrangeCMS.Domain.Models;
+using CodeKinden.OrangeCMS.Domain.Services;
+using CodeKinden.OrangeCMS.Domain.Services.Commands;
+using CodeKinden.OrangeCMS.Domain.Services.Queries;
 using GeoCMS.Infrastructure.Registries;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
@@ -16,53 +20,13 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using OrangeCMS.Infrastructure;
 using Owin;
-using System.Web.Http;
 using StructureMap;
 
 namespace Codeifier.OrangeCMS.Application
 {
     public class Startup
     {
-        public static StructureMapDependencyScope StructureMapDependencyScope { get; set; }
-
-        public void Configuration(IAppBuilder app)
-        {
-            var container = CreateContainer();
-
-            StructureMapDependencyScope = new StructureMapDependencyScope(container);
-
-            var config = new HttpConfiguration();
-
-            var OAuthServerOptions = new OAuthAuthorizationServerOptions
-            {
-                AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/tokens"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = StructureMapDependencyScope.GetInstance<TokenProvider>()
-            };
-
-            app.UseOAuthAuthorizationServer(OAuthServerOptions);
-
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions
-                                             {
-                                                     Provider = new BearerAuthorizationProvider()
-                                             });
-            
-            RegisterApiRoutes(config);
-
-            app.UseWebApi(config);
-            app.UseCors(CorsOptions.AllowAll);
-
-            SetupDependencyResolution(config, container, StructureMapDependencyScope);
-            RegisterRoutes(RouteTable.Routes);
-
-            config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter("Bearer"));
-
-            BundleResolver.Current = new CustomBundleResolver();
-            AssetPipeline.BundleJs(BundleTable.Bundles);
-            AssetPipeline.BundleCss(BundleTable.Bundles);
-        }
+        public static MvcDependencyResolver StructureMapDependencyScope { get; set; }
 
         public static IContainer CreateContainer(Action<ConfigurationExpression> configure = null)
         {
@@ -71,7 +35,7 @@ namespace Codeifier.OrangeCMS.Application
                 c.AddRegistry<PersistenceRegistry>();
                 c.AddRegistry<ApplicationRegistry>();
                 c.For<IMappingEngine>().Use(() => Mapper.Engine);
-                if (configure != null) configure(c);
+                configure?.Invoke(c);
             });
 
             Mapper.Initialize(c =>
@@ -86,7 +50,75 @@ namespace Codeifier.OrangeCMS.Application
             return container;
         }
 
-        private static void RegisterRoutes(RouteCollection routes)
+        public void Configuration(IAppBuilder app)
+        {
+            ConfigureApi(app);
+            
+            var isApiOnly = bool.Parse(ConfigurationManager.AppSettings["API.only"] ?? "false");
+
+            if (isApiOnly) return;
+
+            ConfigureMvc();
+        }
+
+        private void ConfigureApi(IAppBuilder app)
+        {
+            var container = CreateContainer();
+
+            var config = new HttpConfiguration();
+
+            SetupDependencyResolution(config, container);
+
+            SetupOAuth(app, container);
+
+            RegisterApiRoutes(config);
+
+            app.UseWebApi(config);
+
+            app.UseCors(CorsOptions.AllowAll);
+
+            config.SuppressDefaultHostAuthentication();
+
+            config.Filters.Add(new HostAuthenticationFilter("Bearer"));
+
+            CreateSystemAdministrator(Config.System.Username, Config.System.Password, Config.System.Email, container);
+        }
+
+        private static void ConfigureMvc()
+        {
+            RegisterMvcRoutes(RouteTable.Routes);
+            BundleResolver.Current = new CustomBundleResolver();
+            AssetPipeline.BundleJs(BundleTable.Bundles);
+            AssetPipeline.BundleCss(BundleTable.Bundles);
+        }
+
+        private void CreateSystemAdministrator(string username, string password, string email, IContainer container)
+        {
+            var userQueries = container.GetInstance<IUserQueries>();
+            var userCommands = container.GetInstance<IUserCommands>();
+            if (userQueries.Exists(username)) return;
+            userCommands.Save(username, password, email, RolesEnum.System).Wait();
+        }
+
+        private static void SetupOAuth(IAppBuilder app, IContainer container)
+        {
+            var OAuthServerOptions = new OAuthAuthorizationServerOptions
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/tokens"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                Provider = container.GetInstance<TokenProvider>()
+            };
+
+            app.UseOAuthAuthorizationServer(OAuthServerOptions);
+
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions
+            {
+                Provider = new BearerAuthorizationProvider()
+            });
+        }
+
+        private static void RegisterMvcRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
@@ -98,10 +130,10 @@ namespace Codeifier.OrangeCMS.Application
             config.MapHttpAttributeRoutes();
         }
 
-        private static void SetupDependencyResolution(HttpConfiguration configuration, IContainer container, IServiceProvider scope)
+        private static void SetupDependencyResolution(HttpConfiguration configuration, IContainer container)
         {
-            DependencyResolver.SetResolver(scope);
-            configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
+            DependencyResolver.SetResolver(new MvcDependencyResolver(container));
+            configuration.DependencyResolver = new WebApiDependencyResolver(container, false);
         }
     }
 }

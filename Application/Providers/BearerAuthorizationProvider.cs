@@ -11,7 +11,7 @@ namespace CodeKinden.OrangeCMS.Application.Providers
         {
             var accessToken = context.Request.Query["access_token"];
 
-            if (!String.IsNullOrEmpty(accessToken))
+            if (!string.IsNullOrEmpty(accessToken))
             {
                 context.Token = accessToken;
                 return Task.FromResult<object>(null);

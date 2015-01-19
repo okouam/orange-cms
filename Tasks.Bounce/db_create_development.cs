@@ -2,33 +2,31 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Bounce.Framework;
 using CodeKinden.OrangeCMS.Application.Providers;
-using CodeKinden.OrangeCMS.Domain.Models;
-using CodeKinden.OrangeCMS.Domain.Services;
+using CodeKinden.OrangeCMS.Domain.Services.Commands;
 using CodeKinden.OrangeCMS.Fixtures;
 using CodeKinden.OrangeCMS.Repositories;
+using NUnit.Framework;
 
 namespace CodeKinden.OrangeCMS.Tasks.Bounce
 {
+    [TestFixture]
     public class db_create_development
     {
-        [Task(Command = "db:create:development", Description = "Creates the development database.")]
-        public void Execute(string connectionString, int maxBoundaries = int.MaxValue, int maxCustomers = int.MaxValue)
+        [Test]
+        public void Execute()
         {
-            DB.CreateOrReplaceDatabase(connectionString);
+            DB.CreateOrReplaceDatabase(ConfigurationProvider.ConnectionString);
 
-            DB.RunDatabaseMigrations(connectionString, true);
+            DB.RunDatabaseMigrations(ConfigurationProvider.ConnectionString, true);
 
-            GenerateData(connectionString, maxBoundaries, maxCustomers);
+            GenerateData(ConfigurationProvider.ConnectionString, int.MaxValue, int.MaxValue);
         }
 
         private static void GenerateData(string connectionString, int maxBoundaries, int maxCustomers)
         {
             var dbContextScope = new DbContextScope(connectionString);
-
-            CreateInitialUser(dbContextScope);
-            
+           
             SaveBoundaryData(maxBoundaries, dbContextScope, "CodeKinden.OrangeCMS.Fixtures.Development.Quartiers.Abidjan.Commune.zip", "quartier_8");
 
             SaveBoundaryData(maxBoundaries, dbContextScope, "CodeKinden.OrangeCMS.Fixtures.Development.Quartiers_092010.zip", "Descriptio", x => Regex.Match(x, (@"<br/>Quartier : (.+)<br/>")).Groups[1].Value);
@@ -39,7 +37,7 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
 
             if (!File.Exists(customerData))
             {
-                throw new Exception(String.Format("The file '{0}' could not be found.", customerData));
+                throw new Exception(string.Format("The file '{0}' could not be found.", customerData));
             }
 
             var customerOrangeData = FixtureManager.Extract("CodeKinden.OrangeCMS.Fixtures.Development.Customers.FromOrange.csv");
@@ -54,29 +52,11 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
             Console.WriteLine("The customers have been saved to the database.");
         }
 
-        static void FixInvalidBoundaries(DbContextScope dbContextScope)
+        private static void FixInvalidBoundaries(IDbContextScope dbContextScope)
         {
             using (var dbContext = dbContextScope.CreateDbContext())
             {
                 dbContext.Database.ExecuteSqlCommand("DELETE FROM dbo.Boundaries WHERE Shape.STIsValid() = 0");
-            }
-        }
-
-        static void CreateInitialUser(DbContextScope dbContextScope)
-        {
-            using (var dbContext = dbContextScope.CreateDbContext())
-            {
-                var identityProvider = new IdentityProvider(dbContextScope);
-
-                dbContext.Users.Add(new User
-                                    {
-                                        UserName = "test",
-                                        Email = "tester@nowhere.com",
-                                        Role = Roles.Administrator,
-                                        Password = identityProvider.CreateHash("Password$123")
-                                    });
-
-                dbContext.SaveChanges();
             }
         }
 
@@ -89,8 +69,8 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
                 throw new Exception(String.Format("The file '{0}' could not be found.", boundaryData));
             }
 
-            var boundaryService = new BoundaryService(dbContextScope);
-            boundaryService.SaveBoundariesInZip(columnName, columnNameParser, boundaryData, maxBoundaries);
+            var boundaryCommands = new BoundaryCommands(dbContextScope);
+            boundaryCommands.SaveBoundariesInZip(columnName, columnNameParser, boundaryData, maxBoundaries);
             Console.WriteLine("The boundaries from '{0}' have been saved to the database.", resourceName);
         }
 
@@ -101,7 +81,7 @@ namespace CodeKinden.OrangeCMS.Tasks.Bounce
 
         private static void SaveCustomerData(IDbContextScope dbContextScope, string customerData, int maxCustomers)
         {
-            var customerService = new CustomerService(dbContextScope);
+            var customerService = new CustomerCommands(dbContextScope);
             var customers = customerService.Import(customerData, maxCustomers);
             customerService.Save(customers.ToArray());
         }
