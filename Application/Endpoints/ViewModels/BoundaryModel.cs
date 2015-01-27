@@ -1,4 +1,4 @@
-﻿namespace CodeKinden.OrangeCMS.Application.ViewModels
+﻿namespace CodeKinden.OrangeCMS.Application.Endpoints.ViewModels
 {
     public class BoundaryModel
     {

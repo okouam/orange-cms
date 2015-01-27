@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using StructureMap;
 
-namespace Application.DependencyResolution 
+namespace CodeKinden.OrangeCMS.Application.DependencyResolution 
 {
     public class MvcDependencyResolver : IDependencyResolver {
 

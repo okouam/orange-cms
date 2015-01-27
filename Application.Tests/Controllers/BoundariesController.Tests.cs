@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CodeKinden.OrangeCMS.Application.Controllers;
+using CodeKinden.OrangeCMS.Application.Endpoints.Controllers;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using NUnit.Framework;
 

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CodeKinden.OrangeCMS.Application.ViewModels;
+using CodeKinden.OrangeCMS.Application.Endpoints.ViewModels;
 using CodeKinden.OrangeCMS.Domain.Models;
 
 namespace CodeKinden.OrangeCMS.Application.Mappings

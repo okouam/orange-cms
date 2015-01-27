@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 
 namespace CodeKinden.OrangeCMS.Application.Providers
@@ -16,10 +15,7 @@ namespace CodeKinden.OrangeCMS.Application.Providers
                 context.Token = accessToken;
                 return Task.FromResult<object>(null);
             }
-            else
-            {
-                return base.RequestToken(context);
-            }
+            return base.RequestToken(context);
         }
     }
 }

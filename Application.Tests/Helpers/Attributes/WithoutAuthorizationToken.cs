@@ -1,5 +1,4 @@
 ﻿using System;
-using CodeKinden.OrangeCMS.Application.Tests.Regression;
 using NUnit.Framework;
 
 namespace CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes
@@ -16,6 +15,12 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes
             // do nothing
         }
 
-        public ActionTargets Targets => ActionTargets.Default;
+        public ActionTargets Targets
+        {
+            get
+            {
+                return ActionTargets.Default;   
+            }
+        }
     }
 }

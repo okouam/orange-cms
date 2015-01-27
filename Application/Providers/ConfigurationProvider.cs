@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using CodeKinden.OrangeCMS.Application.Exceptions;
 
 namespace CodeKinden.OrangeCMS.Application.Providers
 {
@@ -13,13 +14,13 @@ namespace CodeKinden.OrangeCMS.Application.Providers
 
         public class System
         {
-            public static string Username => GetAppSetting("system.username");
+            public static string Username = GetAppSetting("system.username");
 
-            public static string Password => GetAppSetting("system.password");
+            public static string Password = GetAppSetting("system.password");
 
-            public static string Email => GetAppSetting("system.email");
+            public static string Email = GetAppSetting("system.email");
         }
 
-        public static string ConnectionString => ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
+        public static string ConnectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
     }
 }

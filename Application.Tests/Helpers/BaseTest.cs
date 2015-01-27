@@ -1,6 +1,5 @@
 ﻿using System.Configuration;
 using System.Linq;
-using Codeifier.OrangeCMS.Application;
 using CodeKinden.OrangeCMS.Application.Providers;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers.Fakes;
 using CodeKinden.OrangeCMS.Domain.Models;
@@ -18,7 +17,13 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
         protected FakeClock fakeClock;
         protected FakeIdentityProvider fakeIdentityProvider;
 
-        protected User CurrentUser => fakeIdentityProvider.Identify(null);
+        protected User CurrentUser
+        {
+            get
+            {
+                return fakeIdentityProvider.Identify(null);
+            }
+        } 
 
         protected DatabaseContext GetDatabaseContext()
         {

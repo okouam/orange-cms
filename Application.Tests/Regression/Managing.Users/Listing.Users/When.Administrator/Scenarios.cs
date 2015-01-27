@@ -1,12 +1,12 @@
 ﻿using System.Net;
+using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes;
-using CodeKinden.OrangeCMS.Application.Tests.Regression;
 using CodeKinden.OrangeCMS.Domain.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
-namespace CodeKinden.OrangeCMS.Application.Tests.Managing.Users.Listing.Users.When.Administrator
+namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Managing.Users.Listing.Users.When.Administrator
 {
     [TestFixture, ProvideWebApplication]
     class Scenarios

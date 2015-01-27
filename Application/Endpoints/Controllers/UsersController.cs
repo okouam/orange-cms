@@ -3,14 +3,15 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
+using CodeKinden.OrangeCMS.Application.Endpoints.Attributes;
+using CodeKinden.OrangeCMS.Application.Endpoints.ViewModels.Users;
 using CodeKinden.OrangeCMS.Domain.Models;
 using CodeKinden.OrangeCMS.Domain.Providers;
 using CodeKinden.OrangeCMS.Domain.Services.Commands;
 using CodeKinden.OrangeCMS.Domain.Services.Parameters;
 using CodeKinden.OrangeCMS.Domain.Services.Queries;
-using OrangeCMS.Application.ViewModels;
 
-namespace CodeKinden.OrangeCMS.Application.Controllers
+namespace CodeKinden.OrangeCMS.Application.Endpoints.Controllers
 {
     [Authorize]
     public class UsersController : BaseApiController

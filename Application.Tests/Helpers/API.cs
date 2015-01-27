@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using Codeifier.OrangeCMS.Application;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace CodeKinden.OrangeCMS.Application.Tests.Regression
+namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
 {
     class API
     {
@@ -99,7 +98,7 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Regression
 
         public static void Dispose()
         {
-            application?.Dispose();
+            if (application != null) application.Dispose();
         }
 
         private static RestRequest CreateWebApplicationRequest(string uri, Method method)

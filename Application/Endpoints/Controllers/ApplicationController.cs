@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace CodeKinden.OrangeCMS.Application.Controllers
+namespace CodeKinden.OrangeCMS.Application.Endpoints.Controllers
 {
     public class ApplicationController : Controller
     {

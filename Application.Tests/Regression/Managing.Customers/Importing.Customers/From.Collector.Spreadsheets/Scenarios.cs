@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes;
 using CodeKinden.OrangeCMS.Domain.Models;
 using Newtonsoft.Json;

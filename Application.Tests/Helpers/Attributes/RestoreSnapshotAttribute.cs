@@ -5,7 +5,13 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes
 {
     internal class RestoreSnapshotAttribute : Attribute, ITestAction
     {
-        public ActionTargets Targets => ActionTargets.Default;
+        public ActionTargets Targets
+        {
+            get
+            {
+                return ActionTargets.Default;
+            }
+        }
 
         public void BeforeTest(TestDetails testDetails)
         {
