@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes;
 using NUnit.Framework;
 
