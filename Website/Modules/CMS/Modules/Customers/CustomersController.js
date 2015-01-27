@@ -2,15 +2,16 @@
 
     "use strict";
 
-    function CustomersController(CMS, ngDialog, Texts, Language) {
+    function CustomersController(CMS, ngDialog, Texts, Language, IdentityService) {
 
         var vm = this;
-
         vm.language = Language;
         vm.texts = Texts;
         vm.customers = CMS.customers;
         vm.query = CMS.query;
         vm.CMS = CMS;
+
+        var isStandardUser = IdentityService.role.toLowerCase() === "standard";
 
         CMS.refresh();
 
@@ -19,7 +20,9 @@
         };
 
         vm.deleteCustomer = function (customer) {
-            if (confirm("Are you sure you wish to delete this customer?")) {
+            if (isStandardUser) {
+                alert("You are not authorized to delete customers.");
+            } else if (confirm("Are you sure you wish to delete this customer?")) {
                 CMS.deleteCustomer(customer.id);
             }
         };
@@ -53,6 +56,7 @@
          "ngDialog",
          "Texts",
          "Language",
+         "IdentityService",
          CustomersController
      ]);
 

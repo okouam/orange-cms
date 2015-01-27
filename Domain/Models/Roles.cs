@@ -6,11 +6,11 @@ namespace CodeKinden.OrangeCMS.Domain.Models
     {
         public static List<string> All = new List<string>(new[] { "Standard", "Administrator", "System"});
         
-        public static string Standard = All[1];
+        public static string Standard = All[0];
 
-        public static string Administrator = All[2];
+        public static string Administrator = All[1];
 
-        public static string System = All[3];
+        public static string System = All[2];
 
         public static string FromEnum(Role role)
         {
@@ -20,8 +20,8 @@ namespace CodeKinden.OrangeCMS.Domain.Models
 
     public enum Role
     {
-        Standard = 1,
-        Administrator = 2,
-        System = 3
+        Standard = 0,
+        Administrator = 1,
+        System = 2
     }
 }

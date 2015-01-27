@@ -33,6 +33,8 @@ namespace CodeKinden.OrangeCMS.Application.Providers
             {
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim("id", user.Id.ToString()));
+                context.Response.Headers.Add("X-GeoCMS-Role", new []{user.Role});
+                context.Response.Headers.Add("X-GeoCMS-Username", new[] { user.UserName });
                 var ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
                 context.Validated(ticket);
             }

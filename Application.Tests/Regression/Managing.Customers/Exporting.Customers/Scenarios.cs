@@ -3,7 +3,7 @@
 namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Managing.Customers.Exporting.Customers
 {
     [ProvideWebApplication]
-    class Scenario
+    class Scenarios
     {
     }
 }

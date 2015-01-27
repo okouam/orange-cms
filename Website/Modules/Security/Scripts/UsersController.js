@@ -84,7 +84,7 @@
                 Users.update(vm.id, createUserModel(), onUserChangeSuccess, onUserChangeError);
             } else {
 
-                Users.save(createUserModel(), onUserChangeSuccess, onUserChangeError);
+                Users.create(createUserModel(), onUserChangeSuccess, onUserChangeError);
             }
         };
 

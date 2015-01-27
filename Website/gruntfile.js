@@ -44,6 +44,8 @@
                 laxbreak: true,
                 globals: {
                     "jasmine": true,
+                    "alert": true,
+                    "confirm": true,
                     "it": true,
                     "beforeEach": true,
                     "inject": true,
