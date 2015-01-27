@@ -67,7 +67,7 @@
         "IdentityService",
         "Texts",
         "Language",
-        "orangecms.security.role",
+        "Role",
         MainMenuController
     ]);
 

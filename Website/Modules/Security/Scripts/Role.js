@@ -28,7 +28,7 @@
 
     angular
      .module("geocms")
-     .factory("geocms.security.role", [
+     .factory("Role", [
          RoleFactory
      ]);
 
