@@ -11,22 +11,22 @@ namespace CodeKinden.OrangeCMS.Application.Endpoints.Controllers
     [Authorize]
     public class BoundariesController : BaseApiController
     {
-        private readonly IBoundaryQueries boundaryService;
+        private readonly IBoundaryQueries boundaryQueries;
         private readonly IMappingEngine mappingEngine;
 
         public BoundariesController(
-            IBoundaryQueries boundaryService, 
+            IBoundaryQueries boundaryQueries, 
             IIdentityProvider identityProvider, 
             IMappingEngine mappingEngine) : base(identityProvider)
         {
-            this.boundaryService = boundaryService;
+            this.boundaryQueries = boundaryQueries;
             this.mappingEngine = mappingEngine;
         }
 
         [HttpGet, Route("boundaries")]
         public IEnumerable<BoundaryModel> GetAll()
         {
-            var boundaries = boundaryService.GetAll();
+            var boundaries = boundaryQueries.GetAll();
             return mappingEngine.Map<IEnumerable<BoundaryModel>>(boundaries.Where(x => x.Customers.Count > 0));
         }
     }

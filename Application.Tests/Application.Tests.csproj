@@ -63,10 +63,11 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -158,7 +159,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -194,7 +194,6 @@
     <Compile Include="Helpers\BaseTest.cs" />
     <Compile Include="Controllers\BoundariesController.Tests.cs" />
     <Compile Include="Controllers\CustomersController.Tests.cs" />
-    <Compile Include="Controllers\UsersController.Tests.cs" />
     <Compile Include="Helpers\Attributes\CleanupWebApplicationAttribute.cs" />
     <Compile Include="Helpers\Fakes\FakeClock.cs" />
     <Compile Include="Helpers\Fakes\FakeIdentityProvider.cs" />
@@ -205,11 +204,12 @@
     <Compile Include="Providers\IdentityProvider.Tests.cs" />
     <Compile Include="Regression\Authenticating\Login\Scenario.cs" />
     <Compile Include="Helpers\Attributes\ProvideDatabaseAttribute.cs" />
-    <Compile Include="Regression\Managing.Customers\Deleting.Customers\Scenario.cs" />
-    <Compile Include="Regression\Managing.Customers\Exporting.Customers\Scenario.cs" />
+    <Compile Include="Regression\Managing.Customers\Deleting.Customers\Scenarios.cs" />
+    <Compile Include="Regression\Managing.Customers\Exporting.Customers\Scenarios.cs" />
     <Compile Include="Regression\Managing.Customers\Importing.Customers\From.Collector.Spreadsheets\Scenarios.cs" />
     <Compile Include="Regression\Managing.Customers\Importing.Customers\From.Orange.Subscription.Spreadsheets\Scenarios.cs" />
-    <Compile Include="Regression\Managing.Users\Adding.Users\When.Administrator\Scenario.cs" />
+    <Compile Include="Regression\Managing.Users\Adding.Users\When.Administrator\Scenarios.cs" />
+    <Compile Include="Regression\Managing.Users\Adding.Users\When.Anonymous\Scenarios.cs" />
     <Compile Include="Regression\Managing.Users\Adding.Users\When.System.Administrator\Scenario.cs" />
     <Compile Include="Regression\Managing.Users\Deleting.Users\When.Administrator\Scenario.cs" />
     <Compile Include="Regression\Managing.Users\Deleting.Users\When.System.Administrator\Scenario.cs" />

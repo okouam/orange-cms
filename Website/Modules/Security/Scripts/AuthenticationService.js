@@ -26,11 +26,11 @@
             var data = "grant_type=password&username=" + username + "&password=" + password;
 
             var headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
-
-            $http.post('/tokens', data, { headers: headers }).success(function (response) {
-                /* jshint ignore:start */
-                IdentityService.token = response.access_token;
-                /* jshint ignore:end */
+            
+            $http.post('/tokens', data, { headers: headers }).success(function (response, status, responseHeaders) {
+                IdentityService.token = response["access_token"];
+                IdentityService.username = responseHeaders()["x-geocms-username"];
+                IdentityService.role = responseHeaders()["x-geocms-role"];
                 deferred.resolve(response);
             }).error(function (err) {
                 self.logout();

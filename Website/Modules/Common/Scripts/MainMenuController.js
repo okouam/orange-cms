@@ -2,7 +2,7 @@
 
     "use strict";
 
-    function MainMenuController(AuthenticationService, $state, ngDialog, IdentityService, Texts, Language) {
+    function MainMenuController(AuthenticationService, $state, ngDialog, IdentityService, Texts, Language, Role) {
 
         var vm = this;
         vm.language = Language;
@@ -13,22 +13,37 @@
             $state.go("login");
         };
 
-        vm.import = function() {
-            ngDialog.open({
-                template: "/Modules/Import/Templates/Import.html",
-                closeByDocument: false
-            });
+        vm.import = function () {
+            var role = new Role(IdentityService.role);
+            if (role.isStandard()) {
+                alert("You are not authorized to import users.");
+            } else {
+                ngDialog.open({
+                    template: "/Modules/Import/Templates/Import.html",
+                    closeByDocument: false
+                });
+            }
         };
 
         vm.export = function () {
-            window.open("/customers/export?access_token=" + IdentityService.token, '_blank', '');
+            var role = new Role(IdentityService.role);
+            if (role.isStandard()) {
+                alert("You are not authorized to export users.");
+            } else {
+                window.open("/customers/export?access_token=" + IdentityService.token, '_blank', '');
+            }
         };
 
-        vm.showUsers = function() {
-            ngDialog.open({
-                template: "/Modules/Security/Templates/Users.html",
-                closeByDocument: false
-            });
+        vm.showUsers = function () {
+            var role = new Role(IdentityService.role);
+            if (role.isStandard()) {
+                alert("You are not authorized to manage users.");
+            } else {
+                ngDialog.open({
+                    template: "/Modules/Security/Templates/Users.html",
+                    closeByDocument: false
+                });
+            }
         };
 
         vm.showDropdown = function (evt) {
@@ -52,6 +67,7 @@
         "IdentityService",
         "Texts",
         "Language",
+        "Role",
         MainMenuController
     ]);
 

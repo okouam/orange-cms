@@ -7,7 +7,7 @@ using CodeKinden.OrangeCMS.Repositories;
 
 namespace CodeKinden.OrangeCMS.Domain.Services.Queries
 {
-    class BoundaryQueries : IBoundaryQueries
+    public class BoundaryQueries : IBoundaryQueries
     {
         private readonly IDbContextScope dbContextScope;
 
