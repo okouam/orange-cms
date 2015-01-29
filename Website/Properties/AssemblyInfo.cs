@@ -16,4 +16,4 @@ using Microsoft.Owin;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: OwinStartup(typeof(Codeifier.OrangeCMS.Application.Startup))]
+[assembly: OwinStartup(typeof(CodeKinden.OrangeCMS.Application.Startup))]

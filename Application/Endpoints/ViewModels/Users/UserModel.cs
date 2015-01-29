@@ -1,4 +1,4 @@
-﻿namespace OrangeCMS.Application.ViewModels
+﻿namespace CodeKinden.OrangeCMS.Application.Endpoints.ViewModels.Users
 {
     public class UserModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using AutoMapper;
-using CodeKinden.OrangeCMS.Application.Controllers;
+using CodeKinden.OrangeCMS.Application.Endpoints.Controllers;
 using CodeKinden.OrangeCMS.Domain.Services.Queries;
 using CodeKinden.OrangeCMS.Repositories;
 using StructureMap.Configuration.DSL;

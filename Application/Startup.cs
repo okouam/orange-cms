@@ -4,9 +4,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Application.DependencyResolution;
 using AutoMapper;
 using BundleTransformer.Core.Resolvers;
+using CodeKinden.OrangeCMS.Application.DependencyResolution;
 using CodeKinden.OrangeCMS.Application.Providers;
 using CodeKinden.OrangeCMS.Domain.Models;
 using CodeKinden.OrangeCMS.Domain.Services.Commands;
@@ -20,7 +20,7 @@ using OrangeCMS.Infrastructure;
 using Owin;
 using StructureMap;
 
-namespace Codeifier.OrangeCMS.Application
+namespace CodeKinden.OrangeCMS.Application
 {
     public class Startup
     {
@@ -33,7 +33,7 @@ namespace Codeifier.OrangeCMS.Application
                 c.AddRegistry<PersistenceRegistry>();
                 c.AddRegistry<ApplicationRegistry>();
                 c.For<IMappingEngine>().Use(() => Mapper.Engine);
-                configure?.Invoke(c);
+                if (configure != null) configure.Invoke(c);
             });
 
             Mapper.Initialize(c =>

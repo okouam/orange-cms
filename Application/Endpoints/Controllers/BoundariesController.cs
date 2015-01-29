@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using CodeKinden.OrangeCMS.Application.ViewModels;
+using CodeKinden.OrangeCMS.Application.Endpoints.ViewModels;
 using CodeKinden.OrangeCMS.Domain.Providers;
 using CodeKinden.OrangeCMS.Domain.Services;
 
-namespace CodeKinden.OrangeCMS.Application.Controllers
+namespace CodeKinden.OrangeCMS.Application.Endpoints.Controllers
 {
     [Authorize]
     public class BoundariesController : BaseApiController
@@ -14,7 +14,10 @@ namespace CodeKinden.OrangeCMS.Application.Controllers
         private readonly IBoundaryQueries boundaryQueries;
         private readonly IMappingEngine mappingEngine;
 
-        public BoundariesController(IBoundaryQueries boundaryQueries, IIdentityProvider identityProvider, IMappingEngine mappingEngine) : base(identityProvider)
+        public BoundariesController(
+            IBoundaryQueries boundaryQueries, 
+            IIdentityProvider identityProvider, 
+            IMappingEngine mappingEngine) : base(identityProvider)
         {
             this.boundaryQueries = boundaryQueries;
             this.mappingEngine = mappingEngine;

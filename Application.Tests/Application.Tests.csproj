@@ -215,7 +215,6 @@
     <Compile Include="Regression\Managing.Users\Deleting.Users\When.System.Administrator\Scenario.cs" />
     <Compile Include="Regression\Managing.Users\Editing.Users\Scenarios.cs" />
     <Compile Include="Regression\Managing.Users\Listing.Users\When.Administrator\Scenarios.cs" />
-    <Compile Include="Regression\Managing.Users\Listing.Users\When.Standard.User\Scenarios.cs" />
     <Compile Include="Regression\Managing.Users\Listing.Users\When.System.Administrator\Scenarios.cs" />
     <Compile Include="Regression\Searching\By.Boundary\Scenario.cs" />
     <Compile Include="Regression\Searching\By.Customer.Details\Scenario.cs" />
@@ -250,7 +249,6 @@
     <None Include="Regression\Managing.Users\Deleting.Users\When.System.Administrator\README.md" />
     <None Include="Regression\Managing.Users\Editing.Users\README.md" />
     <None Include="Regression\Managing.Users\Listing.Users\When.Administrator\README.md" />
-    <None Include="Regression\Managing.Users\Listing.Users\When.Standard.User\README.md" />
     <None Include="Regression\Managing.Users\Listing.Users\When.System.Administrator\README.md" />
     <None Include="Regression\README.md" />
     <None Include="Regression\Searching\By.Boundary\README.md" />
@@ -288,6 +286,7 @@
     <Folder Include="Regression\Managing.Users\Editing.Users\When.Administrator\" />
     <Folder Include="Regression\Managing.Users\Editing.Users\When.Standard.User\" />
     <Folder Include="Regression\Managing.Users\Editing.Users\When.System.Administrator\" />
+    <Folder Include="Regression\Managing.Users\Listing.Users\When.Standard.User\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />

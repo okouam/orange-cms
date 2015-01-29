@@ -9,11 +9,11 @@ using CodeKinden.OrangeCMS.Domain.Models;
 using CodeKinden.OrangeCMS.Domain.Providers;
 using CodeKinden.OrangeCMS.Repositories;
 
-namespace CodeKinden.OrangeCMS.Application.Controllers
+namespace CodeKinden.OrangeCMS.Application.Endpoints.Attributes
 {
     public class AllowedAttribute : ActionFilterAttribute
     {
-        public IIdentityProvider IdentityProvider => new IdentityProvider(new DbContextScope(ConfigurationProvider.ConnectionString));
+        private readonly IIdentityProvider IdentityProvider = new IdentityProvider(new DbContextScope(ConfigurationProvider.ConnectionString));
 
         private readonly Role[] roles;
 

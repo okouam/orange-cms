@@ -12,10 +12,28 @@
 
         public string Role { get; set; }
 
-        public bool IsAdministrator => Role.Equals(Roles.Administrator);
+        public bool IsAdministrator
+        {
+            get
+            {
+                return Role.Equals(Roles.Administrator);
+            }
+        }
 
-        public bool IsStandard => Role.Equals(Roles.Standard);
+        public bool IsStandard
+        {
+            get
+            {
+                return Role.Equals(Roles.Standard);
+            }
+        }
 
-        public bool IsSystem => Role.Equals(Roles.System);
+        public bool IsSystem
+        {
+            get
+            {
+                return Role.Equals(Roles.System);
+            }
+        }
     }
 }

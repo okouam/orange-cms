@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Spatial;
 using AutoMapper;
-using CodeKinden.OrangeCMS.Application.ViewModels.Customers;
+using CodeKinden.OrangeCMS.Application.Endpoints.ViewModels.Customers;
 using CodeKinden.OrangeCMS.Domain.Models;
 
 namespace CodeKinden.OrangeCMS.Application.Mappings

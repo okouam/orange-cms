@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Net;
 using CodeKinden.OrangeCMS.Application.Providers;
+using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
