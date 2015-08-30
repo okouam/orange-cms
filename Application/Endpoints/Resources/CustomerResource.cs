@@ -2,7 +2,7 @@
 
 namespace CodeKinden.OrangeCMS.Application.Endpoints.ViewModels.Customers
 {
-    public class CustomerModel 
+    public class CustomerResource 
     {
         public string Telephone { get; set; }
 

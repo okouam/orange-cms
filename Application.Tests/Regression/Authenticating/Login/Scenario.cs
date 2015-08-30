@@ -9,13 +9,13 @@ using NUnit.Framework;
 
 namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Authenticating.Login
 {
-    [TestFixture, ProvideWebApplication, WithoutAuthorizationToken, RestoreSnapshot]
+    [TestFixture, ProvideWebApplication, RestoreSnapshot]
     class Scenario
     {
-        [Test]
-        public void Scenario_1()
+        [AsAnonymous]
+        public void Scenario_1(API api)
         {
-            var response = API.PostForm("/tokens", new NameValueCollection
+            var response = api.PostForm("/tokens", new NameValueCollection
             {
                 {"username", "qa-system"},
                 {"password", "xx"},
@@ -25,10 +25,10 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Authenticating.Login
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
 
-        [Test]
-        public void Scenario_2()
+        [AsAnonymous]
+        public void Scenario_2(API api)
         {
-            var response = API.PostForm("/tokens", new NameValueCollection
+            var response = api.PostForm("/tokens", new NameValueCollection
             {
                 {"username", "xx"},
                 {"password", ConfigurationProvider.System.Password},
@@ -38,18 +38,18 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Authenticating.Login
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
 
-        [Test]
-        public void Scenario_3()
+        [AsAnonymous]
+        public void Scenario_3(API api)
         {
-            var response = API.PostForm("/tokens");
+            var response = api.PostForm("/tokens");
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
 
-        [Test]
-        public void Scenario_4()
+        [AsAnonymous]
+        public void Scenario_4(API api)
         {
-            var response = API.PostForm("/tokens", new NameValueCollection
+            var response = api.PostForm("/tokens", new NameValueCollection
             {
                 {"username", "qa-system"},
                 {"password", "qa-system-password"},

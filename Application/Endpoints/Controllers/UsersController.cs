@@ -28,9 +28,9 @@ namespace CodeKinden.OrangeCMS.Application.Endpoints.Controllers
         }
 
         [HttpPost, Route("users"), Allowed(Role.Administrator, Role.System)]
-        public UserModel Create(CreateUserModel model)
+        public UserResource Create(CreateUserMessage message)
         {
-            var user = mappingEngine.Map<User>(model);
+            var user = mappingEngine.Map<User>(message);
 
             if (CurrentUser.IsAdministrator && (user.IsSystem || user.IsAdministrator))
             {
@@ -39,26 +39,26 @@ namespace CodeKinden.OrangeCMS.Application.Endpoints.Controllers
 
             userCommands.Save(user);
 
-            return mappingEngine.Map<UserModel>(user);
+            return mappingEngine.Map<UserResource>(user);
         }
 
         [HttpGet, Route("users"), Allowed(Role.Administrator, Role.System)]
-        public IEnumerable<UserModel> All()
+        public IEnumerable<UserResource> All()
         {
             var users = userQueries.GetAll();
-            return mappingEngine.Map<IEnumerable<UserModel>>(users);
+            return mappingEngine.Map<IEnumerable<UserResource>>(users);
         }
 
         [HttpPost, Route("users/{id}")]
         public IHttpActionResult Get(long id)
         {
             var user = userQueries.FindById(id);
-            var userModel = mappingEngine.Map<UserModel>(user);
-            return Ok(userModel);
+            var resource = mappingEngine.Map<UserResource>(user);
+            return Ok(resource);
         }
 
         [HttpPatch, Route("users/{id}")]
-        public async Task<UserModel> Update(long id, UpdateUserModel model)
+        public async Task<UserResource> Update(long id, UpdateUserMessage message)
         {
             if (CurrentUser.IsAdministrator)
             {
@@ -73,8 +73,8 @@ namespace CodeKinden.OrangeCMS.Application.Endpoints.Controllers
                     throw new HttpResponseException(HttpStatusCode.Forbidden);
             }
 
-            var user = await userCommands.Update(id, mappingEngine.DynamicMap<UpdateUserParams>(model));
-            return mappingEngine.Map<UserModel>(user);
+            var user = await userCommands.Update(id, mappingEngine.DynamicMap<UpdateUserParams>(message));
+            return mappingEngine.Map<UserResource>(user);
         }
 
         [HttpDelete, Route("users/{id}"), Allowed(Role.Administrator, Role.System)]

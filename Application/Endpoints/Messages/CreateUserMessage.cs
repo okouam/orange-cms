@@ -1,6 +1,6 @@
 ﻿namespace CodeKinden.OrangeCMS.Application.Endpoints.ViewModels.Users
 {
-    public class CreateUserModel
+    public class CreateUserMessage
     {
         public string UserName { get; set; }
 

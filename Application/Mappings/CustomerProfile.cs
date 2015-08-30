@@ -9,18 +9,18 @@ namespace CodeKinden.OrangeCMS.Application.Mappings
     {
         protected override void Configure()
         {
-            CreateMap<Customer, CustomerModel>()
+            CreateMap<Customer, CustomerResource>()
                 .ForMember(dest => dest.Longitude, src => src.MapFrom(x => x.Coordinates.Longitude))
                 .ForMember(dest => dest.Latitude, src => src.MapFrom(x => x.Coordinates.Latitude));
 
-            CreateMap<CustomerModel, Customer>()
+            CreateMap<CustomerResource, Customer>()
                 .ForMember(dest => dest.Coordinates, src => src.MapFrom(x => CreateCoordinates(x)));
         }
 
-        private static DbGeography CreateCoordinates(CustomerModel model)
+        private static DbGeography CreateCoordinates(CustomerResource resource)
         {
-            var hasCoordinates = model.Longitude.HasValue && model.Latitude.HasValue;
-            return hasCoordinates ? CreateDbGeography(model.Latitude, model.Longitude) : null;
+            var hasCoordinates = resource.Longitude.HasValue && resource.Latitude.HasValue;
+            return hasCoordinates ? CreateDbGeography(resource.Latitude, resource.Longitude) : null;
         }
 
         private static DbGeography CreateDbGeography(double? latitude, double? longitude)

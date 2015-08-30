@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using CodeKinden.OrangeCMS.Domain.Models;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -12,43 +14,44 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
 {
     class API
     {
-        public static void Create(string baseUrl)
+        public API(Role role) : this()
         {
-            if (!isCreated)
-            {
-                restClient = new RestClient(baseUrl);
-                application = WebApp.Start<Startup>(baseUrl);
-                isCreated = true;
-            }
+            var username = "qa-" + role.ToString("g").ToLower();
+            GetAccessToken(username, username + "-password");
         }
 
-        public static IRestResponse Post(string uri, object json)
+        public API()
+        {
+            restClient = new RestClient(ConfigurationManager.AppSettings["regression.url"]);
+        }
+
+        public IRestResponse Post(string uri, object json)
         {
             return Post(uri, x => WithJsonBody(json, x));
         }
 
-        public static IRestResponse PostJson(string uri, object json = null, NameValueCollection query = null, NameValueCollection headers = null)
+        public IRestResponse PostJson(string uri, object json = null, NameValueCollection query = null, NameValueCollection headers = null)
         {
             return Post(uri, x => WithJsonBody(json, x), query, headers);
         }
 
-        public static IRestResponse PostForm(string uri, NameValueCollection form = null, NameValueCollection query = null, NameValueCollection headers = null)
+        public IRestResponse PostForm(string uri, NameValueCollection form = null, NameValueCollection query = null, NameValueCollection headers = null)
         {
             return Post(uri, x => WithFormBody(form, x), query, headers);
         }
 
-        public static IRestResponse PostFile(string uri, string resourceName)
+        public IRestResponse PostFile(string uri, string resourceName)
         {
             return Post(uri, x => WithFile(resourceName, x));
         }
 
-        public static IRestResponse Delete(string uri)
+        public IRestResponse Delete(string uri)
         {
             var request = CreateWebApplicationRequest(uri, Method.DELETE);
             return restClient.Delete(request);
         }
 
-        public static IRestResponse Get(string uri, object query = null, NameValueCollection headers = null)
+        public IRestResponse Get(string uri, object query = null, NameValueCollection headers = null)
         {
             var request = CreateWebApplicationRequest(uri, Method.GET);
 
@@ -73,7 +76,7 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
             }
         }
 
-        public static void GetAccessToken(string username, string password)
+        public void GetAccessToken(string username, string password)
         {
             if (!availableAccessTokens.ContainsKey(username))
             {
@@ -91,17 +94,7 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
             accessToken = availableAccessTokens[username];
         }
 
-        public static void DeleteAccessToken()
-        {
-            accessToken = null;
-        }
-
-        public static void Dispose()
-        {
-            if (application != null) application.Dispose();
-        }
-
-        private static RestRequest CreateWebApplicationRequest(string uri, Method method)
+        private RestRequest CreateWebApplicationRequest(string uri, Method method)
         {
             var request = new RestRequest(uri, method);
 
@@ -113,7 +106,7 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
             return request;
         }
 
-        private static IRestResponse Post(string uri, Action<RestRequest> extraProcessing, NameValueCollection query = null, NameValueCollection headers = null)
+        private IRestResponse Post(string uri, Action<RestRequest> extraProcessing, NameValueCollection query = null, NameValueCollection headers = null)
         {
             var request = CreateWebApplicationRequest(uri, Method.POST);
 
@@ -167,10 +160,8 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers
             }
         }
 
-        private static string accessToken;
+        private string accessToken;
         private static readonly IDictionary<string, string> availableAccessTokens = new Dictionary<string, string>(); 
-        private static RestClient restClient;
-        private static bool isCreated;
-        private static IDisposable application;
+        private readonly RestClient restClient;
     }
 }

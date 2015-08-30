@@ -1,6 +1,6 @@
 ﻿namespace CodeKinden.OrangeCMS.Application.Endpoints.ViewModels
 {
-    public class BoundaryModel
+    public class BoundaryResource
     {
         public string Name { get; set; }
 

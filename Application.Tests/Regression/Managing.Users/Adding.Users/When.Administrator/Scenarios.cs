@@ -7,22 +7,22 @@ using NUnit.Framework;
 
 namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Managing.Users.Adding.Users.When.Administrator
 {
-    [ProvideWebApplication, WithAuthorizationToken(Role.Administrator)]
+    [ProvideWebApplication]
     class Scenarios
     {
-        [Test]
-        public void Scenario_1()
+        [AsAdministrator]
+        public void Scenario_1(API api)
         {
             var symbol = Guid.NewGuid().ToString();
-            var response = API.Post("/users", new { username = symbol, password = symbol, role = "Standard", email = symbol + "@nowhere.com" });
+            var response = api.Post("/users", new { username = symbol, password = symbol, role = "Standard", email = symbol + "@nowhere.com" });
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
-        [Test]
-        public void Scenario_2()
+        [AsAdministrator]
+        public void Scenario_2(API api)
         {
             var symbol = Guid.NewGuid().ToString();
-            var response = API.Post("/users", new { username = symbol, password = symbol, role = "Standard", email = symbol + "@nowhere.com" });
+            var response = api.Post("/users", new { username = symbol, password = symbol, role = "Standard", email = symbol + "@nowhere.com" });
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
     }

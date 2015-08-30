@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using Microsoft.Owin.Hosting;
 using NUnit.Framework;
+using RestSharp;
 
 namespace CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes
 {
@@ -8,12 +10,12 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes
     {
         public void BeforeTest(TestDetails testDetails)
         {
-            API.Create(ConfigurationManager.AppSettings["regression.url"]);
+            application = WebApp.Start<Startup>(ConfigurationManager.AppSettings["regression.url"]);
         }
 
         public void AfterTest(TestDetails testDetails)
         {
-            // do nothing
+            if (application != null) application.Dispose();
         }
 
         public ActionTargets Targets
@@ -23,5 +25,7 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes
                 return ActionTargets.Default;
             }
         }
+
+        private static IDisposable application;
     }
 }

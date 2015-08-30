@@ -8,12 +8,12 @@ namespace CodeKinden.OrangeCMS.Application.Mappings
     {
         protected override void Configure()
         {
-            CreateMap<User, UserModel>();
+            CreateMap<User, UserResource>();
 
-            CreateMap<CreateUserModel, User>()
+            CreateMap<CreateUserMessage, User>()
                 .ForMember(dest => dest.Id, src => src.Ignore());
 
-            CreateMap<User, UserSummaryModel>();
+            CreateMap<User, UserSummaryResource>();
         }
     }
 }

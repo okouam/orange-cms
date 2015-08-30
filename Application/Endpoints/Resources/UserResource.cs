@@ -1,6 +1,6 @@
 ﻿namespace CodeKinden.OrangeCMS.Application.Endpoints.ViewModels.Users
 {
-    public class UserModel
+    public class UserResource
     {
         public long Id { get; set; }
 

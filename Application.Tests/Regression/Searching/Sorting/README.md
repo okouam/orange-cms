@@ -1,1 +1,0 @@
-﻿Scenario 2: As an authenticated user I should be able to sort get results sorted by name

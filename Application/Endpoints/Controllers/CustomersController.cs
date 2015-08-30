@@ -55,7 +55,7 @@ namespace CodeKinden.OrangeCMS.Application.Controllers
         }
 
         [HttpPost, Route("customers/import"), Allowed(Role.Administrator, Role.System)]
-        public async Task<IEnumerable<CustomerModel>> Import()
+        public async Task<IEnumerable<CustomerResource>> Import()
         {
             var results = new List<Customer>();
 
@@ -75,17 +75,17 @@ namespace CodeKinden.OrangeCMS.Application.Controllers
                 customerCommands.Save(results.ToArray());
             }
 
-            return mappingEngine.Map<IEnumerable<CustomerModel>>(results);
+            return mappingEngine.Map<IEnumerable<CustomerResource>>(results);
         }
 
         [HttpPost, Route("customers"), Allowed(Role.Administrator, Role.System)]
-        public CustomerModel Create(CustomerModel model)
+        public CustomerResource Create(CustomerResource resource)
         {
-            var customer = mappingEngine.Map<Customer>(model);
+            var customer = mappingEngine.Map<Customer>(resource);
 
             customerCommands.Save(customer);
 
-            return mappingEngine.Map<CustomerModel>(customer);
+            return mappingEngine.Map<CustomerResource>(customer);
         }
 
         [HttpDelete, Route("customers/{id}"), Allowed(Role.Administrator, Role.System)]
@@ -95,17 +95,17 @@ namespace CodeKinden.OrangeCMS.Application.Controllers
         }
         
         [HttpGet, Route("customers/{id}")]
-        public CustomerModel Get(int id)
+        public CustomerResource Get(int id)
         {
-            return mappingEngine.Map<CustomerModel>(customerQueries.GetById(id));
+            return mappingEngine.Map<CustomerResource>(customerQueries.GetById(id));
         }
 
         [HttpGet, Route("customers")]
-        public IList<CustomerModel> Search(string strMatch = null, int? boundary = null, int pageSize = 100, int pageNum = 0)
+        public IList<CustomerResource> Search(string strMatch = null, int? boundary = null, int pageSize = 100, int pageNum = 0)
         {
-            if (!boundary.HasValue && string.IsNullOrEmpty(strMatch)) return new List<CustomerModel>();
+            if (!boundary.HasValue && string.IsNullOrEmpty(strMatch)) return new List<CustomerResource>();
             var customers = customerQueries.Search(strMatch, boundary, int.MaxValue, pageNum, true);
-            return mappingEngine.Map<IList<CustomerModel>>(customers);
+            return mappingEngine.Map<IList<CustomerResource>>(customers);
         }
     }
 }

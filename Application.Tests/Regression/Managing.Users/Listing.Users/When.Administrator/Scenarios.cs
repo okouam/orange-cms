@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers;
 using CodeKinden.OrangeCMS.Application.Tests.Helpers.Attributes;
-using CodeKinden.OrangeCMS.Domain.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -11,10 +10,10 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Managing.Users.Listi
     [TestFixture, ProvideWebApplication]
     class Scenarios
     {
-        [Test, WithAuthorizationToken(Role.Administrator), RestoreSnapshot]
-        public void Scenario_1()
+        [AsAdministrator, RestoreSnapshot]
+        public void Scenario_1(API api)
         {
-            var response = API.Get("/users");
+            var response = api.Get("/users");
             var content = (JArray) JsonConvert.DeserializeObject(response.Content);
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));

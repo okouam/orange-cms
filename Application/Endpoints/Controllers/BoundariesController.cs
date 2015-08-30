@@ -24,10 +24,10 @@ namespace CodeKinden.OrangeCMS.Application.Endpoints.Controllers
         }
 
         [HttpGet, Route("boundaries")]
-        public IEnumerable<BoundaryModel> GetAll()
+        public IEnumerable<BoundaryResource> GetAll()
         {
             var boundaries = boundaryQueries.GetAll();
-            return mappingEngine.Map<IEnumerable<BoundaryModel>>(boundaries.Where(x => x.Customers.Count > 0));
+            return mappingEngine.Map<IEnumerable<BoundaryResource>>(boundaries.Where(x => x.Customers.Count > 0));
         }
     }
 }

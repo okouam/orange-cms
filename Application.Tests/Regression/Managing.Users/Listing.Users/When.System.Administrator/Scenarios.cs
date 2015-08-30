@@ -11,10 +11,10 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Managing.Users.Listi
     [TestFixture, ProvideWebApplication]
     class Scenarios
     {
-        [Test, WithAuthorizationToken(Role.Administrator), RestoreSnapshot]
-        public void Scenario_1()
+        [AsAdministrator, RestoreSnapshot]
+        public void Scenario_1(API api)
         {
-            var response = API.Get("/users");
+            var response = api.Get("/users");
             var content = (JArray) JsonConvert.DeserializeObject(response.Content);
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -26,18 +26,10 @@ namespace CodeKinden.OrangeCMS.Application.Tests.Regression.Managing.Users.Listi
             Assert.That(content[0]["role"].Value<string>(), Is.EqualTo("Administrator"));
         }
 
-        [Test, WithoutAuthorizationToken]
-        public void Scenario_2()
+        [AsAnonymous]
+        public void Scenario_2(API api)
         {
-            var response = API.Get("/users");
-
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
-        }
-
-        [Test, WithAuthorizationToken(Role.Standard)]
-        public void Scenario_3()
-        {
-            var response = API.Get("/users");
+            var response = api.Get("/users");
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }

@@ -8,7 +8,7 @@ namespace CodeKinden.OrangeCMS.Application.Mappings
     {
         protected override void Configure()
         {
-            CreateMap<Boundary, BoundaryModel>()
+            CreateMap<Boundary, BoundaryResource>()
                 .ForMember(dest => dest.CustomerCount, src => src.MapFrom(x => x.Customers.Count));
         }
     }
